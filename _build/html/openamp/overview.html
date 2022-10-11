@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Overview &mdash; OpenAMP  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/mystyle.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Current Work" href="../current/index.html" />
+    <link rel="prev" title="OpenAMP Project" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> OpenAMP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">OpenAMP Project</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Project Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#openamp-intro">OpenAMP Intro</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#operating-environments">Operating Environments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#openamp-capabilities">OpenAMP Capabilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#openamp-guidelines">OpenAMP Guidelines</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../current/index.html">Current Work</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../demos/index.html">Samples and Demos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="maintenance.html">Maintenance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="meeting_notes.html">Meeting Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../future/index.html">Future Work</a></li>
+<li class="toctree-l2"><a class="reference internal" href="links.html">Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../protocol_details/index.html">OpenAMP Protocol Details</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OpenAMP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">OpenAMP Project</a> &raquo;</li>
+      <li>Project Overview</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/openamp/overview.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="project-overview">
+<h1>Project Overview<a class="headerlink" href="#project-overview" title="Permalink to this heading"></a></h1>
+<section id="openamp-intro">
+<h2>OpenAMP Intro<a class="headerlink" href="#openamp-intro" title="Permalink to this heading"></a></h2>
+<p>OpenAMP is a community effort that is standardizing and implementing how multiple embedded environments interact with each other using AMP. It provides conventions and standards as well as an open source implementation to facilitate AMP development for embedded systems. Read more about Asymmentric Multiprocessing <a class="reference internal" href="../protocol_details/asymmetric_mp.html#asymmetric-multiprocessing-work-label"><span class="std std-ref">here</span></a>.</p>
+<p>The vision is that regardless of the operating environment/operating system, it should be possible to use identical interfaces to interact with other operating environments in the same system.</p>
+<p>Furthermore, these operating environments can interoperate over a standardized protocol, making it possible to mix and match any two or more operating systems in the same device.</p>
+<p>Read more about OpenAMP System Considerations <a class="reference internal" href="../protocol_details/porting_guide.html#porting-guide-work-label"><span class="std std-ref">here</span></a>.</p>
+<p>To accomplish the above, OpenAMP is divided into the following efforts:</p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="simple">
+<dt>A standardization group under Linaro Community Projects</dt><dd><ul>
+<li><dl class="simple">
+<dt>Standardizing the low-level protocol that allows systems to interact (<a class="reference internal" href="../protocol_details/rpmsg.html#rpmsg-protocol-work-label"><span class="std std-ref">more info here</span></a>)</dt><dd><ul>
+<li><p>Built on top of <a class="reference external" href="https://github.com/OpenAMP/open-amp/wiki/OpenAMP-RPMsg-Virtio-Implementation">virtio</a> BROKEN LINK</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Standardizing on the user level APIs that allow applications to be portable</dt><dd><ul>
+<li><p><a class="reference external" href="https://github.com/OpenAMP/open-amp/wiki/RPMsg-API-Usage">RPMSG</a> BROKEN LINK</p></li>
+<li><p><a class="reference internal" href="../protocol_details/lifecyclemgmt.html#lcm-work-label"><span class="std std-ref">remoteproc</span></a></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>Standardizing on the low-level <a class="reference internal" href="../protocol_details/porting_guide.html#porting-guide-work-label"><span class="std std-ref">OS/HW abstraction layer</span></a> that abstracts the open source implementation from the underlying OS and hardware, simplifying the porting to new environments</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>An open source project that implements a clean-room implementation of OpenAMP</dt><dd><ul>
+<li><p>Runs in multiple environments, see below</p></li>
+<li><p>BSD License</p></li>
+<li><p>Please join the <a class="reference internal" href="maintenance.html#openamp-maintenance-work-label"><span class="std std-ref">OpenAMP open source project</span></a>!</p></li>
+<li><p>See <a class="reference external" href="https://github.com/OpenAMP/open-amp">https://github.com/OpenAMP/open-amp</a></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</section>
+<section id="operating-environments">
+<h2>Operating Environments<a class="headerlink" href="#operating-environments" title="Permalink to this heading"></a></h2>
+<p>OpenAMP is supported in various operating environments through an a) OpenAMP open source project (OAOS), b) a Linux kernel project (OALK), and c) multiple proprietary implementations (OAPI). The Linux kernel support (OALK) comes through the regular remoteproc/RPMsg/Virtio efforts in the kernel.</p>
+<p>The operating environments that OpenAMP supports include:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Linux user space - OAOS</p></li>
+<li><p>Linux kernel - OALK</p></li>
+<li><p>Multiple RTOS’s - OAOS/OAPI including Nucleus, FreeRTOS, uC/OS, VxWorks and more</p></li>
+<li><p>Bare Metal (No OS) - OAOS</p></li>
+<li><p>In OS’s on top of hypervisors - OAOS/OAPI</p></li>
+<li><p>Within hypervisors - OAPI</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="openamp-capabilities">
+<h2>OpenAMP Capabilities<a class="headerlink" href="#openamp-capabilities" title="Permalink to this heading"></a></h2>
+<p>OpenAMP currently supports the following interactions between operating environments:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Lifecycle operations - Such as starting and stopping another environment</p></li>
+<li><p>Messaging - Sending and receiving messages</p></li>
+<li><p>Proxy operations - Remote access to systems services such as file system</p></li>
+</ul>
+</div></blockquote>
+<p>Read more about the OpenAMP System Components <a class="reference internal" href="../protocol_details/components.html#openamp-components-work-label"><span class="std std-ref">here</span></a>.</p>
+<p>In the future OpenAMP is envisioned to also encompass other areas important in a heterogeneous environment, such as power management and managing the lifecycle of non-CPU devices.</p>
+</section>
+<section id="openamp-guidelines">
+<h2>OpenAMP Guidelines<a class="headerlink" href="#openamp-guidelines" title="Permalink to this heading"></a></h2>
+<p>There are a few guiding principles that governs OpenAMP:</p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="simple">
+<dt>Provide a clean-room implementation of OpenAMP with business friendly APIs and licensing</dt><dd><ul>
+<li><p>Allow for compatible proprietary implementations and products</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Base as much as possible on existing technologies/open source projects/standards</dt><dd><ul>
+<li><p>In particular remoteproc, RPMsg and virtio</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>Never standardize on anything unless there is an open source implementation that can prove it</p></li>
+<li><dl class="simple">
+<dt>Always be backwards compatible (unless there is a really, really good reason to change)</dt><dd><ul>
+<li><p>In particular make sure to be compatible with the Linux kernel implementation of remoteproc/RPMsg/virtio</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="OpenAMP Project" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../current/index.html" class="btn btn-neutral float-right" title="Current Work" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, OpenAMP Project.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

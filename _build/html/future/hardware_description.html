@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hardware Description &mdash; OpenAMP  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/mystyle.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Links" href="../openamp/links.html" />
+    <link rel="prev" title="HMM (Heterogeneous Memory Management)" href="hmm.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> OpenAMP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../openamp/index.html">OpenAMP Project</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../openamp/overview.html">Project Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../current/index.html">Current Work</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../demos/index.html">Samples and Demos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../openamp/maintenance.html">Maintenance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../openamp/meeting_notes.html">Meeting Notes</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Future Work</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="remoteproc.html">Remoteproc Sub-Group Future Work</a></li>
+<li class="toctree-l3"><a class="reference internal" href="services.html">Higher Level Services Sub-Group Future Work</a></li>
+<li class="toctree-l3"><a class="reference internal" href="device_tree.html">System Device Tree Sub-Group Future Work</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hypercalls.html">Standardizing Hypercalls Sub-Group</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hmm.html">HMM (Heterogeneous Memory Management)</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Hardware Description</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#problems">Problems</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#potential-solutions">Potential solutions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#others-interested-in-this-problem">Others interested in this problem?</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../openamp/links.html">Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../protocol_details/index.html">OpenAMP Protocol Details</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OpenAMP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../openamp/index.html">OpenAMP Project</a> &raquo;</li>
+          <li><a href="index.html">Future Work</a> &raquo;</li>
+      <li>Hardware Description</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/future/hardware_description.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="hardware-description">
+<h1>Hardware Description<a class="headerlink" href="#hardware-description" title="Permalink to this heading"></a></h1>
+<section id="problems">
+<h2>Problems<a class="headerlink" href="#problems" title="Permalink to this heading"></a></h2>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="simple">
+<dt>Need to communicate HW details (addresses, topologies, …) to SW subsystems during build</dt><dd><ul>
+<li><p>Both at system level (complete HW including all CPUs) and subsystem level</p></li>
+<li><p>Tool to create subsystems with assigned devices out of system level info</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Need to communicate HW details during runtime</dt><dd><ul>
+<li><p>Device trees used by Linux, Xen, etc.</p></li>
+<li><p>How to communicate to coprocessors (remoteproc) what devices it has?</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Need tools to create static config data (#defines, .h, .c files) from HW description</dt><dd><ul>
+<li><p>Zephyr working on this. Need general solution.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Need compact format for runtime use cases</dt><dd><ul>
+<li><p>DTB is not very compact. Using strings instead of labels, no compression</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</section>
+<section id="potential-solutions">
+<h2>Potential solutions<a class="headerlink" href="#potential-solutions" title="Permalink to this heading"></a></h2>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="simple">
+<dt>Come up with standard, humanly readable, HW description format for usage during build</dt><dd><ul>
+<li><p>Possible candidates include extended Device Trees, IPExact, …</p></li>
+<li><p>A “System Level Device Tree” would add another level with multiple CPUs and mappings</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Come up with standard compressed HW description</dt><dd><ul>
+<li><p>Potential candidate is CBOR</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</section>
+<section id="others-interested-in-this-problem">
+<h2>Others interested in this problem?<a class="headerlink" href="#others-interested-in-this-problem" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="hmm.html" class="btn btn-neutral float-left" title="HMM (Heterogeneous Memory Management)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../openamp/links.html" class="btn btn-neutral float-right" title="Links" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, OpenAMP Project.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

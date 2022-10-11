@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RPMsg Communication Flow &mdash; OpenAMP  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/mystyle.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Life Cycle Management" href="lifecyclemgmt.html" />
+    <link rel="prev" title="RPMsg Messaging Protocol" href="rpmsg.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> OpenAMP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../openamp/index.html">OpenAMP Project</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">OpenAMP Protocol Details</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="asymmetric_mp.html">Asymmetric Multiprocessing Intro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components.html">Components and Capabilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rpmsg.html">RPMsg Messaging Protocol</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">RPMsg Communication Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lifecyclemgmt.html">Life Cycle Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system_considerations.html">System Wide Considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="porting_guide.html">Porting GuideLine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resource_tbl.html">Resource Table Evolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openamp_ci.html">Using OpenAMP CI</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OpenAMP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">OpenAMP Protocol Details</a> &raquo;</li>
+      <li>RPMsg Communication Flow</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/protocol_details/rpmsg_comms.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="rpmsg-communication-flow">
+<h1>RPMsg Communication Flow<a class="headerlink" href="#rpmsg-communication-flow" title="Permalink to this heading"></a></h1>
+<p>The following figure describes the sequence used for transaction of a RPMsg message from one core to the other.
+The sequence differs according to the roles of core A and core B. In the figure above, core A is the Master and core B is the Remote. The Master core allocates buffers used for the transmission from the “used” ring buffer of a vring, writes RPMsg Header and application payload to it and then enqueues it to the “avail” ring buffer.</p>
+<img alt="../_images/rpmsg_flow.jpg" src="../_images/rpmsg_flow.jpg" />
+<p>The Remote core gets the received RPMsg buffer from the “avail” ring buffer, processes it and then returns it back to the “used” ring buffer. When the Remote core is sending a message to the Master core, “avail” and “used” ring buffers role are swapped.</p>
+<p>The reason for swapping the roles of the ring buffers comes from the fact, that the Master core works as a Buffer Provider. The Buffer Provider has a complete control of memory management and shared memory allocation. Obviously, when the Master core, or Buffer Provider, does not fill the “avail” ring buffer of VRING1 (Orange), the Remote core is unable to send a message to the master. This can be used to throttle the communication generated by the Remote core. It is to be noticed, that the master always dequeues from the “used” ring buffer and enqueues to the “avail” ring buffer. For the remote, the situation is inverse. The triggering of interrupts is optional. It is governed by the flags in “used” and “avail” ring buffers.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="rpmsg.html" class="btn btn-neutral float-left" title="RPMsg Messaging Protocol" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="lifecyclemgmt.html" class="btn btn-neutral float-right" title="Life Cycle Management" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, OpenAMP Project.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

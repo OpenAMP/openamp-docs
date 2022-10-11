@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resource Table Evolution &mdash; OpenAMP  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/mystyle.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Using OpenAMP CI" href="openamp_ci.html" />
+    <link rel="prev" title="Porting GuideLine" href="porting_guide.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> OpenAMP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../openamp/index.html">OpenAMP Project</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">OpenAMP Protocol Details</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="asymmetric_mp.html">Asymmetric Multiprocessing Intro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components.html">Components and Capabilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rpmsg.html">RPMsg Messaging Protocol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rpmsg_comms.html">RPMsg Communication Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lifecyclemgmt.html">Life Cycle Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system_considerations.html">System Wide Considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="porting_guide.html">Porting GuideLine</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Resource Table Evolution</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#needs">Needs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#compatibility-with-linux-kernel">Compatibility with Linux kernel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#review-current-resource-table-fields">Review current resource table fields</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bit-addresses">64 bit addresses</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#parameter-passing">Parameter passing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#evolutive-virtio-dev-features">Evolutive virtio dev features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pointer-to-device-tree">Pointer to Device Tree</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vdev-buffer-management">vdev buffer management</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#trace-evolution">Trace evolution</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#enhancement">Enhancement</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#define-resource-table-ownership">Define resource table ownership</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#include-the-resource-table-size">Include the resource table size</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#new-resource-to-provide-processors-states">New resource to provide processors states</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mechanisms">Mechanisms</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#resource-table-version-number">Resource table version number</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#per-item-version-number">Per item version number</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#per-item-priority">Per item Priority</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">vdev buffer management</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#traces">Traces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#firmware-publishes-multiple-versions-of-resource-table">Firmware publishes multiple versions of Resource table</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="openamp_ci.html">Using OpenAMP CI</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OpenAMP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">OpenAMP Protocol Details</a> &raquo;</li>
+      <li>Resource Table Evolution</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/protocol_details/resource_tbl.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="resource-table-evolution">
+<h1>Resource Table Evolution<a class="headerlink" href="#resource-table-evolution" title="Permalink to this heading"></a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading"></a></h2>
+<p>This page is to collect all ideas for the evolution of the remoteproc resource table.</p>
+</section>
+<section id="needs">
+<h2>Needs<a class="headerlink" href="#needs" title="Permalink to this heading"></a></h2>
+<section id="compatibility-with-linux-kernel">
+<h3>Compatibility with Linux kernel<a class="headerlink" href="#compatibility-with-linux-kernel" title="Permalink to this heading"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">The</span> <span class="n">evolution</span> <span class="n">should</span> <span class="n">be</span> <span class="n">done</span> <span class="ow">in</span> <span class="n">cooperation</span> <span class="k">with</span> <span class="n">Linux</span> <span class="n">remoteproc</span> <span class="n">community</span><span class="o">.</span>
+</pre></div>
+</div>
+</section>
+<section id="review-current-resource-table-fields">
+<h3>Review current resource table fields<a class="headerlink" href="#review-current-resource-table-fields" title="Permalink to this heading"></a></h3>
+<p>Review the current version resource table to confirm fields relevance (e.g name fields). The aim is to keep resource table as small as possible…</p>
+</section>
+<section id="bit-addresses">
+<h3>64 bit addresses<a class="headerlink" href="#bit-addresses" title="Permalink to this heading"></a></h3>
+</section>
+<section id="parameter-passing">
+<h3>Parameter passing<a class="headerlink" href="#parameter-passing" title="Permalink to this heading"></a></h3>
+<p>In order to pass parameters to the remote application, it could be useful to have a new resource type for that.</p>
+</section>
+<section id="evolutive-virtio-dev-features">
+<h3>Evolutive virtio dev features<a class="headerlink" href="#evolutive-virtio-dev-features" title="Permalink to this heading"></a></h3>
+<p>Currently, field for virtio dev features is 32 bits in rsc table. However, some virtio dev now have bits &gt; 32 bit.</p>
+</section>
+<section id="pointer-to-device-tree">
+<h3>Pointer to Device Tree<a class="headerlink" href="#pointer-to-device-tree" title="Permalink to this heading"></a></h3>
+</section>
+<section id="vdev-buffer-management">
+<h3>vdev buffer management<a class="headerlink" href="#vdev-buffer-management" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>Add possibility to provide DA to fix the vdev buffers memory region and size ( carveout?)</p></li>
+<li><p>Allow to specify the size of the buffers, depending on the direction.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="trace-evolution">
+<h3>Trace evolution<a class="headerlink" href="#trace-evolution" title="Permalink to this heading"></a></h3>
+<p>Improve the trace mechanism to increase depth.</p>
+</section>
+</section>
+<section id="enhancement">
+<h2>Enhancement<a class="headerlink" href="#enhancement" title="Permalink to this heading"></a></h2>
+<p>To confirm a need…</p>
+<section id="define-resource-table-ownership">
+<h3>Define resource table ownership<a class="headerlink" href="#define-resource-table-ownership" title="Permalink to this heading"></a></h3>
+<p>The resource table has to be managed by only one core, the master. To break the master slave relationship, a field that define the ownership of the resource table, could be added</p>
+</section>
+<section id="include-the-resource-table-size">
+<h3>Include the resource table size<a class="headerlink" href="#include-the-resource-table-size" title="Permalink to this heading"></a></h3>
+<p>Add size information in header to avoid to parse the whole resource table to retrieve the length (memory allocation/mapping)</p>
+</section>
+<section id="new-resource-to-provide-processors-states">
+<h3>New resource to provide processors states<a class="headerlink" href="#new-resource-to-provide-processors-states" title="Permalink to this heading"></a></h3>
+<p>Add resource that defines a structure to share the processor states. This can be used by some systems to manage low power and crash mechanisms.</p>
+</section>
+</section>
+<section id="mechanisms">
+<h2>Mechanisms<a class="headerlink" href="#mechanisms" title="Permalink to this heading"></a></h2>
+<p>Discussion of how the add the new capabilities to the resource table while providing back and forward compatibility.</p>
+<section id="resource-table-version-number">
+<h3>Resource table version number<a class="headerlink" href="#resource-table-version-number" title="Permalink to this heading"></a></h3>
+<p>The existing resource table definition has a version number. This number could be incremented for a new format.</p>
+<p>The issue with the method is that it is all or nothing and does not allow new firmware to be used with an old kernel.</p>
+<p>clementleger: IMHO, this is not a real “issue”, if new firmware requires new capabilities in resource table, then it will use the new format and expect a master that support such features. If the firmware does not need them, then it will stick with old format. Having a backward compatibility seems mandatory however a forward compatibility seems really limitating.</p>
+<p>Multiple resource tables of different versions could be included but this is rather bulky and awkward and a new method would need to be defined for marking and locating the various versions.</p>
+</section>
+<section id="per-item-version-number">
+<h3>Per item version number<a class="headerlink" href="#per-item-version-number" title="Permalink to this heading"></a></h3>
+<p>Resource table item IDs are currently 32 bits. It has been suggested that this is a very large range for this purpose. One idea would be to subdivide the 32 bits into fields and designate some bits to be an item type specific version number.</p>
+<p>clementleger: This is a bit clunky. If we are modifying the resource table, it would be better to add a new field to handled such cases. Actually, all resources have reserved fields. IMHO, these fields should be used for versionning if using a new version (they were currently 0) so they are well suited to be used as a versionning field. But this probably be discussed on the mailing list. the vdev_vring resources are tied to rsc_vdev so it will mosty probably be used in conjunction with them and the versionning of vdev_rsc will apply to them.</p>
+<p>This would allow multiple versions of the same type to be included in the resourse table and the kernel could look for the greatest version that it understands. The bit fields makes this logic easier than if unrelated 32 bit values were used.</p>
+</section>
+<section id="per-item-priority">
+<h3>Per item Priority<a class="headerlink" href="#per-item-priority" title="Permalink to this heading"></a></h3>
+<p>Item ID bit fields could also/instead be used to define what a consumer should do it if does not understand the Item ID. A priority of “optional” means that the consumer can ignore the Item if it does not understand it and a priority of “required” means that the consumer should refuse to load firmware that contains this item ID. Other priorities might be defined but at least these two would make sense.</p>
+</section>
+<section id="id1">
+<h3>vdev buffer management<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<p>Should we add a new resource tied to the vdev one to define a DA and buffer size? Do we need to define independent memory region for both direction (P2P)? Buffer size and number of buffers should depend on the direction.</p>
+</section>
+<section id="traces">
+<h3>Traces<a class="headerlink" href="#traces" title="Permalink to this heading"></a></h3>
+<p>The existing tracing mechanism is relying on a circular buffer. The depth of the trace is the size of the buffer as no mechanism exists to extract the traces before overflow. Proposal is to implement trace extraction based on a flip flop buffer with notifications (mailbox notifyID). This would allow the main processor to extract the traces in time to fill its own logs buffer/file. The Impact in the resource table would be a new resource structure or the addition of a “trace method” field in existing resource structure.</p>
+</section>
+<section id="firmware-publishes-multiple-versions-of-resource-table">
+<h3>Firmware publishes multiple versions of Resource table<a class="headerlink" href="#firmware-publishes-multiple-versions-of-resource-table" title="Permalink to this heading"></a></h3>
+<p>TODO</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="porting_guide.html" class="btn btn-neutral float-left" title="Porting GuideLine" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="openamp_ci.html" class="btn btn-neutral float-right" title="Using OpenAMP CI" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, OpenAMP Project.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
