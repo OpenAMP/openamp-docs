@@ -1,0 +1,3 @@
+[submodule "open-amp"]
+	path = open-amp
+	url = https://github.com/OpenAMP/open-amp.git

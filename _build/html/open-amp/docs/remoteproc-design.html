@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Remoteproc Design Document &mdash; OpenAMP  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/mystyle.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="RPMsg Design Document" href="rpmsg-design.html" />
+    <link rel="prev" title="Remoteproc data struct" href="data-structure.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> OpenAMP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../openamp/index.html">OpenAMP Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../protocol_details/index.html">OpenAMP Protocol Details</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../docs/index.html">OpenAMP API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="data-structure.html">Remoteproc data struct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data-structure.html#virtio-data-struct">Virtio Data struct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data-structure.html#rpmsg-virtio-data-struct">RPMsg virtio Data struct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data-structure.html#rpmsg-data-struct">RPMsg Data struct</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Remoteproc Design Document</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#remoteproc-lcm-states">Remoteproc LCM States</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#state-transition">State Transition</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#remote-user-apis">Remote User APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rpmsg-design.html">RPMsg Design Document</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">OpenAMP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../docs/index.html">OpenAMP API</a> &raquo;</li>
+      <li>Remoteproc Design Document</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/open-amp/docs/remoteproc-design.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="remoteproc-design-document">
+<h1>Remoteproc Design Document<a class="headerlink" href="#remoteproc-design-document" title="Permalink to this heading"></a></h1>
+<p>Remoteproc provides abstraction to manage the life cycle of a remote
+application. For now, it only provides APIs on bringing up and
+tearing down the remote application, and parsing resource table.
+It will extend to crash detection, suspend and resume.</p>
+<section id="remoteproc-lcm-states">
+<h2>Remoteproc LCM States<a class="headerlink" href="#remoteproc-lcm-states" title="Permalink to this heading"></a></h2>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>State</p></th>
+<th class="text-left head"><p>State Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Offline</p></td>
+<td class="text-left"><p>Initial state of a remoteproc instance. The remote presented by the remoteproc instance and its resource has been powered off.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Configured</p></td>
+<td class="text-left"><p>The remote presented by the remoteproc instance has been configured. And ready to load application.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Ready</p></td>
+<td class="text-left"><p>The remote presented by the remoteproc instance has application loaded, and ready to run.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Stopped</p></td>
+<td class="text-left"><p>The remote presented by the remoteproc instance has stopped from running. But the remote is still powered on. And the remote’s resource hasn’t been released.</p></td>
+</tr>
+</tbody>
+</table>
+<p><img alt="Rproc LCM States" src="../../_images/rproc-lcm-state-machine.png" /></p>
+<section id="state-transition">
+<h3>State Transition<a class="headerlink" href="#state-transition" title="Permalink to this heading"></a></h3>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>State Transition</p></th>
+<th class="text-left head"><p>Transition Trigger</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Offline -&gt; Configured</p></td>
+<td class="text-left"><p>Configure the remote to make it able to load application;<br><code class="docutils literal notranslate"><span class="pre">remoteproc_configure(&amp;rproc,</span> <span class="pre">&amp;config_data)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Configured -&gt; Ready</p></td>
+<td class="text-left"><p>load firmware ;<br><code class="docutils literal notranslate"><span class="pre">remoteproc_load(&amp;rproc,</span> <span class="pre">&amp;path,</span> <span class="pre">&amp;image_store,</span> <span class="pre">&amp;image_store_ops,</span> <span class="pre">&amp;image_info)</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Ready -&gt; Running</p></td>
+<td class="text-left"><p>start the processor; <br><code class="docutils literal notranslate"><span class="pre">remoteproc_start(&amp;rproc)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Ready -&gt; Stopped</p></td>
+<td class="text-left"><p>stop the processor; <br><code class="docutils literal notranslate"><span class="pre">remoteproc_stop(&amp;rproc)</span></code>; <br><code class="docutils literal notranslate"><span class="pre">remoteproc_shutdown(&amp;rproc)</span></code>(Stopped is the intermediate state of shutdown operation)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Running -&gt; Stopped</p></td>
+<td class="text-left"><p>stop the processor; <br><code class="docutils literal notranslate"><span class="pre">remoteproc_stop(&amp;rproc)</span></code>; <br><code class="docutils literal notranslate"><span class="pre">remoteproc_shutdown(&amp;rproc)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Stopped -&gt; Offline</p></td>
+<td class="text-left"><p>shutdown the processor; <br><code class="docutils literal notranslate"><span class="pre">remoteproc_shutdown(&amp;rproc)</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="remote-user-apis">
+<h2>Remote User APIs<a class="headerlink" href="#remote-user-apis" title="Permalink to this heading"></a></h2>
+<ul>
+<li><p>Initialize remoteproc instance:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">remoteproc</span> <span class="o">*</span><span class="n">remoteproc_init</span><span class="p">(</span><span class="n">struct</span> <span class="n">remoteproc</span> <span class="o">*</span><span class="n">rproc</span><span class="p">,</span>
+  			     <span class="n">const</span> <span class="n">struct</span> <span class="n">remoteproc_ops</span> <span class="o">*</span><span class="n">ops</span><span class="p">,</span> <span class="n">void</span> <span class="o">*</span><span class="n">priv</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Release remoteproc instance:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">remoteproc_remove</span><span class="p">(</span><span class="n">struct</span> <span class="n">remoteproc</span> <span class="o">*</span><span class="n">rproc</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Add memory to remoteproc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">remoteproc_add_mem</span><span class="p">(</span><span class="n">struct</span> <span class="n">remoteproc</span> <span class="o">*</span><span class="n">rproc</span><span class="p">,</span> <span class="n">struct</span> <span class="n">remoteproc_mem</span> <span class="o">*</span><span class="n">mem</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Get memory libmetal I/O region from remoteproc specifying memory name:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">metal_io_region</span> <span class="o">*</span><span class="n">remoteproc_get_io_with_name</span><span class="p">(</span><span class="n">struct</span> <span class="n">remoteproc</span> <span class="o">*</span><span class="n">rproc</span><span class="p">,</span> <span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Get memory libmetal I/O region from remoteproc specifying physical address:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">metal_io_region</span> <span class="o">*</span><span class="n">remoteproc_get_io_with_pa</span><span class="p">(</span><span class="n">struct</span> <span class="n">remoteproc</span> <span class="o">*</span><span class="n">rproc</span><span class="p">,</span> <span class="n">metal_phys_addr_t</span> <span class="n">pa</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p>Get memory libmetal I/O region from remoteproc specifying virtual address:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">metal_io_region</span> <span class="o">*</span><span class="n">remoteproc_get_io_with_va</span><span class="p">(</span><span class="n">struct</span> <span class="n">remoteproc</span> <span class="o">*</span><span class="n">rproc</span><span class="p">,</span> <span class="n">void</span> <span class="o">*</span><span class="n">va</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p>Map memory and add the memory to the remoteproc instance:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="o">*</span><span class="n">remoteproc_mmap</span><span class="p">(</span><span class="n">struct</span> <span class="n">remoteproc</span> <span class="o">*</span><span class="n">rproc</span><span class="p">,</span>
+  	        <span class="n">metal_phys_addr_t</span> <span class="o">*</span><span class="n">pa</span><span class="p">,</span> <span class="n">metal_phys_addr_t</span> <span class="o">*</span><span class="n">da</span><span class="p">,</span>
+  	        <span class="n">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="n">unsigned</span> <span class="nb">int</span> <span class="n">attribute</span><span class="p">,</span>
+  	        <span class="n">struct</span> <span class="n">metal_io_region</span> <span class="o">**</span><span class="n">io</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p>Set resource table to remoteproc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">remoteproc_set_rsc_table</span><span class="p">(</span><span class="n">struct</span> <span class="n">remoteproc</span> <span class="o">*</span><span class="n">rproc</span><span class="p">,</span>
+  		       <span class="n">struct</span> <span class="n">resource_table</span> <span class="o">*</span><span class="n">rsc_table</span><span class="p">,</span>
+  		       <span class="n">size_t</span> <span class="n">rsc_size</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Configure the remote presented by the remoteproc instance to make it able
+to load application:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">remoteproc_config</span><span class="p">(</span><span class="n">struct</span> <span class="n">remoteproc</span> <span class="o">*</span><span class="n">rproc</span><span class="p">,</span> <span class="n">void</span> <span class="o">*</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Load application to the remote presented by the remoteproc instance to make
+it ready to run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">remoteproc_load</span><span class="p">(</span><span class="n">struct</span> <span class="n">remoteproc</span> <span class="o">*</span><span class="n">rproc</span><span class="p">,</span> <span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span>
+  	      <span class="n">void</span> <span class="o">*</span><span class="n">store</span><span class="p">,</span> <span class="n">const</span> <span class="n">struct</span> <span class="n">image_store_ops</span> <span class="o">*</span><span class="n">store_ops</span><span class="p">,</span>
+  	      <span class="n">void</span> <span class="o">**</span><span class="n">img_info</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Run application on the remote presented by the remoteproc instance:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">remoteproc_start</span><span class="p">(</span><span class="n">struct</span> <span class="n">remoteproc</span> <span class="o">*</span><span class="n">rproc</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Stop application on remote presented by the remoteproc instance:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">remoteproc_stop</span><span class="p">(</span><span class="n">struct</span> <span class="n">remoteproc</span> <span class="o">*</span><span class="n">rproc</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Shutdown the remote presented by the remoteproc instance:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">remoteproc_shutdown</span><span class="p">(</span><span class="n">struct</span> <span class="n">remoteproc</span> <span class="o">*</span><span class="n">rproc</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Create virtio device from the resource table vdev resource, and add it to the
+remoteproc instance:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">virtio_device</span> <span class="o">*</span><span class="n">remoteproc_create_virtio</span><span class="p">(</span><span class="n">struct</span> <span class="n">remoteproc</span> <span class="o">*</span><span class="n">rproc</span><span class="p">,</span>
+  					 <span class="nb">int</span> <span class="n">vdev_id</span><span class="p">,</span> <span class="n">unsigned</span> <span class="nb">int</span> <span class="n">role</span><span class="p">,</span>
+  					 <span class="n">void</span> <span class="p">(</span><span class="o">*</span><span class="n">rst_cb</span><span class="p">)(</span><span class="n">struct</span> <span class="n">virtio_device</span> <span class="o">*</span><span class="n">vdev</span><span class="p">))</span>
+</pre></div>
+</div>
+</li>
+<li><p>Remove virtio device from the remoteproc instance:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">remoteproc_remove_virtio</span><span class="p">(</span><span class="n">struct</span> <span class="n">remoteproc</span> <span class="o">*</span><span class="n">rproc</span><span class="p">,</span>
+  		        <span class="n">struct</span> <span class="n">virtio_device</span> <span class="o">*</span><span class="n">vdev</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="data-structure.html" class="btn btn-neutral float-left" title="Remoteproc data struct" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="rpmsg-design.html" class="btn btn-neutral float-right" title="RPMsg Design Document" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, OpenAMP Project.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

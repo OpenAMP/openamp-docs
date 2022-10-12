@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>matrix_multiply &mdash; OpenAMP  documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/mystyle.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../../index.html" class="icon icon-home"> OpenAMP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../openamp/index.html">OpenAMP Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../protocol_details/index.html">OpenAMP Protocol Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../docs/index.html">OpenAMP API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">OpenAMP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>matrix_multiply</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/open-amp/docs/apps/matrix_multiply/README.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="matrix-multiply">
+<h1>matrix_multiply<a class="headerlink" href="#matrix-multiply" title="Permalink to this heading"></a></h1>
+<p>This readme is about the OpenAMP matrix_multiply demo.
+The matrix_multiply is about one processor generates two matrices, and send them to the one, and the other one calculate the matrix multiplicaiton and return the result matrix.</p>
+<p>For now, it implements Linux generates the matrices, and the baremetal calculate the matrix mulitplication and send back the result.</p>
+<section id="compilation">
+<h2>Compilation<a class="headerlink" href="#compilation" title="Permalink to this heading"></a></h2>
+<section id="baremetal-compilation">
+<h3>Baremetal Compilation<a class="headerlink" href="#baremetal-compilation" title="Permalink to this heading"></a></h3>
+<p>Option <code class="docutils literal notranslate"><span class="pre">WITH_MATRIX_MULTIPLY</span></code> is to control if the application will be built.
+By default this option is <code class="docutils literal notranslate"><span class="pre">ON</span></code> when <code class="docutils literal notranslate"><span class="pre">WITH_APPS</span></code> is on.</p>
+<p>Here is an example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cmake ../open-amp -DCMAKE_TOOLCHAIN_FILE=zynq7_generic -DWITH_OBSOLETE=on -DWITH_APPS=ON
+</pre></div>
+</div>
+</section>
+<section id="linux-compilation">
+<h3>Linux Compilation<a class="headerlink" href="#linux-compilation" title="Permalink to this heading"></a></h3>
+<section id="linux-kernel-compilation">
+<h4>Linux Kernel Compilation<a class="headerlink" href="#linux-kernel-compilation" title="Permalink to this heading"></a></h4>
+<p>You will need to manually compile the following kernel modules with your Linux kernel (Please refer to Linux kernel documents for how to add kernel module):</p>
+<ul class="simple">
+<li><p>Your machine’s remoteproc kernel driver</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">obsolete/system/linux/kernelspace/rpmsg_user_dev_driver</span></code> if you want to run the matrix_multiply app in Linux user space.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">obsolete/apps/matrix_multiply/system/linux/kernelspace/rpmsg_mat_mul_kern_app</span></code> if you want to run the matrix_multiply app in Linux kernel space.</p></li>
+</ul>
+</section>
+<section id="linux-userspace-compliation">
+<h4>Linux Userspace Compliation<a class="headerlink" href="#linux-userspace-compliation" title="Permalink to this heading"></a></h4>
+<ul class="simple">
+<li><p>Compile <code class="docutils literal notranslate"><span class="pre">obsolete/apps/matrix_multiply/system/linux/userspace/mat_mul_demo</span></code> into your Linux OS.</p></li>
+<li><p>If you are running generic(baremetal) system as remoteproc remote, and Linux as remoteproc host, please also add the built generic <code class="docutils literal notranslate"><span class="pre">matrix_multiply</span></code> executable to the firmware of your Linux OS.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="run-the-demo">
+<h2>Run the Demo<a class="headerlink" href="#run-the-demo" title="Permalink to this heading"></a></h2>
+<section id="load-the-demo">
+<h3>Load the Demo<a class="headerlink" href="#load-the-demo" title="Permalink to this heading"></a></h3>
+<p>After Linux boots,</p>
+<ul class="simple">
+<li><p>Load the machine remoteproc. If Linux runs as remoteproc host, you will need to pass the other processor’s matrix_multiply binary as firmware argument to the remoteproc module.</p></li>
+<li><p>If you run the Linux kernel application demo, load the <code class="docutils literal notranslate"><span class="pre">rpmsg_mat_mul_kern_app</span></code> module, you will see the kernel app will generate two matrices to the other processor, and output the result matrix returned by the other processor.</p></li>
+<li><p>If you run the userspace application demo, load the <code class="docutils literal notranslate"><span class="pre">rpmsg_user_dev_driver</span></code> module.</p></li>
+<li><p>If you run the userspace application demo <code class="docutils literal notranslate"><span class="pre">mat_mul_demo</span></code>, you will see the similar output on the console:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">****************************************</span>
+<span class="n">Please</span> <span class="n">enter</span> <span class="n">command</span> <span class="ow">and</span> <span class="n">press</span> <span class="n">enter</span> <span class="n">key</span>
+<span class="o">****************************************</span>
+<span class="mi">1</span> <span class="o">-</span> <span class="n">Generates</span> <span class="n">random</span> <span class="mi">6</span><span class="n">x6</span> <span class="n">matrices</span> <span class="ow">and</span> <span class="n">transmits</span> <span class="n">them</span> <span class="n">to</span> <span class="n">remote</span> <span class="n">core</span> <span class="n">over</span> <span class="n">rpmsg</span>
+<span class="o">..</span>
+<span class="mi">2</span> <span class="o">-</span> <span class="n">Quit</span> <span class="n">this</span> <span class="n">application</span> <span class="o">..</span>
+<span class="n">CMD</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Input <code class="docutils literal notranslate"><span class="pre">1</span></code> to run the matrix multiplication.</p></li>
+<li><p>Input <code class="docutils literal notranslate"><span class="pre">2</span></code> to exit the application.</p></li>
+</ul>
+<p>After you run the demo, you will need to unload the kernel modules.</p>
+</section>
+<section id="unload-the-demo">
+<h3>Unload the Demo<a class="headerlink" href="#unload-the-demo" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>If you run the userspace application demo, unload the <code class="docutils literal notranslate"><span class="pre">rpmsg_user_dev_driver</span></code> module.</p></li>
+<li><p>If you run the kernelspace application demo, unload the <code class="docutils literal notranslate"><span class="pre">rpmsg_mat_mul_kern_app</span></code> module.</p></li>
+<li><p>Unload the machine remoteproc driver.</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, OpenAMP Project.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

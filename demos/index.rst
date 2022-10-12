@@ -11,4 +11,8 @@ Samples and Demos
    :caption: Contents:
 
    system_reference
-
+   ../open-amp/apps/examples/linux_rpc_demo/README
+   ../open-amp/apps/machine/microblaze_generic/README
+   ../open-amp/docs/apps/echo_test/README
+   ../open-amp/docs/apps/matrix_multiply/README
+   ../open-amp/docs/apps/rpc_demo/README

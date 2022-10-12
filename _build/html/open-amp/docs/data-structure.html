@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Remoteproc data struct &mdash; OpenAMP  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/mystyle.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Remoteproc Design Document" href="remoteproc-design.html" />
+    <link rel="prev" title="OpenAMP API" href="../../docs/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> OpenAMP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../openamp/index.html">OpenAMP Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../protocol_details/index.html">OpenAMP Protocol Details</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../docs/index.html">OpenAMP API</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Remoteproc data struct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#virtio-data-struct">Virtio Data struct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rpmsg-virtio-data-struct">RPMsg virtio Data struct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rpmsg-data-struct">RPMsg Data struct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="remoteproc-design.html">Remoteproc Design Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rpmsg-design.html">RPMsg Design Document</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">OpenAMP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../docs/index.html">OpenAMP API</a> &raquo;</li>
+      <li>Remoteproc data struct</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/open-amp/docs/data-structure.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="remoteproc-data-struct">
+<h1>Remoteproc data struct<a class="headerlink" href="#remoteproc-data-struct" title="Permalink to this heading"></a></h1>
+<ul class="simple">
+<li><p>Representation of the remote processor instance:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">remoteproc</span> <span class="p">{</span>
+	<span class="n">metal_mutex_t</span> <span class="n">lock</span><span class="p">;</span>                <span class="o">/**&lt;</span> <span class="n">mutex</span> <span class="n">lock</span> <span class="o">*/</span>
+	<span class="n">void</span> <span class="o">*</span><span class="n">rsc_table</span><span class="p">;</span>                   <span class="o">/**&lt;</span> <span class="n">address</span> <span class="n">of</span> <span class="n">the</span> <span class="n">resource</span> <span class="n">table</span> <span class="o">*/</span>
+	<span class="n">size_t</span> <span class="n">rsc_len</span><span class="p">;</span>                    <span class="o">/**&lt;</span> <span class="n">length</span> <span class="n">of</span> <span class="n">the</span> <span class="n">resource</span> <span class="n">table</span> <span class="o">*/</span>
+	<span class="n">struct</span> <span class="n">metal_io_region</span> <span class="o">*</span><span class="n">rsc_io</span><span class="p">;</span>    <span class="o">/**&lt;</span> <span class="n">metal</span> <span class="n">I</span><span class="o">/</span><span class="n">O</span> <span class="n">region</span> <span class="n">of</span> <span class="n">resource</span> <span class="n">table</span><span class="o">*/</span>
+	<span class="n">struct</span> <span class="n">metal_list</span> <span class="n">mems</span><span class="p">;</span>            <span class="o">/**&lt;</span> <span class="n">remoteproc</span> <span class="n">memories</span> <span class="o">*/</span>
+	<span class="n">struct</span> <span class="n">metal_list</span> <span class="n">vdevs</span><span class="p">;</span>           <span class="o">/**&lt;</span> <span class="n">remoteproc</span> <span class="n">virtio</span> <span class="n">devices</span> <span class="o">*/</span>
+	<span class="n">unsigned</span> <span class="n">long</span> <span class="n">bitmap</span><span class="p">;</span>              <span class="o">/**&lt;</span> <span class="n">bitmap</span> <span class="k">for</span> <span class="n">notify</span> <span class="n">IDs</span> <span class="k">for</span> <span class="n">remoteproc</span> <span class="n">subdevices</span> <span class="o">*/</span>
+	<span class="n">const</span> <span class="n">struct</span> <span class="n">remoteproc_ops</span> <span class="o">*</span><span class="n">ops</span><span class="p">;</span>  <span class="o">/**&lt;</span> <span class="n">pointer</span> <span class="n">to</span> <span class="n">remoteproc</span> <span class="n">operation</span> <span class="o">*/</span>
+	<span class="n">metal_phys_addr_t</span> <span class="n">bootaddr</span><span class="p">;</span>        <span class="o">/**&lt;</span> <span class="n">boot</span> <span class="n">address</span> <span class="o">*/</span>
+	<span class="n">const</span> <span class="n">struct</span> <span class="n">loader_ops</span> <span class="o">*</span><span class="n">loader</span><span class="p">;</span>   <span class="o">/**&lt;</span> <span class="n">image</span> <span class="n">loader</span> <span class="n">operation</span> <span class="o">*/</span>
+	<span class="n">unsigned</span> <span class="nb">int</span> <span class="n">state</span><span class="p">;</span>                <span class="o">/**&lt;</span> <span class="n">remote</span> <span class="n">processor</span> <span class="n">state</span> <span class="o">*/</span>
+	<span class="n">void</span> <span class="o">*</span><span class="n">priv</span><span class="p">;</span>                        <span class="o">/**&lt;</span> <span class="n">remoteproc</span> <span class="n">private</span> <span class="n">data</span> <span class="o">*/</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Representation of the remote processor virtio device:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+<span class="n">struct</span> <span class="n">remoteproc_virtio</span> <span class="p">{</span>
+	<span class="n">void</span> <span class="o">*</span><span class="n">priv</span><span class="p">;</span>                           <span class="o">/**&lt;</span> <span class="n">private</span> <span class="n">data</span> <span class="o">*/</span>
+	<span class="n">void</span> <span class="o">*</span><span class="n">vdev_rsc</span><span class="p">;</span>                       <span class="o">/**&lt;</span> <span class="n">address</span> <span class="n">of</span> <span class="n">vdev</span> <span class="n">resource</span> <span class="o">*/</span>
+	<span class="n">struct</span> <span class="n">metal_io_region</span> <span class="o">*</span><span class="n">vdev_rsc_io</span><span class="p">;</span>  <span class="o">/**&lt;</span> <span class="n">metal</span> <span class="n">I</span><span class="o">/</span><span class="n">O</span> <span class="n">region</span> <span class="n">of</span> <span class="n">vdev_info</span><span class="p">,</span> <span class="n">can</span> <span class="n">be</span> <span class="n">NULL</span> <span class="o">*/</span>
+	<span class="n">rpvdev_notify_func</span> <span class="n">notify</span><span class="p">;</span>            <span class="o">/**&lt;</span> <span class="n">notification</span> <span class="n">function</span> <span class="o">*/</span>
+	<span class="n">struct</span> <span class="n">virtio_device</span> <span class="n">vdev</span><span class="p">;</span>            <span class="o">/**&lt;</span> <span class="n">associated</span> <span class="n">virtio</span> <span class="n">device</span> <span class="o">*/</span>
+	<span class="n">struct</span> <span class="n">metal_list</span> <span class="n">node</span><span class="p">;</span>               <span class="o">/**&lt;</span> <span class="n">node</span> <span class="k">for</span> <span class="n">the</span> <span class="n">remoteproc</span> <span class="n">vdevs</span> <span class="nb">list</span> <span class="o">*/</span>
+<span class="p">};</span>
+
+</pre></div>
+</div>
+</section>
+<section id="virtio-data-struct">
+<h1>Virtio Data struct<a class="headerlink" href="#virtio-data-struct" title="Permalink to this heading"></a></h1>
+<ul class="simple">
+<li><p>Representation of a virtio device:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">virtio_dev</span> <span class="p">{</span>
+	<span class="n">uint32_t</span> <span class="n">notifyid</span><span class="p">;</span>                       <span class="o">/**&lt;</span> <span class="n">unique</span> <span class="n">position</span> <span class="n">on</span> <span class="n">the</span> <span class="n">virtio</span> <span class="n">bus</span> <span class="o">*/</span>
+	<span class="n">struct</span> <span class="n">virtio_device_id</span> <span class="nb">id</span><span class="p">;</span>              <span class="o">/**&lt;</span> <span class="n">the</span> <span class="n">device</span> <span class="nb">type</span> <span class="n">identification</span> <span class="p">(</span><span class="n">used</span> <span class="n">to</span> <span class="n">match</span> <span class="n">it</span> <span class="k">with</span> <span class="n">a</span> <span class="n">driver</span> <span class="o">*/</span>
+	<span class="n">uint64_t</span> <span class="n">features</span><span class="p">;</span>                       <span class="o">/**&lt;</span> <span class="n">the</span> <span class="n">features</span> <span class="n">supported</span> <span class="n">by</span> <span class="n">both</span> <span class="n">ends</span><span class="o">.</span> <span class="o">*/</span>
+	<span class="n">unsigned</span> <span class="nb">int</span> <span class="n">role</span><span class="p">;</span>                       <span class="o">/**&lt;</span> <span class="k">if</span> <span class="n">it</span> <span class="ow">is</span> <span class="n">virtio</span> <span class="n">backend</span> <span class="ow">or</span> <span class="n">front</span> <span class="n">end</span><span class="o">.</span> <span class="o">*/</span>
+	<span class="n">virtio_dev_reset_cb</span> <span class="n">reset_cb</span><span class="p">;</span>            <span class="o">/**&lt;</span> <span class="n">user</span> <span class="n">registered</span> <span class="n">device</span> <span class="n">callback</span> <span class="o">*/</span>
+	<span class="n">const</span> <span class="n">struct</span> <span class="n">virtio_dispatch</span> <span class="o">*</span><span class="n">func</span><span class="p">;</span>      <span class="o">/**&lt;</span> <span class="n">Virtio</span> <span class="n">dispatch</span> <span class="n">table</span> <span class="o">*/</span>
+	<span class="n">void</span> <span class="o">*</span><span class="n">priv</span><span class="p">;</span>                              <span class="o">/**&lt;</span> <span class="n">pointer</span> <span class="n">to</span> <span class="n">virtio_device</span> <span class="n">private</span> <span class="n">data</span> <span class="o">*/</span>
+	<span class="n">unsigned</span> <span class="nb">int</span> <span class="n">vrings_num</span><span class="p">;</span>                 <span class="o">/**&lt;</span> <span class="n">number</span> <span class="n">of</span> <span class="n">vrings</span> <span class="o">*/</span>
+	<span class="n">struct</span> <span class="n">virtio_vring_info</span> <span class="o">*</span><span class="n">vrings_info</span><span class="p">;</span>   <span class="o">/**&lt;</span> <span class="n">vrings</span> <span class="n">associated</span> <span class="n">to</span> <span class="n">the</span> <span class="n">virtio</span> <span class="n">device</span><span class="o">*/</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Representation of a virtqueue local context:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>struct virtqueue {
+	struct virtio_device *vq_dev;            /**&lt; pointer to virtio device */
+	const char *vq_name;                     /**&lt; virtqueue name */
+	uint16_t vq_queue_index;                 /**&lt; virtqueue name */
+	uint16_t vq_nentries;
+	void (*callback)(struct virtqueue *vq);  /**&lt; virtqueue callback */
+	void (*notify)(struct virtqueue *vq);    /**&lt; virtqueue notify remote function */
+	struct vring vq_ring;
+	uint16_t vq_free_cnt;
+	uint16_t vq_queued_cnt;
+	void *shm_io;                            /**&lt; pointer to the shared buffer I/O region */
+
+	/*
+	 * Head of the free chain in the descriptor table. If
+	 * there are no free descriptors, this will be set to
+	 * VQ_RING_DESC_CHAIN_END.
+	 */
+	uint16_t vq_desc_head_idx;
+
+	/*
+	 * Last consumed descriptor in the used table,
+	 * trails vq_ring.used-&gt;idx.
+	 */
+	uint16_t vq_used_cons_idx;
+
+	/*
+	 * Last consumed descriptor in the available table -
+	 * used by the consumer side.
+	 */
+	uint16_t vq_available_idx;
+
+	/*
+	 * Used by the host side during callback. Cookie
+	 * holds the address of buffer received from other side.
+	 * Other fields in this structure are not used currently.
+	 * Do we needed??/
+	struct vq_desc_extra {
+		void *cookie;
+		struct vring_desc *indirect;
+		uint32_t indirect_paddr;
+		uint16_t ndescs;
+	} vq_descx[0];
+};
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Representation of a shared virtqueue structure defined in Virtual I/O Device (VIRTIO) Version 1.1:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">vring</span> <span class="p">{</span>
+	<span class="n">unsigned</span> <span class="nb">int</span> <span class="n">num</span><span class="p">;</span>           <span class="o">/**&lt;</span> <span class="n">number</span> <span class="n">of</span> <span class="n">buffers</span> <span class="n">of</span> <span class="n">the</span> <span class="n">vring</span> <span class="o">*/</span>
+	<span class="n">struct</span> <span class="n">vring_desc</span> <span class="o">*</span><span class="n">desc</span><span class="p">;</span>    <span class="o">/**&lt;</span> <span class="n">pointer</span> <span class="n">to</span> <span class="n">the</span> <span class="n">buffers</span> <span class="n">descriptor</span> <span class="o">*/</span>
+	<span class="n">struct</span> <span class="n">vring_avail</span> <span class="o">*</span><span class="n">avail</span><span class="p">;</span>  <span class="o">/**&lt;</span> <span class="n">pointer</span> <span class="n">to</span> <span class="n">the</span> <span class="n">ring</span> <span class="n">of</span> <span class="n">available</span> <span class="n">descriptor</span> <span class="n">heads</span><span class="o">*/</span>
+	<span class="n">struct</span> <span class="n">vring_used</span> <span class="o">*</span><span class="n">used</span><span class="p">;</span>    <span class="o">/**&lt;</span> <span class="n">pointer</span> <span class="n">to</span> <span class="n">the</span> <span class="n">ring</span> <span class="n">of</span> <span class="n">used</span> <span class="n">descriptor</span> <span class="n">heads</span> <span class="o">*/</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="rpmsg-virtio-data-struct">
+<h1>RPMsg virtio Data struct<a class="headerlink" href="#rpmsg-virtio-data-struct" title="Permalink to this heading"></a></h1>
+<ul class="simple">
+<li><p>Representation of a RPMsg virtio device:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">rpmsg_virtio_device</span> <span class="p">{</span>
+	<span class="n">struct</span> <span class="n">rpmsg_device</span> <span class="n">rdev</span><span class="p">;</span>               <span class="o">/**&lt;</span> <span class="n">the</span> <span class="n">associated</span> <span class="n">rpmsg</span> <span class="n">device</span> <span class="o">*/</span>
+	<span class="n">struct</span> <span class="n">rpmsg_virtio_config</span> <span class="n">config</span><span class="p">;</span>      <span class="o">/**&lt;</span> <span class="n">structure</span> <span class="n">containing</span> <span class="n">the</span> <span class="n">virtio</span> <span class="n">configuration</span> <span class="o">*/</span>
+	<span class="n">struct</span> <span class="n">virtio_device</span> <span class="o">*</span><span class="n">vdev</span><span class="p">;</span>             <span class="o">/**&lt;</span> <span class="n">pointer</span> <span class="n">to</span> <span class="n">the</span> <span class="n">virtio</span> <span class="n">device</span> <span class="o">*/</span>
+	<span class="n">struct</span> <span class="n">virtqueue</span> <span class="o">*</span><span class="n">rvq</span><span class="p">;</span>                  <span class="o">/**&lt;</span> <span class="n">pointer</span> <span class="n">to</span> <span class="n">the</span> <span class="n">receive</span> <span class="n">virtqueue</span> <span class="o">*/</span>
+	<span class="n">struct</span> <span class="n">virtqueue</span> <span class="o">*</span><span class="n">svq</span><span class="p">;</span>                  <span class="o">/**&lt;</span> <span class="n">a</span> <span class="n">to</span> <span class="n">the</span> <span class="n">send</span> <span class="n">virtqueue</span> <span class="o">*/</span>
+	<span class="n">struct</span> <span class="n">metal_io_region</span> <span class="o">*</span><span class="n">shbuf_io</span><span class="p">;</span>       <span class="o">/**&lt;</span> <span class="n">pointer</span> <span class="n">to</span> <span class="n">the</span> <span class="n">shared</span> <span class="n">buffer</span> <span class="n">I</span><span class="o">/</span><span class="n">O</span> <span class="n">region</span> <span class="o">*/</span>
+	<span class="n">struct</span> <span class="n">rpmsg_virtio_shm_pool</span> <span class="o">*</span><span class="n">shpool</span><span class="p">;</span>   <span class="o">/**&lt;</span> <span class="n">pointer</span> <span class="n">to</span> <span class="n">the</span> <span class="n">shared</span> <span class="n">buffers</span> <span class="n">pool</span> <span class="o">*/</span>
+<span class="p">};</span>
+
+</pre></div>
+</div>
+</section>
+<section id="rpmsg-data-struct">
+<h1>RPMsg Data struct<a class="headerlink" href="#rpmsg-data-struct" title="Permalink to this heading"></a></h1>
+<ul class="simple">
+<li><p>representation of a RPMsg devices:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">rpmsg_device</span> <span class="p">{</span>
+	<span class="n">struct</span> <span class="n">metal_list</span> <span class="n">endpoints</span><span class="p">;</span>                                   <span class="o">/**&lt;</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">endpoints</span> <span class="o">*/</span>
+	<span class="n">struct</span> <span class="n">rpmsg_endpoint</span> <span class="n">ns_ept</span><span class="p">;</span>                                  <span class="o">/**&lt;</span> <span class="n">name</span> <span class="n">service</span> <span class="n">endpoint</span> <span class="o">*/</span>
+	<span class="n">unsigned</span> <span class="n">long</span> <span class="n">bitmap</span><span class="p">[</span><span class="n">metal_bitmap_longs</span><span class="p">(</span><span class="n">RPMSG_ADDR_BMP_SIZE</span><span class="p">)];</span> <span class="o">/**&lt;</span> <span class="n">bitmap</span><span class="p">:</span> <span class="n">table</span> <span class="n">endpoint</span> <span class="n">address</span> <span class="n">allocation</span> <span class="o">*/</span>
+	<span class="n">metal_mutex_t</span> <span class="n">lock</span><span class="p">;</span>                                            <span class="o">/**&lt;</span>  <span class="n">mutex</span> <span class="n">lock</span> <span class="k">for</span> <span class="n">rpmsg</span> <span class="n">management</span> <span class="o">*/</span>
+	<span class="n">rpmsg_ns_bind_cb</span> <span class="n">ns_bind_cb</span><span class="p">;</span>                                   <span class="o">/**&lt;</span> <span class="n">callback</span> <span class="n">handler</span> <span class="k">for</span> <span class="n">name</span> <span class="n">service</span> <span class="n">announcement</span> <span class="n">without</span> <span class="n">local</span> <span class="n">endpoints</span> <span class="n">waiting</span> <span class="n">to</span> <span class="n">bind</span><span class="o">.</span> <span class="o">*/</span>
+	<span class="n">struct</span> <span class="n">rpmsg_device_ops</span> <span class="n">ops</span><span class="p">;</span>                                   <span class="o">/**&lt;</span>  <span class="n">RPMsg</span> <span class="n">device</span> <span class="n">operations</span> <span class="o">*/</span>
+	<span class="nb">bool</span> <span class="n">support_ns</span><span class="p">;</span>                                               <span class="o">/**&lt;</span> <span class="n">create</span><span class="o">/</span><span class="n">destroy</span> <span class="n">namespace</span> <span class="n">message</span> <span class="o">*/</span>
+<span class="p">};</span>
+
+<span class="o">*</span> <span class="n">Representation</span> <span class="n">of</span> <span class="n">a</span> <span class="n">local</span> <span class="n">RPMsg</span> <span class="n">endpoint</span> <span class="n">associated</span> <span class="n">to</span> <span class="n">an</span> <span class="n">unique</span> <span class="n">address</span><span class="p">:</span>
+<span class="n">struct</span> <span class="n">rpmsg_endpoint</span> <span class="p">{</span>
+	<span class="n">char</span> <span class="n">name</span><span class="p">[</span><span class="n">SERVICE_NAME_SIZE</span><span class="p">];</span>                                                     <span class="o">/**&lt;</span> <span class="n">associated</span> <span class="n">name</span> <span class="n">service</span> <span class="o">*/</span>
+	<span class="n">struct</span> <span class="n">rpmsg_virtio_dev</span> <span class="o">*</span><span class="n">rvdev</span><span class="p">;</span>                                                   <span class="o">/**&lt;</span> <span class="n">pointer</span> <span class="n">to</span> <span class="n">the</span> <span class="n">RPMsg</span> <span class="n">virtio</span> <span class="n">device</span> <span class="o">*/</span>
+	<span class="n">uint32_t</span> <span class="n">addr</span><span class="p">;</span>                                                                    <span class="o">/**&lt;</span> <span class="n">endpoint</span> <span class="n">local</span> <span class="n">address</span> <span class="o">*/</span>
+	<span class="n">uint32_t</span> <span class="n">dest_addr</span><span class="p">;</span>                                                               <span class="o">/**&lt;</span> <span class="n">endpoint</span> <span class="n">default</span> <span class="n">target</span> <span class="n">address</span> <span class="o">*/</span>
+	<span class="nb">int</span> <span class="p">(</span><span class="o">*</span><span class="n">cb</span><span class="p">)(</span><span class="n">struct</span> <span class="n">rpmsg_endpoint</span> <span class="o">*</span><span class="n">ept</span><span class="p">,</span> <span class="n">void</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="n">size_t</span> <span class="nb">len</span><span class="p">,</span> <span class="n">uint32_t</span> <span class="n">addr</span><span class="p">);</span>     <span class="o">/**&lt;</span> <span class="n">endpoint</span> <span class="n">callback</span> <span class="o">*/</span>
+	<span class="n">void</span> <span class="p">(</span><span class="o">*</span><span class="n">ns_unbind_cb</span><span class="p">)(</span><span class="n">struct</span> <span class="n">rpmsg_endpoint</span> <span class="o">*</span><span class="n">ept</span><span class="p">);</span>                                 <span class="o">/**&lt;</span> <span class="n">remote</span> <span class="n">endpoint</span> <span class="n">destroy</span> <span class="n">callback</span> <span class="o">*/</span>
+	<span class="n">struct</span> <span class="n">metal_list</span> <span class="n">node</span><span class="p">;</span>                                                           <span class="o">/**&lt;</span> <span class="n">node</span> <span class="k">for</span> <span class="n">the</span> <span class="n">rpmsg_device</span> <span class="n">endpoints</span> <span class="nb">list</span> <span class="o">*/</span>
+	<span class="n">void</span> <span class="o">*</span><span class="n">priv</span><span class="p">;</span>                                                                       <span class="o">/**&lt;</span> <span class="n">user</span> <span class="n">private</span> <span class="n">data</span> <span class="o">*/</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../../docs/index.html" class="btn btn-neutral float-left" title="OpenAMP API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="remoteproc-design.html" class="btn btn-neutral float-right" title="Remoteproc Design Document" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, OpenAMP Project.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

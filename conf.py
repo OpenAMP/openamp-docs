@@ -38,6 +38,7 @@ extensions = [
     'sphinx.ext.graphviz',
     'sphinx.ext.todo',
     'rst2pdf.pdfbuilder',
+    'myst_parser',
 ]
 
 pdf_documents = [('index', u'openamppdf', u'Sample openamppdf doc', u'Tammy Leino'),]

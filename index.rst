@@ -12,6 +12,7 @@ Welcome to the OpenAMP Project Documentation
 
    openamp/index
    protocol_details/index
+   docs/index
 
 Indices and tables
 ==================
