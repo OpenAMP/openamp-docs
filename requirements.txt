@@ -1,3 +1,5 @@
 sphinxcontrib-plantuml
 sphinx_rtd_theme
 sphinx
+rst2pdf
+myst_parser
