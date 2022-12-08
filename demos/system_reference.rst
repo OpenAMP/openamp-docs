@@ -24,10 +24,7 @@ Multi RPMsg services demo
 STM32MP157C/F-DK2 board
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-Based on
-
-    - a fork of the yocto [meta-st-stm32mp-oss](https://github.com/STMicroelectronics/meta-st-stm32mp-oss) environment, designed to update and test upstream code on STM32MP boards,
-    - a fork of the yocto [meta-zephyr](https://git.yoctoproject.org/meta-zephyr/).
+Based on a fork of the yocto [meta-st-stm32mp-oss](https://github.com/STMicroelectronics/meta-st-stm32mp-oss) environment, designed to update and test upstream code on STM32MP boards,
 
 Prerequisite
 ^^^^^^^^^^^^
@@ -141,7 +138,15 @@ Please refer to the `Getting Started Guide
 <https://docs.zephyrproject.org/latest/develop/getting_started/index.html>`_
 zephyr documentation
 
-   bitbake-layers add-layer ../layers/meta-zephyr/
+Initialize the Zephyr environment
+_________________________________
+
+.. code-block:: console
+
+   cd zephy_rpmsg_multi_services
+   git clone https://github.com/OpenAMP/openamp-system-reference.git
+   west init
+   west update
 
 Build the Zephyr image
 ______________________
