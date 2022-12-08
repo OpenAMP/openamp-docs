@@ -16,6 +16,5 @@ OpenAMP Protocol Details
    rpmsg_comms
    lifecyclemgmt
    system_considerations
-   porting_guide
    resource_tbl
-   openamp_ci
+   design_docs

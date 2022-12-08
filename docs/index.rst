@@ -3,14 +3,13 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-OpenAMP API
-===========
+OpenAMP Library Users Guide
+===========================
 
 .. toctree::
    :maxdepth: 1
    :caption: Contents:
 
-   ../open-amp/docs/data-structure
-   ../open-amp/docs/remoteproc-design
-   ../open-amp/docs/rpmsg-design
+   data_structures
+   porting_guide
 

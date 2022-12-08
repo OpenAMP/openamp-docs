@@ -1,6 +1,6 @@
-================
-Using OpenAMP CI
-================
+==========================
+OpenAMP Demo Docker images
+==========================
 
 The OpenAMP CI solution is just in it's infancy at the moment and this doc is a work-in-progress. Please keep it up to date and don't keep historical information (that is what wiki history is for).
 
