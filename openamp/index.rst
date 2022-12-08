@@ -11,9 +11,6 @@ OpenAMP Project
    :caption: Contents:
 
    overview
-   ../current/index
    ../demos/index
-   maintenance
-   meeting_notes
-   ../future/index
+   contributing
    links

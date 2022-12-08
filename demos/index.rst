@@ -7,7 +7,7 @@ Samples and Demos
 =================
 
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 1
    :caption: Contents:
 
    system_reference
@@ -16,3 +16,4 @@ Samples and Demos
    ../open-amp/docs/apps/echo_test/README
    ../open-amp/docs/apps/matrix_multiply/README
    ../open-amp/docs/apps/rpc_demo/README
+   docker_images
