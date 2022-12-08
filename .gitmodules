@@ -1,3 +1,6 @@
 [submodule "open-amp"]
 	path = open-amp
 	url = https://github.com/OpenAMP/open-amp.git
+[submodule "lopper"]
+	path = lopper
+	url = https://github.com/devicetree-org/lopper.git
