@@ -1,38 +1,20 @@
-.. _demos-work-label:
+.. _demos-ST-work-label:
 
-==================================
-System Reference Samples and Demos
-==================================
-
-Echo Test
----------
-
-ST Echo Test Example
-~~~~~~~~~~~~~~~~~~~~
-
-Instruction to install the yocto environment, build and load an image, run the echo example is available here: https://github.com/arnopo/oe-manifest/blob/OpenAMP/README.md
-
-For more information and help on the stm32mp15 platform and environment, please refer to `stm32mpu wiki <https://wiki.st.com/stm32mpu/wiki/Main_Page>`_.
-
-Xilinx Echo Test Example
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-`WIP document <https://drive.google.com/drive/u/0/folders/1CqerKYLfwtQu0cnDFa00wqwznCpBK5WO>`_ (Note Google doc access is currently restricted to working group members. To publish once it is sufficiently ready)
-
-Multi RPMsg services demo
--------------------------
-STM32MP157C/F-DK2 board
-~~~~~~~~~~~~~~~~~~~~~~~
+=============================================================
+System Reference Samples and Demos on STM32MP157C/F-DK2 board
+=============================================================
 
 Based on a fork of the yocto [meta-st-stm32mp-oss](https://github.com/STMicroelectronics/meta-st-stm32mp-oss) environment, designed to update and test upstream code on STM32MP boards,
 
 Prerequisite
-^^^^^^^^^^^^
+------------
 
-TBC
+Some specifics package could be needed to build the ST images. For details refer to  
+
+`STMPU wiki PC prerequisite <https://wiki.st.com/stm32mpu/wiki/PC_prerequisites>`_
 
 Installation
-^^^^^^^^^^^^
+------------
 
 Create the structure of the project
 
@@ -52,10 +34,10 @@ At this step you should see following folder hierarchy:
        |___ zephy_rpmsg_multi_services
 
 Generate the stm32mp15 image
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Install stm32mp1_distrib_oss kirkstone
-______________________________________
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 From the stm32mp15-demo directory
 
@@ -85,7 +67,7 @@ From the stm32mp15-demo directory
    cd -
 
 Initialize the Open Embedded build environment
-______________________________________________
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The OpenEmbedded environment setup script must be run once in each new working terminal in which you use the BitBake or devtool tools (see later) from stm32mp15-demo/stm32mp1_distrib_oss directory
 
@@ -103,7 +85,7 @@ The OpenEmbedded environment setup script must be run once in each new working t
    echo "PACKAGE_CLASSES = \"package_deb\" " >> conf/local.conf
 
 Build stm32mp1_distrib_oss image
-________________________________
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 From stm32mp15-demo/stm32mp1_distrib_oss/build-stm32mp15-disco-oss/ directory
 
@@ -117,7 +99,7 @@ Note that
    - building the distribution can take more than 2 hours depending on performance of the PC.
 
 Install stm32mp1_distrib_oss
-____________________________
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 From 'stm32mp15-demo/stm32mp1_distrib_oss/build-stm32mp15-disco-oss/' directory,populate your microSD card inserted on your HOST PC using command
 
@@ -129,7 +111,7 @@ From 'stm32mp15-demo/stm32mp1_distrib_oss/build-stm32mp15-disco-oss/' directory,
 
 
 Generate the Zephyr rpmsg multi service example
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Prerequisite
 ^^^^^^^^^^^^
@@ -139,7 +121,7 @@ Please refer to the `Getting Started Guide
 zephyr documentation
 
 Initialize the Zephyr environment
-_________________________________
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: console
 
@@ -149,7 +131,7 @@ _________________________________
    west update
 
 Build the Zephyr image
-______________________
+^^^^^^^^^^^^^^^^^^^^^^
 
 From the zephy_rpmsg_multi_services directory
 
@@ -159,7 +141,7 @@ From the zephy_rpmsg_multi_services directory
 
 
 Install the Zephyr binary on the sdcard
-_______________________________________
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The Zephyr sample binary is available in the sub-folder of build directory stm32mp15-demo/zephy_rpmsg_multi_services/build/zephyr/rpmsg_multi_services.elf. It needs to be installed on the "rootfs" partition of the sdcard
 
@@ -169,11 +151,12 @@ The Zephyr sample binary is available in the sub-folder of build directory stm32
 
 Don't forget to properly unmoumt the sdcard partitions.
 
+
 Demos
-^^^^^
+-----
 
 Start the demo environment
-__________________________
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - power on the `stm32mp157C/F-dk2 board <https://wiki.st.com/stm32mpu/nsfr_img_auth.php/thumb/8/82/STM32MP157C-DK2_with_power_stlink_flasher_ethernet.png/600px-STM32MP157C-DK2_with_power_stlink_flasher_ethernet.png>`_, and wait login prompt on your serial terminal
 
@@ -182,7 +165,7 @@ __________________________
       stm32mp15-disco-oss login: root
 
 
-There is 2 ways to start the coprocessor:
+There are 2 ways to start the coprocessor:
 
 * During the runtime, by the Linux remoteproc framework
 
@@ -274,8 +257,7 @@ This informs that following rpmsg channels devices have been created:
 
 
 Run the multi RPMsg services demo
-_________________________________
-
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The demos are described on `openamp-system-reference Github
 <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/zephyr/rpmsg_multi_services/README.rst>`_

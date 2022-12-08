@@ -10,7 +10,8 @@ Samples and Demos
    :maxdepth: 1
    :caption: Contents:
 
-   system_reference
+   system_reference-AMD-Xilinx
+   system_reference-ST
    ../open-amp/apps/examples/linux_rpc_demo/README
    ../open-amp/apps/machine/microblaze_generic/README
    ../open-amp/docs/apps/echo_test/README
