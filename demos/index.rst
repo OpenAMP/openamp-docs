@@ -19,3 +19,4 @@ Samples and Demos
    ../open-amp/docs/apps/rpc_demo/README
    docker_images
    ../hypervisorless_virtio_zcu102/README_demo
+   ../lopper/demos/openamp/README.md

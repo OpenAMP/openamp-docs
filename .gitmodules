@@ -4,3 +4,6 @@
 [submodule "hypervisorless_virtio_zcu102"]
 	path = hypervisorless_virtio_zcu102
 	url = https://github.com/danmilea/hypervisorless_virtio_zcu102.git
+[submodule "lopper"]
+	path = lopper
+	url = https://github.com/devicetree-org/lopper.git
