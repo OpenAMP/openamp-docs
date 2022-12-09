@@ -18,3 +18,4 @@ Samples and Demos
    ../open-amp/docs/apps/matrix_multiply/README
    ../open-amp/docs/apps/rpc_demo/README
    docker_images
+   ../hypervisorless_virtio_zcu102/README_demo

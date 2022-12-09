@@ -1,3 +1,6 @@
 [submodule "open-amp"]
 	path = open-amp
 	url = https://github.com/OpenAMP/open-amp.git
+[submodule "hypervisorless_virtio_zcu102"]
+	path = hypervisorless_virtio_zcu102
+	url = https://github.com/danmilea/hypervisorless_virtio_zcu102.git
