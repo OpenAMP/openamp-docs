@@ -7,3 +7,6 @@
 [submodule "lopper"]
 	path = lopper
 	url = https://github.com/devicetree-org/lopper.git
+[submodule "openamp-system-reference"]
+	path = openamp-system-reference
+	url = https://github.com/OpenAMP/openamp-system-reference.git
