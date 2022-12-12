@@ -1,10 +1,12 @@
 .. _demos-AMD--work-label:
 
-==================================================
-System Reference Samples and Demos on AMD platform
-==================================================
+=============================================================
+System Reference Samples and Demos on the AMD-Xilinx platform
+=============================================================
 
-Xilinx Echo Test Example
-~~~~~~~~~~~~~~~~~~~~~~~~
+.. toctree::
+   :maxdepth: 2
 
-`WIP document <https://drive.google.com/drive/u/0/folders/1CqerKYLfwtQu0cnDFa00wqwznCpBK5WO>`_ (Note Google doc access is currently restricted to working group members. To publish once it is sufficiently ready)
+   ../openamp-system-reference/examples/linux/rpmsg-echo-test/README.md
+   ../openamp-system-reference/examples/linux/rpmsg-mat-mul/README.md
+   ../openamp-system-reference/examples/linux/rpmsg-proxy-app/README.md
