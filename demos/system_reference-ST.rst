@@ -259,5 +259,7 @@ This informs that following rpmsg channels devices have been created:
 Run the multi RPMsg services demo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The demos are described on `openamp-system-reference Github
-<https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/zephyr/rpmsg_multi_services/README.rst>`_
+.. toctree::
+   :maxdepth: 2
+
+   ../openamp-system-reference/examples/zephyr/rpmsg_multi_services/README.rst
