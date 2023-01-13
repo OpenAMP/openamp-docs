@@ -56,7 +56,7 @@ From the stm32mp15-demo directory
    git checkout -b WORKING  origin/2.0
    cd -
 
-   git clone https://github.com/openembedded/meta-openembedded.git layers/meta-openembedded
+   git clone https://github.com/STMicroelectronics/meta-st-stm32mp-oss.git layers/meta-openembedded
    cd layers/meta-openembedded
    git checkout -b WORKING origin/kirkstone
    cd -
