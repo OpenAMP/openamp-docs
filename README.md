@@ -1,5 +1,7 @@
 # openamp_docs
-OpenAMP Documentation for Sphinx
+OpenAMP Documentation sources for Sphinx
+
+If you are looking for the end-user version of the documentation, you can find [the OpenAMP Readthedocs site here](https://openamp.readthedocs.io/en/latest/index.html "OpenAMP Readthedocs site").
 
 ## online review
 
