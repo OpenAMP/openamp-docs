@@ -3,9 +3,9 @@ name: 'Submodules Sync'
 on:
   # Allows you to run this workflow manually from the Actions tab or through HTTP API
   workflow_dispatch:
-  # run nightly at 4:10 AM UTC (11:10 PM US eastern, 8:10 PM US western)
+  # run on Sunday at 4:10 AM UTC (11:10 PM US eastern, 8:10 PM US western)
   schedule:
-    - cron:  '10 4 * * *'
+    - cron:  '10 4 * * 0'
 
 jobs:
   sync:
