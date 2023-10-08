@@ -13,3 +13,6 @@
 [submodule "libmetal"]
 	path = libmetal
 	url = https://github.com/OpenAMP/libmetal.git
+[submodule "awesome"]
+	path = _doxygen/awesome
+	url = https://github.com/jothepro/doxygen-awesome-css.git
