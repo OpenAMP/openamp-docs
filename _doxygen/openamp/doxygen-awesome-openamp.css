@@ -1,19 +1,22 @@
 /*
+ * This file contains color customizations that follow OpenAMP branding
+ * This file was originally copied from the Zephyr project and modified
+ * The original copyright and license are maintained below
+ *
  * Copyright (c) 2021 Nordic Semiconductor ASA
+ * Copyright (c) 2023 Linaro Ltd
  * SPDX-License-Identifier: Apache-2.0
  */
 
-/* This file contains color customizations that follow Zephyr's branding */
-
 html {
-    --primary-color: #af7fe4;
-    --primary-dark-color: #7929d2;
-    --primary-light-color: #cb99f6;
-    --primary-lighter-color: #dfc8fa;
-    --primary-lightest-color: #efe4fc;
+    --primary-color: #e86060;
+    --primary-dark-color: #d04040;
+    --primary-light-color: #c0c0c0;
+    --primary-lighter-color: #e0e0e0;
+    --primary-lightest-color: #f0f0f0;
 
-    --side-nav-background: #333f67;
-    --side-nav-foreground: #c3e3ff;
+    --side-nav-background: #343131;
+    --side-nav-foreground: #c0c0c0;
 
     --searchbar-background: var(--page-background-color);
     --searchbar-foreground: var(--page-foreground-color);
@@ -22,7 +25,7 @@ html {
     --param-color: #b71c1c;
 
     --side-nav-fixed-width: 300px;
-    --top-height: 220px;
+    --top-height: 280px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -35,7 +38,7 @@ html {
         --primary-lighter-color: #191e21;
         --primary-lightest-color: #191a1c;
 
-        --side-nav-background: #252628;
+        --side-nav-background: #343131;
         --side-nav-foreground: var(--page-foreground-color);
 
         --param-color: #ef9a9a;
@@ -45,13 +48,13 @@ html {
 html.dark-mode {
     color-scheme: dark;
 
-    --primary-color: #af7fe4;
-    --primary-dark-color: #cb99f6;
-    --primary-light-color: #7929d2;
+    --primary-color: #e86060;
+    --primary-dark-color: #d04040;
+    --primary-light-color: #707070;
     --primary-lighter-color: #191e21;
     --primary-lightest-color: #191a1c;
 
-    --side-nav-background: #252628;
+    --side-nav-background: #343131;
     --side-nav-foreground: var(--page-foreground-color);
 
     --param-color: #ef9a9a;
@@ -72,6 +75,7 @@ dl.section dd, dl.bug dd, dl.deprecated dd {
 /* adjust top and title to ~match Sphinx docs */
 #top {
     background: var(--side-nav-background);
+    background-image: url("triangle_background.png");
 }
 
 #titlearea {
@@ -83,8 +87,8 @@ dl.section dd, dl.bug dd, dl.deprecated dd {
 }
 
 #projectlogo img {
-    width: 200px;
-    height: 95px;
+    width:  150px;
+    height: 150px;
     max-height: none !important;
     padding-top: 12px;
 }
@@ -95,7 +99,7 @@ dl.section dd, dl.bug dd, dl.deprecated dd {
 
 @media screen and (min-width: 767px) {
     #doc-content {
-        padding-top: calc(var(--top-height) - 180px);
+        padding-top: calc(var(--top-height) - 220px);
     }
 }
 
@@ -104,4 +108,9 @@ dl.section dd, dl.bug dd, dl.deprecated dd {
     color: var(--side-nav-foreground);
     padding-top: 25px;
     text-align: center;
+    color: #ffffff;
+}
+
+#nav-sync {
+    visibility: hidden;
 }
