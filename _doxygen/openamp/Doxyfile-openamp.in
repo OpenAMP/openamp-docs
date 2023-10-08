@@ -1,0 +1,40 @@
+# Doxygen level overrides when building as part of OpenAMP-docs
+
+# Test cmake rebuild
+
+GENERATE_TREEVIEW       = YES
+TREEVIEW_WIDTH          = 400
+
+# Maybe go in base, or also in base?
+ALWAYS_DETAILED_SEC     = YES
+JAVADOC_AUTOBRIEF       = YES
+QT_AUTOBRIEF            = YES
+
+HTML_DYNAMIC_MENUS      = YES
+HTML_DYNAMIC_SECTIONS   = NO
+
+DISABLE_INDEX           = NO
+FULL_SIDEBAR            = NO
+HTML_COLORSTYLE         = LITE
+HTML_EXTRA_STYLESHEET   = \
+    @OAMP_DOX_DIR@/../awesome/doxygen-awesome.css \
+    @OAMP_DOX_DIR@/../awesome/doxygen-awesome-sidebar-only.css \
+    @OAMP_DOX_DIR@/doxygen-awesome-openamp.css
+
+HTML_EXTRA_FILES        = \
+    @OAMP_DOX_DIR@/doxygen-awesome-openamp.js \
+    @OAMP_DOX_DIR@/../../_static/images/triangle_background.png
+
+# For the toggle button (do we want it?)
+# even w/o the toggle button the page honors the system level preference
+HTML_EXTRA_STYLESHEET  += \
+    @OAMP_DOX_DIR@/../awesome/doxygen-awesome-sidebar-only-darkmode-toggle.css
+HTML_EXTRA_FILES       += \
+    @OAMP_DOX_DIR@/../awesome/doxygen-awesome-darkmode-toggle.js
+
+HTML_HEADER             = @OAMP_DOX_DIR@/header.html
+HTML_FOOTER             = @OAMP_DOX_DIR@/footer.html
+PROJECT_LOGO            = \
+    @OAMP_DOX_DIR@/../../_static/images/openAMP_combox_dark_trim.svg
+
+PROJECT_NUMBER          = "latest"
