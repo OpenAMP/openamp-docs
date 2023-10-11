@@ -4,3 +4,33 @@
 .wy-table-responsive table td, .wy-table-responsive table th {
 	    white-space: normal;
 }
+
+.wy-side-nav-search {
+    background: #000000;
+    background-image: url('../images/triangle_background.png');
+    height: 280px;
+}
+
+.wy-nav-top {
+    background: #000000;
+    background-image: url('../images/triangle_background.png');
+}
+
+.wy-side-nav-search .wy-dropdown>a img.logo, .wy-side-nav-search>a img.logo {
+    height: 150px;
+    width: 150px;
+}
+
+.wy-side-nav-search>div.version {
+    color: #ffffff;
+}
+
+.wy-menu-vertical header, .wy-menu-vertical p.caption {
+    color: #e86060;
+}
+
+/* The version header inserted by RTDs */
+.rst-versions .rst-current-version,  .rst-versions .rst-current-version .fa {
+    color: #201010;
+    background-color: #e86060;
+}

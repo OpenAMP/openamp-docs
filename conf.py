@@ -91,6 +91,11 @@ html_theme = 'sphinx_rtd_theme'
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 html_style = 'css/mystyle.css'
+html_logo  = '_static/images/openAMP_combox_dark_trim.svg'
+
+html_theme_options = {
+    'logo_only': True
+}
 
 # below copied / hacked from Zephyr projects' zephyr/doc/conf.py
 docs_title = "Docs / {}".format(version if is_release else "Latest")
