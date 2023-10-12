@@ -32,8 +32,8 @@ latest_url = "https://openamp.readthedocs.io/en/latest/"
 # -- Project information -----------------------------------------------------
 
 project = 'OpenAMP'
-copyright = '2022, OpenAMP Project'
-author = 'Tammy Leino'
+copyright = '2023, OpenAMP Project'
+author = 'OpenAMP Project'
 
 # The full version, including alpha/beta/rc tags
 release = ''
