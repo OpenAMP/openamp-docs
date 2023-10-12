@@ -104,8 +104,8 @@ html_context = {
     "latest_url": latest_url,
     "display_vcs_link": False,
     "reference_links": {
-        "OpenAMP API": f"{url_base}doxygen/openamp/index.html",
-        "Libmetal API": f"{url_base}doxygen/libmetal/index.html",
+        "open-amp API": f"{url_base}doxygen/openamp/index.html",
+        "libmetal API": f"{url_base}doxygen/libmetal/index.html",
         "System Devicetree Spec": f"{url_base}lopper/specification/source/index.html",
     }
 }
