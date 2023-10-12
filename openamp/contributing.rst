@@ -34,6 +34,6 @@ Platform maintainers
 
 Push rights
 -----------
-- Push rights restricted to Core Team
-- Generally exercised by top-level maintainer (Wendy Liang)
-- Maintainer manages delegation within core team
+- Push rights restricted to the Core Team
+- Generally exercised by the maintainers for each repository
+- Maintainers manage delegation between themselves
