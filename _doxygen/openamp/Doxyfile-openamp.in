@@ -34,6 +34,8 @@ HTML_EXTRA_FILES       += \
 
 HTML_HEADER             = @OAMP_DOX_DIR@/header.html
 HTML_FOOTER             = @OAMP_DOX_DIR@/footer.html
+LAYOUT_FILE             = @OAMP_DOX_DIR@/layout.xml
+
 PROJECT_LOGO            = \
     @OAMP_DOX_DIR@/../../_static/images/openAMP_combox_dark_trim.svg
 
