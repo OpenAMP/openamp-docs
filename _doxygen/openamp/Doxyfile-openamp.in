@@ -39,4 +39,4 @@ LAYOUT_FILE             = @OAMP_DOX_DIR@/layout.xml
 PROJECT_LOGO            = \
     @OAMP_DOX_DIR@/../../_static/images/openAMP_combox_dark_trim.svg
 
-PROJECT_NUMBER          = "latest"
+PROJECT_NUMBER          = "@VERSION_NAME@"

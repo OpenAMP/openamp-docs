@@ -12,7 +12,7 @@ url_base = os.environ.get('READTHEDOCS_CANONICAL_URL', "file:" + pwd + "/_build/
 if not url_base.endswith("/"):
     url_base = url_base + "/"
 
-version = os.environ.get('READTHEDOCS_VERSION', "latest")
+version = os.environ.get('READTHEDOCS_VERSION', "desk check")
 is_release = version.startswith(("v", "V"))
 is_pr = not is_release and version != "latest"
 latest_url = "https://openamp.readthedocs.io/en/latest/"

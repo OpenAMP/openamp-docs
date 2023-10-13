@@ -5,6 +5,7 @@
 # from the environment for the first two.
 SPHINXOPTS    ?=
 SPHINXBUILD   ?= sphinx-build
+READTHEDOCS_VERSION_NAME ?= "desk check"
 SOURCEDIR     = .
 BUILDDIR      = _build
 
@@ -29,11 +30,13 @@ help:
 doxygen: doxygen_libmetal doxygen_openamp
 
 doxygen_libmetal:
-	cmake -B${BUILDDIR}/libmetal -DWITH_DOC=true libmetal
+	cmake -B${BUILDDIR}/libmetal -DVERSION_NAME=${READTHEDOCS_VERSION_NAME} \
+           -DWITH_DOC=true libmetal
 	make -C ${BUILDDIR}/libmetal doc
 
 doxygen_openamp:
-	cmake -B${BUILDDIR}/openamp -DWITH_LIBMETAL_FIND=false -DWITH_DOC=true open-amp
+	cmake -B${BUILDDIR}/openamp -DVERSION_NAME=${READTHEDOCS_VERSION_NAME} \
+           -DWITH_LIBMETAL_FIND=false -DWITH_DOC=true open-amp
 	make -C ${BUILDDIR}/openamp doc
 
 # using hard coded name here to avoid bad things if BUILDDIR is ever empty or /
