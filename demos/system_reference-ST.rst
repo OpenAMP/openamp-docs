@@ -4,12 +4,14 @@
 System Reference Samples and Demos on STM32MP157C/F-DK2 board
 =============================================================
 
-Based on a fork of the yocto [meta-st-stm32mp-oss](https://github.com/STMicroelectronics/meta-st-stm32mp-oss) environment, designed to update and test upstream code on STM32MP boards,
+Based on a fork of the yocto [meta-st-stm32mp-oss]
+(https://github.com/STMicroelectronics/meta-st-stm32mp-oss) environment,designed to update and test
+upstream code on STM32MP boards,
 
 Prerequisite
 ------------
 
-Some specifics package could be needed to build the ST images. For details refer to  
+Some specifics package could be needed to build the ST images. For details refer to
 
 `STMPU wiki PC prerequisite <https://wiki.st.com/stm32mpu/wiki/PC_prerequisites>`_
 
@@ -36,44 +38,41 @@ At this step you should see following folder hierarchy:
 Generate the stm32mp15 image
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Install stm32mp1_distrib_oss kirkstone
+Install stm32mp1_distrib_oss Nanbield
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 From the stm32mp15-demo directory
 
 .. code-block:: console
 
+   export YOCTO_VER=nanbield
    cd stm32mp1_distrib_oss
-
    mkdir -p layers/meta-st
-   git clone https://github.com/openembedded/openembedded-core.git layers/openembedded-core
-   cd layers/openembedded-core
-   git checkout -b WORKING origin/kirkstone
-   cd -
 
-   git clone https://github.com/openembedded/bitbake.git layers/openembedded-core/bitbake
-   cd layers/openembedded-core/bitbake
-   git checkout -b WORKING  origin/2.0
+   git clone https://git.yoctoproject.org/git/poky layers/poky
+   cd layers/poky
+   git checkout -b WORKING origin/$YOCTO_VER
    cd -
 
    git clone https://github.com/openembedded/meta-openembedded.git layers/meta-openembedded
    cd layers/meta-openembedded
-   git checkout -b WORKING origin/kirkstone
+   git checkout -b WORKING origin/$YOCTO_VER
    cd -
 
    git clone https://github.com/STMicroelectronics/meta-st-stm32mp-oss.git layers/meta-st/meta-st-stm32mp-oss
    cd layers/meta-st/meta-st-stm32mp-oss
-   git checkout -b WORKING origin/kirkstone
+   git checkout -b WORKING origin/$YOCTO_VER
    cd -
 
 Initialize the Open Embedded build environment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The OpenEmbedded environment setup script must be run once in each new working terminal in which you use the BitBake or devtool tools (see later) from stm32mp15-demo/stm32mp1_distrib_oss directory
+The OpenEmbedded environment setup script must be run once in each new working terminal in which you
+use the BitBake or devtool tools (see later) from stm32mp15-demo/stm32mp1_distrib_oss directory
 
 .. code-block:: console
 
-   source ./layers/openembedded-core/oe-init-build-env build-stm32mp15-disco-oss
+   source ./layers/poky/oe-init-build-env build-stm32mp15-disco-oss
 
    bitbake-layers add-layer ../layers/meta-openembedded/meta-oe
    bitbake-layers add-layer ../layers/meta-openembedded/meta-perl
@@ -89,7 +88,7 @@ Build stm32mp1_distrib_oss image
 
 From stm32mp15-demo/stm32mp1_distrib_oss/build-stm32mp15-disco-oss/ directory
 
-::
+.. code-block:: console
 
    bitbake core-image-base
 
@@ -101,34 +100,27 @@ Note that
 Install stm32mp1_distrib_oss
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-From 'stm32mp15-demo/stm32mp1_distrib_oss/build-stm32mp15-disco-oss/' directory,populate your microSD card inserted on your HOST PC using command
+From 'stm32mp15-demo/stm32mp1_distrib_oss/build-stm32mp15-disco-oss/' directory,populate your
+microSD card inserted on your HOST PC using command
 
 .. code-block:: console
 
    cd tmp-glibc/deploy/images/stm32mp15-disco-oss/
-   # flash wic image on your sdcar. replace <device> by mmcblk<X> (X = 0,1..) or sd<Y> ( Y = b,c,d,..) depending on the connection 
-   dd if=core-image-base-stm32mp15-disco-oss.wic of=/dev/<device> bs=8M conv=fdatasync
+   # Eject potential media mounted from the sdcardreplace <device> by mmcblk<X> (X = 0,1..) or
+   #sd<Y>( Y = b,c,d,..) depending on the connection
+   sudo eject /dev/<device>
+   # Flash wic image on your sdcar. replace <device> by mmcblk<X> (X = 0,1..) or
+   #sd<Y>( Y = b,c,d,..) depending on the connection
+   sudo dd if=core-image-base-stm32mp15-disco-oss.rootfs.wic of=/dev/<device> bs=8M conv=fdatasync status=progress
 
 
 Generate the Zephyr rpmsg multi service example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Prerequisite
-^^^^^^^^^^^^
-
-Please refer to the `Getting Started Guide
-<https://docs.zephyrproject.org/latest/develop/getting_started/index.html>`_
-zephyr documentation
-
 Initialize the Zephyr environment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. code-block:: console
-
-   cd zephy_rpmsg_multi_services
-   git clone https://github.com/OpenAMP/openamp-system-reference.git
-   west init
-   west update
+Refer to  `zephyr example readme <https://openamp.readthedocs.io/en/latest/openamp-system-reference/examples/zephyr/README.html#initialization>`_ article.
 
 Build the Zephyr image
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -139,11 +131,15 @@ From the zephy_rpmsg_multi_services directory
 
    west build -b stm32mp157c_dk2 openamp-system-reference/examples/zephyr/rpmsg_multi_services
 
+For details refer to `rpmsg_multi_services readme <https://openamp.readthedocs.io/en/latest/openamp-system-reference/examples/zephyr/rpmsg_multi_services/README.html#building-the-application>`_ article.
+
 
 Install the Zephyr binary on the sdcard
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The Zephyr sample binary is available in the sub-folder of build directory stm32mp15-demo/zephy_rpmsg_multi_services/build/zephyr/rpmsg_multi_services.elf. It needs to be installed on the "rootfs" partition of the sdcard
+The Zephyr sample binary is available in the sub-folder of build directory
+stm32mp15-demo/zephy_rpmsg_multi_services/build/zephyr/rpmsg_multi_services.elf.
+It needs to be installed on the "rootfs" partition of the sdcard
 
 .. code-block:: console
 
@@ -151,6 +147,9 @@ The Zephyr sample binary is available in the sub-folder of build directory stm32
 
 Don't forget to properly unmoumt the sdcard partitions.
 
+.. code-block:: console
+
+   sudo eject /dev/<device>
 
 Demos
 -----
@@ -169,14 +168,14 @@ There are 2 ways to start the coprocessor:
 
 * During the runtime, by the Linux remoteproc framework
 
-.. code-block:: console
+   .. code-block:: console
 
-   root@stm32mp15-disco-oss:~# cat /sys/class/remoteproc/remoteproc0/state
-   offline
-   root@stm32mp15-disco-oss:~# echo rpmsg_multi_services.elf > /sys/class/remoteproc/remoteproc0/firmware
-   root@stm32mp15-disco-oss:~# echo start >/sys/class/remoteproc/remoteproc0/state
-   root@stm32mp15-disco-oss:~# cat /sys/class/remoteproc/remoteproc0/state
-   running
+      root@stm32mp15-disco-oss:~# cat /sys/class/remoteproc/remoteproc0/state
+      offline
+      root@stm32mp15-disco-oss:~# echo rpmsg_multi_services.elf > /sys/class/remoteproc/remoteproc0/firmware
+      root@stm32mp15-disco-oss:~# echo start >/sys/class/remoteproc/remoteproc0/state
+      root@stm32mp15-disco-oss:~# cat /sys/class/remoteproc/remoteproc0/state
+      running
 
 * In the boot stages, by the U-Boot remoteproc framework
 
@@ -213,7 +212,7 @@ There are 2 ways to start the coprocessor:
       STM32MP> run bootcmd
 
     To automatically load the firmware by U-Boot, refer to the
-    `STMicorelectronics wiki <https://wiki.st.com/stm32mpu/wiki/How_to_start_the_coprocessor_from_the_bootloader>`_
+    `STMicorelectronics wiki <https://wiki.st.com/stm32mpu/wiki/How_to_start_the_coprocessor_from_the_bootloader>`_.
 
 
     - Check that the remoteproc state is "detached"
@@ -231,7 +230,7 @@ There are 2 ways to start the coprocessor:
      root@stm32mp15-disco-oss:~# cat /sys/class/remoteproc/remoteproc0/state
      attached
 
-The communication with the Coprocessor is not initilaized, following traces on console
+The communication with the coprocessor is not initialized, following traces on console
 are observed:
 
 .. code-block:: console
@@ -259,7 +258,4 @@ This informs that following rpmsg channels devices have been created:
 Run the multi RPMsg services demo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. toctree::
-   :maxdepth: 2
-
-   ../openamp-system-reference/examples/zephyr/rpmsg_multi_services/README.rst
+Refer to `rmpsg multi service <https://openamp.readthedocs.io/en/latest/openamp-system-reference/examples/zephyr/rpmsg_multi_services/README.html#running-the-sample>`_ article.
