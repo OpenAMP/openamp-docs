@@ -4,12 +4,14 @@
 System Reference Samples and Demos on STM32MP157C/F-DK2 board
 =============================================================
 
-Based on a fork of the yocto [meta-st-stm32mp-oss](https://github.com/STMicroelectronics/meta-st-stm32mp-oss) environment, designed to update and test upstream code on STM32MP boards,
+Based on a fork of the yocto [meta-st-stm32mp-oss]
+(https://github.com/STMicroelectronics/meta-st-stm32mp-oss) environment,designed to update and test
+upstream code on STM32MP boards,
 
 Prerequisite
 ------------
 
-Some specifics package could be needed to build the ST images. For details refer to  
+Some specifics package could be needed to build the ST images. For details refer to
 
 `STMPU wiki PC prerequisite <https://wiki.st.com/stm32mpu/wiki/PC_prerequisites>`_
 
@@ -43,37 +45,34 @@ From the stm32mp15-demo directory
 
 .. code-block:: console
 
+   export YOCTO_VER=nanbield
    cd stm32mp1_distrib_oss
-
    mkdir -p layers/meta-st
-   git clone https://github.com/openembedded/openembedded-core.git layers/openembedded-core
-   cd layers/openembedded-core
-   git checkout -b WORKING origin/kirkstone
-   cd -
 
-   git clone https://github.com/openembedded/bitbake.git layers/openembedded-core/bitbake
-   cd layers/openembedded-core/bitbake
-   git checkout -b WORKING  origin/2.0
+   git clone https://git.yoctoproject.org/git/poky layers/poky
+   cd layers/poky
+   git checkout -b WORKING origin/$YOCTO_VER
    cd -
 
    git clone https://github.com/openembedded/meta-openembedded.git layers/meta-openembedded
    cd layers/meta-openembedded
-   git checkout -b WORKING origin/kirkstone
+   git checkout -b WORKING origin/$YOCTO_VER
    cd -
 
    git clone https://github.com/STMicroelectronics/meta-st-stm32mp-oss.git layers/meta-st/meta-st-stm32mp-oss
    cd layers/meta-st/meta-st-stm32mp-oss
-   git checkout -b WORKING origin/kirkstone
+   git checkout -b WORKING origin/$YOCTO_VER
    cd -
 
 Initialize the Open Embedded build environment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The OpenEmbedded environment setup script must be run once in each new working terminal in which you use the BitBake or devtool tools (see later) from stm32mp15-demo/stm32mp1_distrib_oss directory
+The OpenEmbedded environment setup script must be run once in each new working terminal in which you
+use the BitBake or devtool tools (see later) from stm32mp15-demo/stm32mp1_distrib_oss directory
 
 .. code-block:: console
 
-   source ./layers/openembedded-core/oe-init-build-env build-stm32mp15-disco-oss
+   source ./layers/poky/oe-init-build-env build-stm32mp15-disco-oss
 
    bitbake-layers add-layer ../layers/meta-openembedded/meta-oe
    bitbake-layers add-layer ../layers/meta-openembedded/meta-perl
@@ -101,13 +100,15 @@ Note that
 Install stm32mp1_distrib_oss
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-From 'stm32mp15-demo/stm32mp1_distrib_oss/build-stm32mp15-disco-oss/' directory,populate your microSD card inserted on your HOST PC using command
+From 'stm32mp15-demo/stm32mp1_distrib_oss/build-stm32mp15-disco-oss/' directory,populate your
+microSD card inserted on your HOST PC using command
 
 .. code-block:: console
 
    cd tmp-glibc/deploy/images/stm32mp15-disco-oss/
-   # flash wic image on your sdcar. replace <device> by mmcblk<X> (X = 0,1..) or sd<Y> ( Y = b,c,d,..) depending on the connection 
-   dd if=core-image-base-stm32mp15-disco-oss.wic of=/dev/<device> bs=8M conv=fdatasync
+   # flash wic image on your sdcar. replace <device> by mmcblk<X> (X = 0,1..) or
+   #sd<Y>( Y = b,c,d,..) depending on the connection 
+   dd if=core-image-base-stm32mp15-disco-oss.rootfs.wic of=/dev/<device> bs=8M conv=fdatasync
 
 
 Generate the Zephyr rpmsg multi service example
@@ -143,7 +144,9 @@ From the zephy_rpmsg_multi_services directory
 Install the Zephyr binary on the sdcard
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The Zephyr sample binary is available in the sub-folder of build directory stm32mp15-demo/zephy_rpmsg_multi_services/build/zephyr/rpmsg_multi_services.elf. It needs to be installed on the "rootfs" partition of the sdcard
+The Zephyr sample binary is available in the sub-folder of build directory
+stm32mp15-demo/zephy_rpmsg_multi_services/build/zephyr/rpmsg_multi_services.elf.
+It needs to be installed on the "rootfs" partition of the sdcard
 
 .. code-block:: console
 
