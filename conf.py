@@ -6,6 +6,8 @@
 
 # -- Work flow context -------------------------------------------------------
 import os
+import subprocess
+from datetime import datetime
 
 pwd = os.getcwd()
 url_base = os.environ.get('READTHEDOCS_CANONICAL_URL', "file:" + pwd + "/_build/html/")
@@ -31,8 +33,13 @@ latest_url = "https://openamp.readthedocs.io/en/latest/"
 
 # -- Project information -----------------------------------------------------
 
+# Get the commit year of the head commit
+ts = subprocess.check_output(['git', 'show', '--no-patch', '--no-notes', '--format=%ct', 'HEAD'])
+ts = int(ts)
+year = datetime.utcfromtimestamp(ts).strftime('%Y')
+copyright = year + ", OpenAMP project"
+
 project = 'OpenAMP'
-copyright = '2023, OpenAMP Project'
 author = 'OpenAMP Project'
 
 # The full version, including alpha/beta/rc tags
