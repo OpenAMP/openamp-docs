@@ -151,6 +151,36 @@ Don't forget to properly unmoumt the sdcard partitions.
 
    sudo eject /dev/<device>
 
+Build and install the rpmsg-utils tools
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This chapter explains how to build and install the `rpmsg-utils <https://github.com/OpenAMP/openamp-system-reference/tree/main/examples/linux/rpmsg-utils>`_
+for the STM32MP157C/F-DK2 board.
+
+
+
+Download XXXX-none-linux-gnu AArch32 GNU/Linux target cross toolchains from:
+ `arm developer page <https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads>`_.
+
+Build the rpmsg-utils binaries:
+
+.. code-block:: console
+
+  # <compiler path> has to be updated by the path of the arm toolchain.
+  export CC="<compiler path>/bin/arm-none-linux-gnueabihf-gcc -mthumb -mfpu=neon-vfpv4 -mfloat-abi=hard -mcpu=cortex-a7"
+  make
+
+Install the tools on the sdcard
+.. code-block:: console
+
+   sudo cp rpmsg_destroy_ept rpmsg_export_dev rpmsg_export_ept rpmsg_ping <mountpoint>/rootfs/usr/bin/
+
+Don't forget to properly unmoumt the sdcard partitions.
+
+.. code-block:: console
+
+   sudo eject /dev/<device>
+
+
 Demos
 -----
 
