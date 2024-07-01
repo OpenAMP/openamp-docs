@@ -288,4 +288,4 @@ This informs that following rpmsg channels devices have been created:
 Run the multi RPMsg services demo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Refer to `rmpsg multi service <https://openamp.readthedocs.io/en/latest/openamp-system-reference/examples/zephyr/rpmsg_multi_services/README.html#running-the-sample>`_ article.
+Refer to `rpmsg multi service <https://openamp.readthedocs.io/en/latest/openamp-system-reference/examples/zephyr/rpmsg_multi_services/README.html#running-the-sample>`_ article.
