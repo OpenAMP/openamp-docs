@@ -45,7 +45,7 @@ From the stm32mp15-demo directory
 
 .. code-block:: console
 
-   export YOCTO_VER=nanbield
+   export YOCTO_VER=scarthgap
    cd stm32mp1_distrib_oss
    mkdir -p layers/meta-st
 
