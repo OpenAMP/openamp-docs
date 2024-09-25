@@ -6,13 +6,92 @@ Project Overview
 OpenAMP Intro
 *************
 
-OpenAMP is a community effort that is standardizing and implementing how multiple embedded environments interact with each other using AMP. It provides conventions and standards as well as an open source implementation to facilitate AMP development for embedded systems. Read more about Asymmentric Multiprocessing :ref:`here<asymmetric-multiprocessing-work-label>`. 
+`Asymmetric Multiprocessing (AMP) <https://en.wikipedia.org/wiki/Asymmetric_multiprocessing>`_ involves the management, control and communication of multiple computer systems, where processors have independent tasks and are often in a `heteregenous <https://en.wikipedia.org/wiki/Heterogeneous_computing>`_ embedded environment where there are different types of processors. This is in contrast to `Symmetric Multiprocessing (SMP) <https://en.wikipedia.org/wiki/Symmetric_multiprocessing>`_ which involves central control and load sharing using identical processor cores and is common place in servers and desktop computers.
+
+The **OpenAMP** project is a community effort that is standardizing and implementing how these multiple embedded systems interact with each other in an AMP environment. It provides conventions and standards as well as an open source implementation to facilitate AMP development for embedded systems.
 
 The vision is that regardless of the operating environment/operating system, it should be possible to use identical interfaces to interact with other operating environments in the same system.
 
 Furthermore, these operating environments can interoperate over a standardized protocol, making it possible to mix and match any two or more operating systems in the same device.
 
+Read more about Asymmetric Multiprocessing :ref:`here<asymmetric-multiprocessing-work-label>`.
+
+********************
+OpenAMP Fundamentals
+********************
+
+There are some AMP fundamentals which influence the OpenAMP Architecture choices.
+
+* **Topology**: Different runtime systems need to coexist and collaborate as `Asymmetric Multiprocessing <https://en.wikipedia.org/wiki/Asymmetric_multiprocessing>`_ sets no restrictions on how systems can or should be utilized.
+* **Resource Assignment**: Resources need to be assigned and shared into **run time domains**
+* **Runtime Control**: Remote application/firmware loading, starting and stopping is required to manage the system.
+* **IPC**: `Inter Processor Communications <https://en.wikipedia.org/wiki/Inter-process_communication>`_ needs to be established to enable communication and control.
+* **Resource Isolation**: AMP systems can be supervised (using a hypervisor) or unsupervised.
+
+Topology
+========
+
+The OpenAMP framework assumes a master-slave system architecture, but otherwise the **topology** of the different runtime systems may be star, chain or a combination.
+
+.. image:: ../images/topo_types.jpg
+
+A master will control one or more slaves each on a remote processor (star), and any remote processor could also act as a master to control another slave on a different remote processor (chain).
+
+To exemplify the following sections use diagrams detailing a star topology with a single Linux master and dual slaves, with one remote running an RTOS and the other a bare metal image.
+
+.. raw:: html
+    :file: ../images/fundamentals/master-2-slave.svg
+
+
+Resource Assignment
+===================
+
+This diagram details the Resource Assignment using a different color for each **runtime domain**.
+
+.. raw:: html
+    :file: ../images/fundamentals/resource-assignment.svg
+
+The yellow colored boxes are the Linux **runtime domain** as the master running on a single processor, utilizing the two cores in a `Symmetric Multiprocessing <https://en.wikipedia.org/wiki/Symmetric_multiprocessing>`_ setup, and the green and blue colored boxes details the RTOS and Bare Metal slave applications each running on a single core of a remote processor as their own **runtime domain**. The Linux system shares memory with both slaves, but the slave applications do not share memory. Each domain owns independent peripherals in the system. Although the Linux domain is `SMP <https://en.wikipedia.org/wiki/Symmetric_multiprocessing>`_, all three **runtime domains** together make up an `AMP <https://en.wikipedia.org/wiki/Asymmetric_multiprocessing>`_ system.
+
+Runtime Control
+===============
+
+.. raw:: html
+    :file: ../images/fundamentals/runtime-control.svg
+
+With the domains defined, **runtime control** of the asymmetric slave applications can be started. The master will load the images as required. In this example the RTOS image could be loaded at power on to perform say environmental instrument monitoring and the bare metal image on demand to perform some specific high intensity calculations, but stopped on completion for power savings.
+
+Inter Processor Communications
+==============================
+
+.. raw:: html
+    :file: ../images/fundamentals/ipc.svg
+
+`Inter Processor Communications <https://en.wikipedia.org/wiki/Inter-process_communication>`_ is performed through shared memory and is between master and slave. In this star topology example the slaves can not communicate with each other. If that were required a chain topology would allow one remote to contain a slave and a master in which case they could communicate.
+
+Resource Isolation
+==================
+
+Resources are shared, so the ability to utilise a supervisor, such as a hypervisor, to enforce isolatation is an important requirement for the :ref:`OpenAMP Architecture<openamp-architecture>`, along with the previously mentioned fundamentals.
+
+.. _openamp-architecture:
+
+********************
+OpenAMP Architecture
+********************
+
+`Asymmetric Multiprocessing (AMP) <https://en.wikipedia.org/wiki/Asymmetric_multiprocessing>`_ does not specify that
+
+
+
+
 Read more about OpenAMP System Considerations :ref:`here<porting-guide-work-label>`.
+
+
+
+************
+Project Aims
+************
 
 To accomplish the above, OpenAMP is divided into the following efforts:
 
