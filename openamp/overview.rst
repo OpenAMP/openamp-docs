@@ -16,6 +16,8 @@ Furthermore, these operating environments can interoperate over a standardized p
 
 Read more about Asymmetric Multiprocessing :ref:`here<asymmetric-multiprocessing-work-label>`.
 
+.. _openamp-fundamentals-work-label:
+
 ********************
 OpenAMP Fundamentals
 ********************
@@ -27,6 +29,9 @@ There are some AMP fundamentals which influence the OpenAMP Architecture choices
 * **Runtime Control**: Remote application/firmware loading, starting and stopping is required to manage the system.
 * **IPC**: `Inter Processor Communications <https://en.wikipedia.org/wiki/Inter-process_communication>`_ needs to be established to enable communication and control.
 * **Resource Isolation**: AMP systems can be supervised (using a hypervisor) or unsupervised.
+
+
+.. _topology-work-label:
 
 Topology
 ========
@@ -42,6 +47,7 @@ To exemplify the following sections use diagrams detailing a star topology with 
 .. raw:: html
     :file: ../images/fundamentals/master-2-slave.svg
 
+.. _resource-assignment-work-label:
 
 Resource Assignment
 ===================
@@ -53,6 +59,8 @@ This diagram details the Resource Assignment using a different color for each **
 
 The yellow colored boxes are the Linux **runtime domain** as the master running on a single processor, utilizing the two cores in a `Symmetric Multiprocessing <https://en.wikipedia.org/wiki/Symmetric_multiprocessing>`_ setup, and the green and blue colored boxes details the RTOS and Bare Metal slave applications each running on a single core of a remote processor as their own **runtime domain**. The Linux system shares memory with both slaves, but the slave applications do not share memory. Each domain owns independent peripherals in the system. Although the Linux domain is `SMP <https://en.wikipedia.org/wiki/Symmetric_multiprocessing>`_, all three **runtime domains** together make up an `AMP <https://en.wikipedia.org/wiki/Asymmetric_multiprocessing>`_ system.
 
+.. _runtime-control-work-label:
+
 Runtime Control
 ===============
 
@@ -61,32 +69,43 @@ Runtime Control
 
 With the domains defined, **runtime control** of the asymmetric slave applications can be started. The master will load the images as required. In this example the RTOS image could be loaded at power on to perform say environmental instrument monitoring and the bare metal image on demand to perform some specific high intensity calculations, but stopped on completion for power savings.
 
+.. _ipc-work-label:
+
 Inter Processor Communications
 ==============================
 
 .. raw:: html
     :file: ../images/fundamentals/ipc.svg
 
-`Inter Processor Communications <https://en.wikipedia.org/wiki/Inter-process_communication>`_ is performed through shared memory and is between master and slave. In this star topology example the slaves can not communicate with each other. If that were required a chain topology would allow one remote to contain a slave and a master in which case they could communicate.
+`Inter Processor Communications <https://en.wikipedia.org/wiki/Inter-process_communication>`_ is performed through shared memory and is between master and slave. In this star topology example the slaves cannot communicate with each other. If that were required a chain topology would allow one remote to contain a slave and a master in which case they could communicate.
+
+.. _resource-isolation-work-label:
 
 Resource Isolation
 ==================
 
-Resources are shared, so the ability to utilise a supervisor, such as a hypervisor, to enforce isolatation is an important requirement for the :ref:`OpenAMP Architecture<openamp-architecture>`, along with the previously mentioned fundamentals.
+Resources are shared, so the ability to utilise a supervisor, such as a hypervisor, to enforce isolation is an important consideration for the :ref:`OpenAMP Architecture<openamp-architecture-work-label>`, as some implementations may require it - for example in safety applications.
 
-.. _openamp-architecture:
+.. _openamp-architecture-work-label:
 
 ********************
 OpenAMP Architecture
 ********************
 
-`Asymmetric Multiprocessing (AMP) <https://en.wikipedia.org/wiki/Asymmetric_multiprocessing>`_ does not specify that
+The OpenAMP architecture or framework utilizes a number of distinct components to achieve the :ref:`OpenAMP Fundamentals<openamp-fundamentals-work-label>`, with most of them using or derived from existing standards or frameworks.
 
+The :ref:`Topology <topology-work-label> is limited to master-slave but otherwise implementation specific.
 
+The architecture is exemplified below via a daisy chained topology, with the centre processor being both slave and master for the next processor in the chain.
 
+.. raw:: html
+    :file: ../images/architecture/overview-architecture.svg
 
-Read more about OpenAMP System Considerations :ref:`here<porting-guide-work-label>`.
+:ref:`Runtime Control<runtime-control-work-label>` is part of the :ref:`Life Cycle Management (LCM)<lcm-work-label>` of the remote(s) and performed through the remoteproc component which allows for the loading of the firmwares to the remote processor and starting and stopping the remote.
 
+:ref:`Resource Assignment<resource-assignment-work-label>` is also achieved through the remoteproc component utilizing a Resource Table, which provides the memory and peripheral allocation as well as information for establishing the IPC between associated processors.
+
+Standardization of the IPC is promoted by the OpenAMP project through the use of :ref:`RPMsg <rpmsg-protocol-work-label>`, using `Open Standard Virtio devices <https://docs.oasis-open.org/virtio/virtio/v1.3/virtio-v1.3.html>`_ as the HW abstraction or MAC layer. The abstraction using Virtio means that the implementer can optionally use :ref:`Resource Isolation<resource-isolation-work-label>` via a hypervisor, which is exemplified by the first processor in the architecture diagram. The other two processors are in what is referred to as a hypervisorless-virtio setup because they are using virtio (virtual io) as an abstraction layer but without a hypervisor.
 
 
 ************
@@ -108,6 +127,9 @@ To accomplish the above, OpenAMP is divided into the following efforts:
         - BSD License
         - Please join the :ref:`OpenAMP open source project<openamp-maintenance-work-label>`!
         - See https://github.com/OpenAMP/open-amp
+
+Read more about OpenAMP System Considerations :ref:`here<porting-guide-work-label>`.
+
 
 **********************
 Operating Environments
