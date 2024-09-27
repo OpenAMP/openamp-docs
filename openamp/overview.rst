@@ -22,7 +22,7 @@ Read more about Asymmetric Multiprocessing :ref:`here<asymmetric-multiprocessing
 OpenAMP Fundamentals
 ********************
 
-There are some AMP fundamentals which influence the OpenAMP Architecture choices.
+There are some AMP fundamentals which influence the OpenAMP architecture.
 
 * **Topology**: Different runtime systems need to coexist and collaborate as `Asymmetric Multiprocessing <https://en.wikipedia.org/wiki/Asymmetric_multiprocessing>`_ sets no restrictions on how systems can or should be utilized.
 * **Resource Assignment**: Resources need to be assigned and shared into **run time domains**
@@ -42,7 +42,7 @@ The OpenAMP framework assumes a master-slave system architecture, but otherwise 
 
 A master will control one or more slaves each on a remote processor (star), and any remote processor could also act as a master to control another slave on a different remote processor (chain).
 
-To exemplify the following sections use diagrams detailing a star topology with a single Linux master and dual slaves, with one remote running an RTOS and the other a bare metal image.
+To exemplify, the following sections use diagrams detailing a star topology with a single Linux master and dual slaves, with one remote running an RTOS and the other a bare metal image.
 
 .. raw:: html
     :file: ../images/fundamentals/master-2-slave.svg
@@ -77,7 +77,7 @@ Inter Processor Communications
 .. raw:: html
     :file: ../images/fundamentals/ipc.svg
 
-`Inter Processor Communications <https://en.wikipedia.org/wiki/Inter-process_communication>`_ is performed through shared memory and is between master and slave. In this star topology example the slaves cannot communicate with each other. If that were required a chain topology would allow one remote to contain a slave and a master in which case they could communicate.
+`Inter Processor Communications <https://en.wikipedia.org/wiki/Inter-process_communication>`_ is performed through shared memory and is between master and slave. In this star topology example the slaves cannot communicate with each other. If that were required a chain topology would be used instead to allow one remote to be both a slave and a master in which case they could communicate (refer to :ref:`Architecture Section<openamp-architecture-work-label>` for an example).
 
 .. _resource-isolation-work-label:
 
@@ -86,17 +86,35 @@ Resource Isolation
 
 Resources are shared, so the ability to utilise a supervisor, such as a hypervisor, to enforce isolation is an important consideration for the :ref:`OpenAMP Architecture<openamp-architecture-work-label>`, as some implementations may require it - for example in safety applications.
 
+
 .. _openamp-architecture-work-label:
 
 ********************
 OpenAMP Architecture
 ********************
 
-The OpenAMP architecture or framework utilizes a number of distinct components to achieve the :ref:`OpenAMP Fundamentals<openamp-fundamentals-work-label>`, with most of them using or derived from existing standards or frameworks.
+The OpenAMP architecture or framework utilizes a number of distinct components to achieve the :ref:`OpenAMP Fundamentals<openamp-fundamentals-work-label>`, with most of them using or derived from existing standards or frameworks. Additionally a hardware abstraction component, libmetal, provides for portability across different platforms.
 
-The :ref:`Topology <topology-work-label> is limited to master-slave but otherwise implementation specific.
+The components comprising OpenAMP are
 
-The architecture is exemplified below via a daisy chained topology, with the centre processor being both slave and master for the next processor in the chain.
+.. csv-table:: Completed sections
+   :header: "AMP Component", "AMP Fundamentals"
+   :widths: 50, 60
+
+    Remoteproc, Resource Assignment and Runtime Control
+    Resource Table, Resource Assignment
+    RPMsg, IPC
+    Virtio, Hardware Abstraction
+    Proxy, IPC for File Input Output (IO)
+    Remote Procedure Call (RPC) Service, IPC
+    Libmetal, Hardware Abstraction
+
+
+The :ref:`Topology<topology-work-label> is limited to master-slave but otherwise open to the implementation.
+
+The architecture is exemplified below via a daisy chained topology, with the center processor being both slave and master for the next processor in the chain.
+
+In an attempt to keep the diagrams clear, only OpenAMP components used by each processor are drawn.
 
 .. raw:: html
     :file: ../images/architecture/overview-architecture.svg
@@ -105,64 +123,66 @@ The architecture is exemplified below via a daisy chained topology, with the cen
 
 :ref:`Resource Assignment<resource-assignment-work-label>` is also achieved through the remoteproc component utilizing a Resource Table, which provides the memory and peripheral allocation as well as information for establishing the IPC between associated processors.
 
-Standardization of the IPC is promoted by the OpenAMP project through the use of :ref:`RPMsg <rpmsg-protocol-work-label>`, using `Open Standard Virtio devices <https://docs.oasis-open.org/virtio/virtio/v1.3/virtio-v1.3.html>`_ as the HW abstraction or MAC layer. The abstraction using Virtio means that the implementer can optionally use :ref:`Resource Isolation<resource-isolation-work-label>` via a hypervisor, which is exemplified by the first processor in the architecture diagram. The other two processors are in what is referred to as a hypervisorless-virtio setup because they are using virtio (virtual io) as an abstraction layer but without a hypervisor.
+Standardization of the IPC is promoted by the OpenAMP project through the use of :ref:`RPMsg <rpmsg-protocol-work-label>`, using `Open Standard Virtio devices <https://docs.oasis-open.org/virtio/virtio/v1.3/virtio-v1.3.html>`_ as a HW abstraction or MAC layer. The abstraction using Virtio means that the implementer can optionally use :ref:`Resource Isolation<resource-isolation-work-label>` via a hypervisor, which is exemplified by the first processor in the architecture diagram. The other two processors are in what is referred to as a hypervisorless-virtio setup because they are using virtio (virtual io) as an abstraction layer but without a hypervisor.
 
+The OpenAMP Proxy and RPC Service are higher level IPC components.
 
-************
-Project Aims
-************
+The proxy provides file IO on the remote allowing access to the filesystem on the master. In the architecture diagram the center processor slave proxy's file IO from its master on the left.
 
-To accomplish the above, OpenAMP is divided into the following efforts:
-
-    * A standardization group under Linaro Community Projects
-        - Standardizing the low-level protocol that allows systems to interact (:ref:`more info here<rpmsg-protocol-work-label>`)
-            + Built on top of `virtio <https://github.com/OpenAMP/open-amp/wiki/OpenAMP-RPMsg-Virtio-Implementation>`_ BROKEN LINK
-        - Standardizing on the user level APIs that allow applications to be portable
-            + `RPMSG <https://github.com/OpenAMP/open-amp/wiki/RPMsg-API-Usage>`_ BROKEN LINK
-            + :ref:`remoteproc<lcm-work-label>`
-        - Standardizing on the low-level :ref:`OS/HW abstraction layer<porting-guide-work-label>` that abstracts the open source implementation from the underlying OS and hardware, simplifying the porting to new environments
-
-    * An open source project that implements a clean-room implementation of OpenAMP
-        - Runs in multiple environments, see below
-        - BSD License
-        - Please join the :ref:`OpenAMP open source project<openamp-maintenance-work-label>`!
-        - See https://github.com/OpenAMP/open-amp
-
-Read more about OpenAMP System Considerations :ref:`here<porting-guide-work-label>`.
-
-
-**********************
-Operating Environments
-**********************
-
-OpenAMP is supported in various operating environments through an a) OpenAMP open source project (OAOS), b) a Linux kernel project (OALK), and c) multiple proprietary implementations (OAPI). The Linux kernel support (OALK) comes through the regular remoteproc/RPMsg/Virtio efforts in the kernel.
-
-The operating environments that OpenAMP supports include:
-
-    - Linux user space - OAOS
-    - Linux kernel - OALK
-    - Multiple RTOS's - OAOS/OAPI including Nucleus, FreeRTOS, uC/OS, VxWorks and more
-    - Bare Metal (No OS) - OAOS
-    - In OS's on top of hypervisors - OAOS/OAPI
-    - Within hypervisors - OAPI
-
-********************
-OpenAMP Capabilities
-********************
-
-OpenAMP currently supports the following interactions between operating environments:
-
-    - Lifecycle operations - Such as starting and stopping another environment
-    - Messaging - Sending and receiving messages
-    - Proxy operations - Remote access to systems services such as file system
+The RPC service provides for remote procedure calls from a server to a client. In the architecture diagram the right hand processor has the RPC server servicing the center master processors RPC client.
 
 Read more about the OpenAMP System Components :ref:`here<openamp-components-work-label>`.
 
 In the future OpenAMP is envisioned to also encompass other areas important in a heterogeneous environment, such as power management and managing the lifecycle of non-CPU devices.
 
-******************
-OpenAMP Guidelines
-******************
+.. _project-aims-work-label:
+
+************
+Project Aims
+************
+
+To provide a solution to cover the :ref:`AMP Fundamentals<openamp-fundamentals-work-label>` the OpenAMP project is divided into the following efforts:
+
+    * A standardization group under Linaro Community Projects
+        - Standardizing the low-level protocol that allows systems to interact (:ref:`more info here<rpmsg-protocol-work-label>`)
+            + Built on top of the `Virtio Open Standard <https://docs.oasis-open.org/virtio/virtio/v1.3/virtio-v1.3.html>`_
+        - Standardizing on the user level APIs that allow applications to be portable
+            + :ref:`RPMSG<rpmsg-protocol-work-label>`
+            + :ref:`remoteproc<lcm-work-label>`
+        - Standardizing on the low-level :ref:`OS/HW abstraction layer<porting-guide-work-label>` that abstracts the open source implementation from the underlying OS and hardware, simplifying the porting to new environments
+
+    * An open source project that implements a clean-room implementation of OpenAMP
+        - Runs in :ref:`multiple environments<operating-environments-work-label>`
+        - BSD License
+
+
+.. _operating-environments-work-label:
+
+**********************
+Operating Environments
+**********************
+
+OpenAMP aims to provide components which are portable and aim to be environment agnostic.
+
+The result is that OpenAMP is supported in various operating environments through an a) `OpenAMP open source project (OAOS) <https://github.com/OpenAMP/open-amp>`_, b) a Linux kernel project (OALK), and c) multiple proprietary implementations (OAPI). The Linux kernel support (OALK) comes through the regular `remoteproc <https://www.kernel.org/doc/html/latest/staging/remoteproc.html>`_/`RPMsg <https://www.kernel.org/doc/html/latest/staging/rpmsg.html>`_/`Virtio <https://docs.kernel.org/driver-api/virtio/virtio.html>`_ efforts in the kernel.
+
+The operating environments that OpenAMP supports include:
+
+    - Linux user space - OAOS
+    - Linux kernel - OALK
+    - Multiple RTOS's - OAOS/OAPI including `Nucleus <https://resources.sw.siemens.com/en-US/fact-sheet-nucleus-rtos>`_, `FreeRTOS <https://freertos.org/>`_, `uC/OS <https://www.osrtos.com/rtos/uc-os-iii/>`_, `VxWorks <https://www.windriver.com/products/vxworks>`_, `Zephyr <https://www.zephyrproject.org/>`_ and more
+    - Bare Metal (No OS) - OAOS
+    - In OS's on top of hypervisors - OAOS/OAPI
+    - Within hypervisors - OAPI
+
+
+.. _governance-work-label:
+
+*********************************
+OpenAMP Governance and Guidelines
+*********************************
+
+The OpenAMP Project governance is detailed on the `OpenAMP Project Page <https://www.openampproject.org/governance/>`_.
 
 There are a few guiding principles that governs OpenAMP:
 
@@ -173,3 +193,8 @@ There are a few guiding principles that governs OpenAMP:
     - Never standardize on anything unless there is an open source implementation that can prove it
     - Always be backwards compatible (unless there is a really, really good reason to change)
         * In particular make sure to be compatible with the Linux kernel implementation of remoteproc/RPMsg/virtio
+
+There are a number of project members as outlined in `OpenAMP Project Page <https://www.openampproject.org/about/>`_ as well as many community members, so please join the :ref:`OpenAMP open source project<openamp-maintenance-work-label>`!
+    - See https://github.com/OpenAMP/open-amp
+
+If you want to contribute and port OpenAMP to your platform read more about OpenAMP porting :ref:`here<porting-guide-work-label>`.
