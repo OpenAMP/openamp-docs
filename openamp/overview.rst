@@ -42,7 +42,7 @@ The OpenAMP framework assumes a master-slave system architecture, but otherwise 
 
 A master will control one or more slaves each on a remote processor (star), and any remote processor could also act as a master to control another slave on a different remote processor (chain).
 
-To exemplify, the following sections use diagrams detailing a star topology with a single Linux master and dual slaves, with one remote running an RTOS and the other a bare metal image.
+To exemplify, the following sections use diagrams detailing a star topology with a single Linux master and dual slaves, with one remote running an RTOS and the other a bare metal image. The choice of operating systems is arbitrary and just for this example.
 
 .. raw:: html
     :file: ../images/fundamentals/master-2-slave.svg
@@ -84,7 +84,7 @@ Inter Processor Communications
 Resource Isolation
 ==================
 
-Resources are shared, so the ability to utilise a supervisor, such as a hypervisor, to enforce isolation is an important consideration for the :ref:`OpenAMP Architecture<openamp-architecture-work-label>`, as some implementations may require it - for example in safety applications.
+Resources are shared, so the ability to utilise a supervisor, such as a hypervisor, to enforce isolation is an important consideration for the :ref:`OpenAMP Architecture<openamp-architecture-work-label>`, as some implementations may have it as a safety requirement.
 
 
 .. _openamp-architecture-work-label:
@@ -97,14 +97,14 @@ The OpenAMP architecture or framework utilizes a number of distinct components t
 
 The components comprising OpenAMP are
 
-.. csv-table:: Completed sections
+.. csv-table::
    :header: "AMP Component", "AMP Fundamentals"
    :widths: 50, 60
 
     Remoteproc, Resource Assignment and Runtime Control
     Resource Table, Resource Assignment
     RPMsg, IPC
-    Virtio, Hardware Abstraction
+    Virtio, Hypervisor and Hardware Abstraction
     Proxy, IPC for File Input Output (IO)
     Remote Procedure Call (RPC) Service, IPC
     Libmetal, Hardware Abstraction
@@ -114,7 +114,7 @@ The :ref:`Topology<topology-work-label> is limited to master-slave but otherwise
 
 The architecture is exemplified below via a daisy chained topology, with the center processor being both slave and master for the next processor in the chain.
 
-In an attempt to keep the diagrams clear, only OpenAMP components used by each processor are drawn.
+In an attempt to keep the diagrams clear, not all OpenAMP components are drawn on each processor.
 
 .. raw:: html
     :file: ../images/architecture/overview-architecture.svg
@@ -127,9 +127,9 @@ Standardization of the IPC is promoted by the OpenAMP project through the use of
 
 The OpenAMP Proxy and RPC Service are higher level IPC components.
 
-The proxy provides file IO on the remote allowing access to the filesystem on the master. In the architecture diagram the center processor slave proxy's file IO from its master on the left.
+The proxy provides file IO on the remote allowing access to the filesystem on the master. This provides a mechanism for remotes to access files occasionally without having to introduce a full filesystem on the remote. In the architecture diagram the center processor slave proxy's file IO from its master on the left.
 
-The RPC service provides for remote procedure calls from a server to a client. In the architecture diagram the right hand processor has the RPC server servicing the center master processors RPC client.
+The RPC service provides for remote procedure calls from a server to a client. In the architecture diagram the right hand processor has the RPC server servicing the center master processor's RPC client.
 
 Read more about the OpenAMP System Components :ref:`here<openamp-components-work-label>`.
 
