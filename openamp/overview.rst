@@ -44,8 +44,7 @@ A master will control one or more slaves each on a remote processor (star), and 
 
 To exemplify, the following sections use diagrams detailing a star topology with a single Linux master and dual slaves, with one remote running an RTOS and the other a bare metal image. The choice of operating systems is arbitrary and just for this example.
 
-.. raw:: html
-    :file: ../images/fundamentals/master-2-slave.svg
+..  image:: ../images/fundamentals/master-2-slave.svg
 
 .. _resource-assignment-work-label:
 
@@ -54,8 +53,7 @@ Resource Assignment
 
 This diagram details the Resource Assignment using a different color for each **runtime domain**.
 
-.. raw:: html
-    :file: ../images/fundamentals/resource-assignment.svg
+..  image:: ../images/fundamentals/resource-assignment.svg
 
 The yellow colored boxes are the Linux **runtime domain** as the master running on a single processor, utilizing the two cores in a `Symmetric Multiprocessing <https://en.wikipedia.org/wiki/Symmetric_multiprocessing>`_ setup, and the green and blue colored boxes details the RTOS and Bare Metal slave applications each running on a single core of a remote processor as their own **runtime domain**. The Linux system shares memory with both slaves, but the slave applications do not share memory. Each domain owns independent peripherals in the system. Although the Linux domain is `SMP <https://en.wikipedia.org/wiki/Symmetric_multiprocessing>`_, all three **runtime domains** together make up an `AMP <https://en.wikipedia.org/wiki/Asymmetric_multiprocessing>`_ system.
 
@@ -64,8 +62,7 @@ The yellow colored boxes are the Linux **runtime domain** as the master running 
 Runtime Control
 ===============
 
-.. raw:: html
-    :file: ../images/fundamentals/runtime-control.svg
+..  image:: ../images/fundamentals/runtime-control.svg
 
 With the domains defined, **runtime control** of the asymmetric slave applications can be started. The master will load the images as required. In this example the RTOS image could be loaded at power on to perform say environmental instrument monitoring and the bare metal image on demand to perform some specific high intensity calculations, but stopped on completion for power savings.
 
@@ -74,8 +71,7 @@ With the domains defined, **runtime control** of the asymmetric slave applicatio
 Inter Processor Communications
 ==============================
 
-.. raw:: html
-    :file: ../images/fundamentals/ipc.svg
+..  image::  ../images/fundamentals/ipc.svg
 
 `Inter Processor Communications <https://en.wikipedia.org/wiki/Inter-process_communication>`_ is performed through shared memory and is between master and slave. In this star topology example the slaves cannot communicate with each other. If that were required a chain topology would be used instead to allow one remote to be both a slave and a master in which case they could communicate (refer to :ref:`Architecture Section<openamp-architecture-work-label>` for an example).
 
@@ -116,8 +112,7 @@ The architecture is exemplified below via a daisy chained topology, with the cen
 
 In an attempt to keep the diagrams clear, not all OpenAMP components are drawn on each processor.
 
-.. raw:: html
-    :file: ../images/architecture/overview-architecture.svg
+..  image::  ../images/architecture/overview-architecture.svg
 
 :ref:`Runtime Control<runtime-control-work-label>` is part of the :ref:`Life Cycle Management (LCM)<lcm-work-label>` of the remote(s) and performed through the remoteproc component which allows for the loading of the firmwares to the remote processor and starting and stopping the remote.
 
