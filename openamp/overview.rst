@@ -25,7 +25,7 @@ OpenAMP Fundamentals
 There are some AMP fundamentals which influence the OpenAMP architecture.
 
 * **Topology**: Different runtime systems need to coexist and collaborate as `Asymmetric Multiprocessing <https://en.wikipedia.org/wiki/Asymmetric_multiprocessing>`_ sets no restrictions on how systems can or should be utilized.
-* **Resource Assignment**: Resources need to be assigned and shared into **run time domains**
+* **Resource Assignment**: Resources need to be assigned and shared into **run time domains**.
 * **Runtime Control**: Remote application/firmware loading, starting and stopping is required to manage the system.
 * **IPC**: `Inter Processor Communications <https://en.wikipedia.org/wiki/Inter-process_communication>`_ needs to be established to enable communication and control.
 * **Resource Isolation**: AMP systems can be supervised (using a hypervisor) or unsupervised.
@@ -64,7 +64,7 @@ Runtime Control
 
 ..  image:: ../images/fundamentals/runtime-control.svg
 
-With the domains defined, **runtime control** of the asymmetric slave applications can be started. The master will load the images as required. In this example the RTOS image could be loaded at power on to perform say environmental instrument monitoring and the bare metal image on demand to perform some specific high intensity calculations, but stopped on completion for power savings.
+With the domains defined, **runtime control** of the asymmetric slave applications can be started. The master will load the images as required. In this example the RTOS image could be loaded at power on to perform say environmental instrument monitoring and the bare metal image on demand to perform some specific high intensity calculations, but stopped on completion for power savings. The control flow will be implementation specific.
 
 .. _ipc-work-label:
 
@@ -89,24 +89,24 @@ Resources are shared, so the ability to utilise a supervisor, such as a hypervis
 OpenAMP Architecture
 ********************
 
-The OpenAMP architecture or framework utilizes a number of distinct components to achieve the :ref:`OpenAMP Fundamentals<openamp-fundamentals-work-label>`, with most of them using or derived from existing standards or frameworks. Additionally a hardware abstraction component, libmetal, provides for portability across different platforms.
+The OpenAMP architecture or framework utilizes a number of distinct components to achieve the :ref:`OpenAMP Fundamentals<openamp-fundamentals-work-label>`, with most of them using or derived from existing standards or frameworks.
 
-The components comprising OpenAMP are
+The components comprising OpenAMP are:
 
 .. csv-table::
    :header: "AMP Component", "AMP Fundamentals"
    :widths: 50, 60
 
-    Remoteproc, Resource Assignment and Runtime Control
+    :ref:`Remoteproc<overview-remoteproc-work-label>`, Resource Assignment and Runtime Control
     Resource Table, Resource Assignment
-    RPMsg, IPC
-    Virtio, Hypervisor and Hardware Abstraction
-    Proxy, IPC for File Input Output (IO)
-    Remote Procedure Call (RPC) Service, IPC
+    :ref:`RPMsg <overview-rpmsg-work-label>`, IPC
+    :ref:`Virtio <overview-rpmsg-work-label>`, Hypervisor and Hardware Abstraction
+    :ref:`Proxy <overview-proxy-rpc-work-label>`, IPC for File Input Output (IO)
+    :ref:`Remote Procedure Call (RPC) Service <overview-proxy-rpc-work-label>`, IPC
     Libmetal, Hardware Abstraction
 
 
-The :ref:`Topology<topology-work-label> is limited to master-slave but otherwise open to the implementation.
+The :ref:`Topology<topology-work-label>` is limited to master-slave but otherwise open to the implementation.
 
 The architecture is exemplified below via a daisy chained topology, with the center processor being both slave and master for the next processor in the chain.
 
@@ -114,13 +114,28 @@ In an attempt to keep the diagrams clear, not all OpenAMP components are drawn o
 
 ..  image::  ../images/architecture/overview-architecture.svg
 
-:ref:`Runtime Control<runtime-control-work-label>` is part of the :ref:`Life Cycle Management (LCM)<lcm-work-label>` of the remote(s) and performed through the remoteproc component which allows for the loading of the firmwares to the remote processor and starting and stopping the remote.
+.. _overview-remoteproc-work-label:
 
-:ref:`Resource Assignment<resource-assignment-work-label>` is also achieved through the remoteproc component utilizing a Resource Table, which provides the memory and peripheral allocation as well as information for establishing the IPC between associated processors.
+RemoteProc
+==========
 
-Standardization of the IPC is promoted by the OpenAMP project through the use of :ref:`RPMsg <rpmsg-protocol-work-label>`, using `Open Standard Virtio devices <https://docs.oasis-open.org/virtio/virtio/v1.3/virtio-v1.3.html>`_ as a HW abstraction or MAC layer. The abstraction using Virtio means that the implementer can optionally use :ref:`Resource Isolation<resource-isolation-work-label>` via a hypervisor, which is exemplified by the first processor in the architecture diagram. The other two processors are in what is referred to as a hypervisorless-virtio setup because they are using virtio (virtual io) as an abstraction layer but without a hypervisor.
+:ref:`Runtime Control<runtime-control-work-label>` is part of the :ref:`Life Cycle Management (LCM)<lcm-work-label>` of the remote(s) and performed through the :ref:`remoteproc<lcm-work-label>` component which allows for the loading of the firmwares to the remote processor and starting and stopping the remote.
+
+:ref:`Resource Assignment<resource-assignment-work-label>` is also achieved through the :ref:`remoteproc<lcm-work-label>` component utilizing a Resource Table, which provides the memory and peripheral allocation as well as information for establishing the IPC between associated processors.
+
+.. _overview-rpmsg-work-label:
+
+RPMsg and Virtio
+================
+
+Standardization of the IPC is promoted by the OpenAMP project through the use of :ref:`RPMsg <rpmsg-protocol-work-label>`, using `Open Standard Virtio devices <https://docs.oasis-open.org/virtio/virtio/v1.3/virtio-v1.3.html>`_ as a HW abstraction or MAC layer. This abstraction, using virtio, means that the implementer can optionally use :ref:`Resource Isolation<resource-isolation-work-label>` via a hypervisor, which is exemplified by the first processor in the architecture diagram. The other two processors are in what is referred to as a hypervisorless-virtio setup because they are using virtio (virtual io) as an abstraction layer but without a hypervisor.
 
 The OpenAMP Proxy and RPC Service are higher level IPC components.
+
+.. _overview-proxy-rpc-work-label:
+
+Proxy and RPC
+=============
 
 The proxy provides file IO on the remote allowing access to the filesystem on the master. This provides a mechanism for remotes to access files occasionally without having to introduce a full filesystem on the remote. In the architecture diagram the center processor slave proxy's file IO from its master on the left.
 
@@ -129,6 +144,14 @@ The RPC service provides for remote procedure calls from a server to a client. I
 Read more about the OpenAMP System Components :ref:`here<openamp-components-work-label>`.
 
 In the future OpenAMP is envisioned to also encompass other areas important in a heterogeneous environment, such as power management and managing the lifecycle of non-CPU devices.
+
+.. _overview-proxy-rpc-work-label:
+
+Libmetal
+========
+
+:doc:`Libmetal <../libmetal/readme>` is a hardware abstraction component, intended to provide for portability across different platforms.
+Vendors porting OpenAMP will provide an implementation of libmetal for their their system.
 
 .. _project-aims-work-label:
 
@@ -144,7 +167,7 @@ To provide a solution to cover the :ref:`AMP Fundamentals<openamp-fundamentals-w
         - Standardizing on the user level APIs that allow applications to be portable
             + :ref:`RPMSG<rpmsg-protocol-work-label>`
             + :ref:`remoteproc<lcm-work-label>`
-        - Standardizing on the low-level :ref:`OS/HW abstraction layer<porting-guide-work-label>` that abstracts the open source implementation from the underlying OS and hardware, simplifying the porting to new environments
+        - **Standardizing on the low-level** :ref:`OS/HW abstraction layer<porting-guide-work-label>` **that abstracts the open source implementation from the underlying OS and hardware, simplifying the porting to new environments**
 
     * An open source project that implements a clean-room implementation of OpenAMP
         - Runs in :ref:`multiple environments<operating-environments-work-label>`
@@ -184,10 +207,10 @@ There are a few guiding principles that governs OpenAMP:
     - Provide a clean-room implementation of OpenAMP with business friendly APIs and licensing
         * Allow for compatible proprietary implementations and products
     - Base as much as possible on existing technologies/open source projects/standards
-        * In particular remoteproc, RPMsg and virtio
-    - Never standardize on anything unless there is an open source implementation that can prove it
+        * In particular :ref:`remoteproc<lcm-work-label>`, :ref:`RPMsg <rpmsg-protocol-work-label>` and virtio
+    - **Never standardize on anything unless there is an open source implementation that can prove it**
     - Always be backwards compatible (unless there is a really, really good reason to change)
-        * In particular make sure to be compatible with the Linux kernel implementation of remoteproc/RPMsg/virtio
+        * In particular make sure to be compatible with the Linux kernel implementation of :ref:`remoteproc<lcm-work-label>`/:ref:`RPMsg <rpmsg-protocol-work-label>`/virtio
 
 There are a number of project members as outlined in `OpenAMP Project Page <https://www.openampproject.org/about/>`_ as well as many community members, so please join the :ref:`OpenAMP open source project<openamp-maintenance-work-label>`!
     - See https://github.com/OpenAMP/open-amp
