@@ -55,7 +55,7 @@ This diagram details the Resource Assignment using a different color for each **
 
 ..  image:: ../images/fundamentals/resource-assignment.svg
 
-The yellow colored boxes are the Linux **runtime domain** as the master running on a single processor, utilizing the two cores in a `Symmetric Multiprocessing <https://en.wikipedia.org/wiki/Symmetric_multiprocessing>`_ setup, and the green and blue colored boxes details the RTOS and Bare Metal slave applications each running on a single core of a remote processor as their own **runtime domain**. The Linux system shares memory with both slaves, but the slave applications do not share memory. Each domain owns independent peripherals in the system. Although the Linux domain is `SMP <https://en.wikipedia.org/wiki/Symmetric_multiprocessing>`_, all three **runtime domains** together make up an `AMP <https://en.wikipedia.org/wiki/Asymmetric_multiprocessing>`_ system.
+The yellow colored boxes are the Linux **runtime domain** as the master running on a single processor, utilizing the two cores in a `Symmetric Multiprocessing <https://en.wikipedia.org/wiki/Symmetric_multiprocessing>`_ setup. The green and blue colored boxes details the RTOS and Bare Metal slave applications each running on a single core of a remote processor as their own **runtime domain**. The Linux system shares memory with both slaves, but the slave applications do not share memory. Each domain owns independent peripherals in the system. Although the Linux domain is `SMP <https://en.wikipedia.org/wiki/Symmetric_multiprocessing>`_, all three **runtime domains** together make up an `AMP <https://en.wikipedia.org/wiki/Asymmetric_multiprocessing>`_ system.
 
 .. _runtime-control-work-label:
 
@@ -64,7 +64,7 @@ Runtime Control
 
 ..  image:: ../images/fundamentals/runtime-control.svg
 
-With the domains defined, **runtime control** of the asymmetric slave applications can be started. The master will load the images as required. In this example the RTOS image could be loaded at power on to perform say environmental instrument monitoring and the bare metal image on demand to perform some specific high intensity calculations, but stopped on completion for power savings. The control flow will be implementation specific.
+With the domains defined, **runtime control** of the asymmetric slave applications can be started to handle :ref:`Life Cycle Management (LCM)<lcm-work-label>` of the remotes. The master will load and control the images as required. In this example the RTOS image could be loaded at power on to perform say environmental instrument monitoring and the bare metal image on demand to perform some specific high intensity calculations, but stopped on completion for power savings. The control flow will be implementation specific.
 
 .. _ipc-work-label:
 
@@ -74,7 +74,8 @@ Inter Processor Communications
 ..  image::  ../images/fundamentals/ipc.svg
 
 `Inter Processor Communications <https://en.wikipedia.org/wiki/Inter-process_communication>`_ is performed through shared memory and is between master and slave.
-In the example, the IPC could be instrument updates from the RTOS slave to the Linux master to display, and independently :ref:`Remote Procedure Calls (RPC)<verview-proxy-rpc-work-label> between the Linux master and the bare metal slave responsible for resource intensive calculations.
+In the example, the IPC could be instrument updates from the RTOS slave to the Linux master to display, and independently :ref:`Remote Procedure Calls (RPC)<overview-proxy-rpc-work-label>` between the Linux master and the other, bare metal, slave responsible for resource intensive calculations.
+
 In this star topology example the slaves cannot communicate with each other. If that were required a chain topology would be used instead to allow one remote to be both a slave and a master in which case they could communicate (refer to :ref:`Architecture Section<openamp-architecture-work-label>` for an example).
 
 .. _resource-isolation-work-label:
@@ -105,7 +106,7 @@ The components comprising OpenAMP are:
     :ref:`Virtio<overview-rpmsg-work-label>`, Hypervisor and Hardware Abstraction
     :ref:`Proxy<overview-proxy-rpc-work-label>`, IPC for File Input Output (IO)
     :ref:`Remote Procedure Call (RPC) Service<overview-proxy-rpc-work-label>`, IPC
-    Libmetal, Hardware Abstraction
+    :ref:`Libmetal<overview-proxy-libmetal-label>`, Hardware Abstraction
 
 
 The :ref:`topology<topology-work-label>` is limited to master-slave but otherwise open to the implementation.
@@ -132,7 +133,9 @@ RemoteProc
 RPMsg and Virtio
 ================
 
-Standardization of the IPC is promoted by the OpenAMP project through the use of :ref:`RPMsg <rpmsg-protocol-work-label>`, using `Open Standard Virtio devices <https://docs.oasis-open.org/virtio/virtio/v1.3/virtio-v1.3.html>`_ as a HW abstraction or MAC layer. This abstraction, using virtio, means that the implementer can optionally use :ref:`resource isolation<resource-isolation-work-label>` via a hypervisor, which is exemplified by the first processor in the architecture diagram. The other two processors are in what is referred to as a hypervisorless-virtio setup because they are using virtio (virtual io) as an abstraction layer but without a hypervisor.
+Standardization of the IPC is promoted by the OpenAMP project through the use of :ref:`RPMsg <rpmsg-protocol-work-label>`, using `Open Standard Virtio Devices <https://docs.oasis-open.org/virtio/virtio/v1.3/virtio-v1.3.html>`_ as a HW abstraction or MAC layer.
+
+This abstraction, using virtio, means that the implementer can optionally use :ref:`resource isolation<resource-isolation-work-label>` via a hypervisor, which is exemplified by the first processor in the architecture diagram. The other two remotes are in what is referred to as a hypervisorless-virtio setup because they are using virtio (virtual io) as an abstraction layer but without a hypervisor.
 
 ..  image::  ../images/architecture/overview-architecture-rpmsg.svg
 
@@ -143,27 +146,27 @@ Proxy and RPC
 
 The OpenAMP Proxy and RPC Service are higher level IPC components.
 
-The proxy provides file IO on the remote allowing access to the filesystem on the master. This provides a mechanism for remotes to access files occasionally without having to introduce a full filesystem on the remote. In the architecture diagram the center processor slave proxy's file IO from its master on the left.
+The proxy provides file IO on the remote allowing access to the filesystem on the master. This provides a mechanism for remotes to access files occasionally without having to introduce a full filesystem on the remote. In the architecture diagram the center processor slave proxies file IO from its master on the left.
 
 The RPC service provides for remote procedure calls from a server to a client. In the architecture diagram the right hand processor has the RPC server servicing the center master processor's RPC client.
 
 ..  image::  ../images/architecture/overview-architecture-proxy.svg
 
-.. _overview-proxy-rpc-work-label:
+.. _overview-proxy-libmetal-label:
 
 Libmetal
 ========
 
 :doc:`Libmetal <../libmetal/readme>` is a hardware abstraction component, intended to provide for portability across different platforms.
-Vendors porting OpenAMP will provide an implementation of libmetal for their their system.
+Vendors porting OpenAMP will provide an implementation of libmetal for their system.
 
 ..  image::  ../images/architecture/overview-architecture-libmetal.svg
 
 .. _project-aims-work-label:
 
-Read more about the OpenAMP System Components :ref:`here<openamp-components-work-label>`.
-
 In the future OpenAMP is envisioned to also encompass other areas important in a heterogeneous environment, such as power management and managing the lifecycle of non-CPU devices.
+
+Read more about the OpenAMP System Components :ref:`here<openamp-components-work-label>`.
 
 ************
 Project Aims
