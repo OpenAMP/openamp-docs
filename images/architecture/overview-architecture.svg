@@ -276,9 +276,11 @@
       <g class="com.sun.star.drawing.LineShape">
        <g id="id19">
         <rect class="BoundingBox" stroke="none" fill="none" x="3000" y="7946" width="11752" height="709"/>
-        <path fill="none" stroke="rgb(234,117,0)" stroke-width="212" stroke-linejoin="round" d="M 3577,8345 L 14173,8255"/>
-        <path fill="rgb(234,117,0)" stroke="none" d="M 3621,8654 L 3000,8350 3615,8036 3621,8654 Z"/>
-        <path fill="rgb(234,117,0)" stroke="none" d="M 14129,7946 L 14750,8250 14135,8564 14129,7946 Z"/>
+        <g style="opacity: 0.698039215686274">
+         <path fill="none" stroke="rgb(234,117,0)" stroke-width="212" stroke-linejoin="round" d="M 3577,8345 L 14173,8255"/>
+         <path fill="rgb(234,117,0)" stroke="none" d="M 3621,8654 L 3000,8350 3615,8036 3621,8654 Z"/>
+         <path fill="rgb(234,117,0)" stroke="none" d="M 14129,7946 L 14750,8250 14135,8564 14129,7946 Z"/>
+        </g>
         <text class="SVGTextShape" transform="rotate(-0.4 8347 8525)"><tspan class="TextParagraph" font-family="Liberation Sans, sans-serif" font-size="635px" font-style="italic" font-weight="400"><tspan class="TextPosition" x="8347" y="8525"><tspan fill="rgb(52,101,164)" stroke="none">IPC</tspan></tspan></tspan></text>
        </g>
       </g>
@@ -327,23 +329,25 @@
        <g id="id25">
         <rect class="BoundingBox" stroke="none" fill="none" x="17749" y="5699" width="2503" height="3053"/>
         <path fill="none" stroke="rgb(52,101,164)" d="M 19000,8750 L 17750,8750 17750,5700 20250,5700 20250,8750 19000,8750 Z"/>
-        <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Liberation Sans, sans-serif" font-size="494px" font-weight="400"><tspan class="TextPosition" x="18439" y="7397"><tspan fill="rgb(0,0,0)" stroke="none">Virtio</tspan></tspan></tspan></text>
+        <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Liberation Sans, sans-serif" font-size="494px" font-weight="400"><tspan class="TextPosition" x="18439" y="7674"><tspan fill="rgb(0,0,0)" stroke="none">Virtio</tspan></tspan></tspan></text>
        </g>
       </g>
       <g class="com.sun.star.drawing.CustomShape">
        <g id="id26">
-        <rect class="BoundingBox" stroke="none" fill="none" x="14249" y="6649" width="3303" height="2103"/>
-        <path fill="none" stroke="rgb(52,101,164)" d="M 15900,8750 L 14250,8750 14250,6650 17550,6650 17550,8750 15900,8750 Z"/>
-        <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Liberation Sans, sans-serif" font-size="494px" font-weight="400"><tspan class="TextPosition" x="15090" y="7872"><tspan fill="rgb(0,0,0)" stroke="none">RPMsg</tspan></tspan></tspan></text>
+        <rect class="BoundingBox" stroke="none" fill="none" x="14279" y="6649" width="3303" height="2103"/>
+        <path fill="none" stroke="rgb(52,101,164)" d="M 15930,8750 L 14280,8750 14280,6650 17580,6650 17580,8750 15930,8750 Z"/>
+        <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Liberation Sans, sans-serif" font-size="494px" font-weight="400"><tspan class="TextPosition" x="15120" y="7872"><tspan fill="rgb(0,0,0)" stroke="none">RPMsg</tspan></tspan></tspan></text>
        </g>
       </g>
       <g class="com.sun.star.drawing.LineShape">
        <g id="id27">
-        <rect class="BoundingBox" stroke="none" fill="none" x="16700" y="6741" width="13251" height="619"/>
-        <path fill="none" stroke="rgb(234,117,0)" stroke-width="212" stroke-linejoin="round" d="M 17277,7050 L 29373,7050"/>
-        <path fill="rgb(234,117,0)" stroke="none" d="M 17318,7359 L 16700,7050 17318,6741 17318,7359 Z"/>
-        <path fill="rgb(234,117,0)" stroke="none" d="M 29332,6741 L 29950,7050 29332,7359 29332,6741 Z"/>
-        <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Liberation Sans, sans-serif" font-size="635px" font-style="italic" font-weight="400"><tspan class="TextPosition" x="22796" y="7271"><tspan fill="rgb(52,101,164)" stroke="none">IPC</tspan></tspan></tspan></text>
+        <rect class="BoundingBox" stroke="none" fill="none" x="16700" y="6693" width="12301" height="665"/>
+        <g style="opacity: 0.698039215686274">
+         <path fill="none" stroke="rgb(234,117,0)" stroke-width="212" stroke-linejoin="round" d="M 17277,7048 L 28423,7002"/>
+         <path fill="rgb(234,117,0)" stroke="none" d="M 17319,7356 L 16700,7050 17317,6738 17319,7356 Z"/>
+         <path fill="rgb(234,117,0)" stroke="none" d="M 28381,6694 L 29000,7000 28383,7312 28381,6694 Z"/>
+        </g>
+        <text class="SVGTextShape" transform="rotate(-0.2 22321 7248)"><tspan class="TextParagraph" font-family="Liberation Sans, sans-serif" font-size="635px" font-style="italic" font-weight="400"><tspan class="TextPosition" x="22321" y="7248"><tspan fill="rgb(52,101,164)" stroke="none">IPC</tspan></tspan></tspan></text>
        </g>
       </g>
       <g class="com.sun.star.drawing.CustomShape">
@@ -376,9 +380,9 @@
       </g>
       <g class="com.sun.star.drawing.CustomShape">
        <g id="id32">
-        <rect class="BoundingBox" stroke="none" fill="none" x="11849" y="5699" width="2153" height="3053"/>
-        <path fill="none" stroke="rgb(52,101,164)" d="M 12925,8750 L 11850,8750 11850,5700 14000,5700 14000,8750 12925,8750 Z"/>
-        <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Liberation Sans, sans-serif" font-size="494px" font-weight="400"><tspan class="TextPosition" x="12364" y="7397"><tspan fill="rgb(0,0,0)" stroke="none">Virtio</tspan></tspan></tspan></text>
+        <rect class="BoundingBox" stroke="none" fill="none" x="11979" y="5699" width="2153" height="3053"/>
+        <path fill="none" stroke="rgb(52,101,164)" d="M 13055,8750 L 11980,8750 11980,5700 14130,5700 14130,8750 13055,8750 Z"/>
+        <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Liberation Sans, sans-serif" font-size="494px" font-weight="400"><tspan class="TextPosition" x="12494" y="7674"><tspan fill="rgb(0,0,0)" stroke="none">Virtio</tspan></tspan></tspan></text>
        </g>
       </g>
       <g class="com.sun.star.drawing.LineShape">
@@ -413,16 +417,16 @@
       </g>
       <g class="com.sun.star.drawing.CustomShape">
        <g id="id36">
-        <rect class="BoundingBox" stroke="none" fill="none" x="11749" y="5649" width="8753" height="3853"/>
-        <path fill="none" stroke="rgb(52,101,164)" d="M 16125,9500 L 11750,9500 11750,5650 20500,5650 20500,9500 16125,9500 Z"/>
-        <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Liberation Sans, sans-serif" font-size="494px" font-weight="400"><tspan class="TextPosition" x="15272" y="9269"><tspan fill="rgb(0,0,0)" stroke="none">libmetal</tspan></tspan></tspan></text>
+        <rect class="BoundingBox" stroke="none" fill="none" x="11879" y="5499" width="8623" height="4003"/>
+        <path fill="none" stroke="rgb(52,101,164)" d="M 16190,9500 L 11880,9500 11880,5500 20500,5500 20500,9500 16190,9500 Z"/>
+        <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Liberation Sans, sans-serif" font-size="494px" font-weight="400"><tspan class="TextPosition" x="15337" y="9269"><tspan fill="rgb(0,0,0)" stroke="none">libmetal</tspan></tspan></tspan></text>
        </g>
       </g>
       <g class="com.sun.star.drawing.CustomShape">
        <g id="id37">
-        <rect class="BoundingBox" stroke="none" fill="none" x="25749" y="5749" width="5503" height="4003"/>
-        <path fill="none" stroke="rgb(52,101,164)" d="M 28500,9750 L 25750,9750 25750,5750 31250,5750 31250,9750 28500,9750 Z"/>
-        <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Liberation Sans, sans-serif" font-size="494px" font-weight="400"><tspan class="TextPosition" x="27647" y="9519"><tspan fill="rgb(0,0,0)" stroke="none">libmetal</tspan></tspan></tspan></text>
+        <rect class="BoundingBox" stroke="none" fill="none" x="25749" y="5748" width="5503" height="4198"/>
+        <path fill="none" stroke="rgb(52,101,164)" d="M 28500,9944 L 25750,9944 25750,5749 31250,5749 31250,9944 28500,9944 Z"/>
+        <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Liberation Sans, sans-serif" font-size="494px" font-weight="400"><tspan class="TextPosition" x="27647" y="9713"><tspan fill="rgb(0,0,0)" stroke="none">libmetal</tspan></tspan></tspan></text>
        </g>
       </g>
       <g class="com.sun.star.drawing.CustomShape">
@@ -442,8 +446,10 @@
       <g class="com.sun.star.drawing.LineShape">
        <g id="id40">
         <rect class="BoundingBox" stroke="none" fill="none" x="1920" y="6731" width="12831" height="539"/>
-        <path fill="none" stroke="rgb(255,151,47)" stroke-width="159" stroke-linejoin="round" d="M 2000,7000 L 14248,7000"/>
-        <path fill="rgb(255,151,47)" stroke="none" d="M 14212,6731 L 14750,7000 14212,7269 14212,6731 Z"/>
+        <g style="opacity: 0.698039215686274">
+         <path fill="none" stroke="rgb(255,151,47)" stroke-width="159" stroke-linejoin="round" d="M 2000,7000 L 14248,7000"/>
+         <path fill="rgb(255,151,47)" stroke="none" d="M 14212,6731 L 14750,7000 14212,7269 14212,6731 Z"/>
+        </g>
         <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Liberation Sans, sans-serif" font-size="635px" font-style="italic" font-weight="400"><tspan class="TextPosition" x="7440" y="7221"><tspan fill="rgb(42,96,153)" stroke="none">File IO</tspan></tspan></tspan></text>
        </g>
       </g>
@@ -456,10 +462,11 @@
       </g>
       <g class="com.sun.star.drawing.OpenBezierShape">
        <g id="id42">
-        <rect class="BoundingBox" stroke="none" fill="none" x="15850" y="6450" width="13481" height="2231"/>
+        <rect class="BoundingBox" stroke="none" fill="none" x="15849" y="6450" width="13402" height="2361"/>
         <g style="opacity: 0.498039215686275">
-         <path fill="none" stroke="rgb(255,151,47)" stroke-width="159" stroke-linejoin="round" d="M 29250,8600 C 16250,8350 16785,7274 16094,6734"/>
-         <path fill="rgb(255,151,47)" stroke="none" d="M 15976,6923 L 15850,6450 16304,6633 15976,6923 Z"/>
+         <path fill="none" stroke="rgb(255,151,47)" stroke-width="159" stroke-linejoin="round" d="M 28750,8589 C 16240,8301 16784,7275 16094,6735"/>
+         <path fill="rgb(255,151,47)" stroke="none" d="M 28791,8808 L 29231,8623 29245,8614 29250,8601 29245,8586 29234,8577 28801,8374 28795,8371 28792,8371 28783,8373 28773,8378 28768,8385 28766,8394 28757,8785 28759,8794 28764,8803 28773,8807 28782,8809 28786,8809 28791,8808 Z"/>
+         <path fill="rgb(255,151,47)" stroke="none" d="M 15976,6924 L 15850,6450 16304,6633 15976,6924 Z"/>
         </g>
        </g>
       </g>
