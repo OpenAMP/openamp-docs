@@ -125,6 +125,8 @@ RemoteProc
 
 :ref:`Resource Assignment<resource-assignment-work-label>` is also achieved through the :ref:`remoteproc<lcm-work-label>` component utilizing a Resource Table, which provides the memory and peripheral allocation as well as information for establishing the IPC between associated processors.
 
+..  image::  ../images/architecture/overview-architecture-remoteproc.svg
+
 .. _overview-rpmsg-work-label:
 
 RPMsg and Virtio
@@ -132,6 +134,7 @@ RPMsg and Virtio
 
 Standardization of the IPC is promoted by the OpenAMP project through the use of :ref:`RPMsg <rpmsg-protocol-work-label>`, using `Open Standard Virtio devices <https://docs.oasis-open.org/virtio/virtio/v1.3/virtio-v1.3.html>`_ as a HW abstraction or MAC layer. This abstraction, using virtio, means that the implementer can optionally use :ref:`resource isolation<resource-isolation-work-label>` via a hypervisor, which is exemplified by the first processor in the architecture diagram. The other two processors are in what is referred to as a hypervisorless-virtio setup because they are using virtio (virtual io) as an abstraction layer but without a hypervisor.
 
+..  image::  ../images/architecture/overview-architecture-rpmsg.svg
 
 .. _overview-proxy-rpc-work-label:
 
@@ -144,6 +147,7 @@ The proxy provides file IO on the remote allowing access to the filesystem on th
 
 The RPC service provides for remote procedure calls from a server to a client. In the architecture diagram the right hand processor has the RPC server servicing the center master processor's RPC client.
 
+..  image::  ../images/architecture/overview-architecture-proxy.svg
 
 .. _overview-proxy-rpc-work-label:
 
@@ -152,6 +156,8 @@ Libmetal
 
 :doc:`Libmetal <../libmetal/readme>` is a hardware abstraction component, intended to provide for portability across different platforms.
 Vendors porting OpenAMP will provide an implementation of libmetal for their their system.
+
+..  image::  ../images/architecture/overview-architecture-libmetal.svg
 
 .. _project-aims-work-label:
 
