@@ -106,10 +106,10 @@ microSD card inserted on your HOST PC using command
 .. code-block:: console
 
    cd tmp-glibc/deploy/images/stm32mp15-disco-oss/
-   # Eject potential media mounted from the sdcardreplace <device> by mmcblk<X> (X = 0,1..) or
+   # Unmount potential media mounted from the sdcard. Replace <device> by mmcblk<X> (X = 0,1..) or
    #sd<Y>( Y = b,c,d,..) depending on the connection
    sudo eject /dev/<device>
-   # Flash wic image on your sdcar. replace <device> by mmcblk<X> (X = 0,1..) or
+   # Flash wic image on your sdcard. Replace <device> by mmcblk<X> (X = 0,1..) or
    #sd<Y>( Y = b,c,d,..) depending on the connection
    sudo dd if=core-image-base-stm32mp15-disco-oss.rootfs.wic of=/dev/<device> bs=8M conv=fdatasync status=progress
 
