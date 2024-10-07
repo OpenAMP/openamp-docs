@@ -73,6 +73,8 @@ RPMsg Channel
 
 Every remote core in RPMsg component is represented by RPMsg device that provides a communication channel between master and remote, hence RPMsg devices are also known as channels RPMsg channel is identified by the textual name and local (source) and destination address. The RPMsg framework keeps track of channels using their names.
 
+.. _rpmsg-endpoint:
+
 RPMsg Endpoint
 ~~~~~~~~~~~~~~
 
