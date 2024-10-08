@@ -18,7 +18,7 @@ The echo test reference sample, as the name suggests, demonstrates OpenAMP :ref:
 Echo Test Components
 ********************
 
-There are two applications involved in this demonstration. The :ref:`remote application<echo-test-remote-app>` runs as an echo service, which returns packets it receives on an RPmsg endpoint. The :ref:`host application<echo-test-host-app>` is the test application sending packets to the echo service and expecting them back.
+There are two applications involved in this demonstration. The :ref:`remote application<echo-test-remote-app>` runs as an echo service, which returns packets it receives on an :ref:`RPmsg endpoint <rpmsg-endpoint>`. The :ref:`host application<echo-test-host-app>` is the test application sending packets to the echo service and expecting them back.
 
 The underlying OpenAMP architectural components used by these applications are
 
@@ -28,13 +28,16 @@ The underlying OpenAMP architectural components used by these applications are
 * :ref:`Virtio<overview-rpmsg-work-label>`
 * :ref:`Libmetal<overview-proxy-libmetal-label>`
 
+This diagram shows the components involved in the demonstration.
+
+..  image::  ../images/demos/echo-test-components.svg
 
 .. _echo-test-remote-app:
 
 RPmsg Echo Remote Application
 =============================
 
-The remote application is the core of the demonstration. It is a simple application serving a RPMsg endpoint
+The remote application, rpmsg-echo, is the core of the demonstration. It is a simple application serving a :ref:`RPmsg endpoint <rpmsg-endpoint>` running as the main task on the remote processor, once loaded and started using :ref:`Remoteproc<overview-remoteproc-work-label>`.
 
 
 .. _echo-test-host-app:
@@ -42,7 +45,14 @@ The remote application is the core of the demonstration. It is a simple applicat
 Echo Test Host Application
 ==========================
 
-The application forms the host controller side of the OpenAMP RPmsg reference **echo demonstration/sample**. It repeatedly writes an increasing length payload of 0xA5's up to the maximum data size (packet size minus header) to the RPmsg endpoint. It then reads from the same endpoint and verifies the returned packet for correctness, reporting any corruption.
+The echo_test application forms the host controller side of the OpenAMP RPmsg **reference echo sample**. It repeatedly writes an increasing length payload of 0xA5's up to the maximum data size (packet size minus header) to the RPmsg endpoint. It then reads from the same endpoint and verifies the returned packet for correctness, reporting any corruption.
+
+Echo Test Host Script
+=====================
+
+The host is also responsible for loading the firmware containing the :ref:`RPmsg Echo Remote Application <echo-test-remote-app>`_ and starting the remote processor using :ref:`Remoteproc<overview-remoteproc-work-label>`.
+
+For host controllers, like Linux, a script can be used to pipe the firmware to the exposed remoteproc system, followed by the execution of the user space echo_test application.
 
 
 
