@@ -1,6 +1,6 @@
-==================================
-OpenAMP Echo Test Reference Sample
-==================================
+========================
+OpenAMP Echo Test Sample
+========================
 
 .. _echo-test-intro:
 
@@ -58,7 +58,8 @@ Echo Test Host Script
 
 The host is also responsible for loading the firmware containing the :ref:`RPmsg Echo Remote Application<echo-test-remote-app>` and starting the remote processor using :ref:`Remoteproc<overview-remoteproc-work-label>`.
 
-For host controllers, like Linux, a script can be used to pipe the firmware to the exposed remoteproc system, followed by the execution of the user space echo_test application.
+For host controllers, like Linux, a script can be used to pipe the firmware to the exposed remoteproc system, followed by the execution of the user space echo_test application. For controllers without scripting capability, like baremetal and RTOS (Real Time Operating systems), this would be achieved in the code.
+
 
 
 
@@ -84,3 +85,11 @@ The application is available in the `OpenAMP System Reference repository <https:
 It is a Makefile application and can be built using the `Yocto rpmsg-echo-test recipe <https://github.com/OpenAMP/meta-openamp/blob/master/recipes-openamp/rpmsg-examples/rpmsg-echo-test_1.0.bb>`_
 
 An example host control script is given in the `echo test readme <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/linux/rpmsg-echo-test/README.md#run-the-demo>`_
+
+Reference Board Implementations
+===============================
+
+This Echo Test Sample is demonstrated in the following reference implementations.
+
+* :ref:`Docker Images<docker-images-label>` as demo1A
+* :ref:`AMD-Xilinx platforms<demos-AMD--work-label>`
