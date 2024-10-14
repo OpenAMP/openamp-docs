@@ -9,3 +9,4 @@ OpenAMP Samples and Demos
    :caption: Contents:
 
    echo
+   matrix_multiply
