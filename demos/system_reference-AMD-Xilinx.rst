@@ -4,6 +4,11 @@
 System Reference Samples and Demos on the AMD-Xilinx platform
 =============================================================
 
+The following Reference Samples and Demos are implemented using the
+
+* AMD `ZCU102 Evaluation Board <https://www.xilinx.com/products/boards-and-kits/ek-u1-zcu102-g.html#information>`_
+* `QEMU <https://www.qemu.org/>`_ ZCU102 Virtual Machine in the :ref:`Docker Images References<docker-images-label>`
+
 .. toctree::
    :maxdepth: 2
 

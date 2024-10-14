@@ -1,5 +1,7 @@
 
-OpenAMP Reference Samples
+.. _demos-reference-samples:
+
+OpenAMP Samples and Demos
 =========================
 
 .. toctree::
