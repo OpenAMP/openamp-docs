@@ -10,10 +10,7 @@ Samples and Demos
    :maxdepth: 1
    :caption: Contents:
 
-   system_reference-AMD-Xilinx
-   system_reference-ST
    ../open-amp/apps/examples/linux_rpc_demo/README
-   docker_images
    ../hypervisorless_virtio_zcu102/README_demo
    ../lopper/demos/openamp/README.md
 
