@@ -60,24 +60,21 @@ The host is also responsible for loading the firmware containing the :ref:`RPmsg
 
 For host controllers, like Linux, a script can be used to pipe the firmware to the exposed remoteproc system, followed by the execution of the user space echo_test application. For controllers without scripting capability, like baremetal and RTOS (Real Time Operating systems), this would be achieved in the code.
 
-
-
-
-*************************
-Echo Test Implementations
-*************************
+****************
+Echo Test Source
+****************
 
 .. _echo-test-linux-app:
 
-RPmsg Echo Baremetal Implementation
-===================================
+RPmsg Echo Baremetal Source
+===========================
 
 The RPmsg Echo service application is available as a baremetal solution in the `open-amp Repository <https://github.com/OpenAMP/open-amp/blob/main/apps/examples/echo/rpmsg-echo.c>`_
 
 It is a CMake application and can be built for any remote as long as the relevant :ref:`OS/HW abstraction layer<porting-guide-work-label>` components like libmetal are ported for that platform.
 
-Echo Test Linux Implementation
-==============================
+Echo Test Linux Source
+======================
 
 The echo test Linux application is executed on the Linux host controller as a user space application.
 The application is available in the `OpenAMP System Reference repository <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/linux/rpmsg-echo-test/echo_test.c>`_.
@@ -86,8 +83,9 @@ It is a Makefile application and can be built using the `Yocto rpmsg-echo-test r
 
 An example host control script is given in the `echo test readme <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/linux/rpmsg-echo-test/README.md#run-the-demo>`_
 
+*******************************
 Reference Board Implementations
-===============================
+*******************************
 
 This Echo Test Sample is demonstrated in the following reference implementations.
 
