@@ -10,3 +10,4 @@ OpenAMP Samples and Demos
 
    echo
    matrix_multiply
+   rpmsg_multi_services
