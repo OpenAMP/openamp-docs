@@ -64,10 +64,10 @@ For host controllers, like Linux, a script can be used to pipe the firmware to t
 Echo Test Source
 ****************
 
-RPmsg Echo Baremetal Source
+RPMsg Echo Baremetal Source
 ===========================
 
-The RPmsg Echo service application is available as a baremetal solution in the `open-amp Repository <https://github.com/OpenAMP/open-amp/blob/main/apps/examples/echo/rpmsg-echo.c>`_
+The RPMsg Echo service application is available as a baremetal solution in the `open-amp Repository <https://github.com/OpenAMP/open-amp/blob/main/apps/examples/echo/rpmsg-echo.c>`_
 
 It is a CMake application and can be built for any remote as long as the relevant :ref:`OS/HW abstraction layer<porting-guide-work-label>` components like libmetal are ported for that platform.
 

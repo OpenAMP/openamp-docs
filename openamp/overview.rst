@@ -28,7 +28,7 @@ There are some AMP fundamentals which influence the OpenAMP architecture.
 * **Resource Assignment**: Resources need to be assigned and shared into **run time domains**.
 * **Runtime Control**: Remote application/firmware loading, starting and stopping is required to manage the system.
 * **IPC**: `Inter Processor Communications <https://en.wikipedia.org/wiki/Inter-process_communication>`_ needs to be established to enable communication and control.
-* **Resource Isolation**: AMP systems can be supervised (using a hypervisor) or unsupervised.
+* **Resource Isolation**: AMP systems can be supervised (e.g. using a hypervisor) or unsupervised.
 
 
 .. _topology-work-label:
@@ -92,7 +92,7 @@ Resources isolation is not essential, but the ability to utilise a supervisor, s
 OpenAMP Architecture
 ********************
 
-The OpenAMP architecture or framework utilizes a number of distinct components to achieve the :ref:`OpenAMP Fundamentals<openamp-fundamentals-work-label>`, with most of them using or derived from existing standards or frameworks.
+The OpenAMP framework utilizes a number of distinct components to achieve the :ref:`OpenAMP Fundamentals<openamp-fundamentals-work-label>`, with most of them using or derived from existing standards or frameworks.
 
 The components comprising OpenAMP are:
 
@@ -105,7 +105,6 @@ The components comprising OpenAMP are:
     :ref:`RPMsg<overview-rpmsg-work-label>`, IPC
     :ref:`Virtio<overview-rpmsg-work-label>`, Hypervisor and Hardware Abstraction
     :ref:`Proxy<overview-proxy-rpc-work-label>`, IPC for File Input Output (IO)
-    :ref:`Remote Procedure Call (RPC) Service<overview-proxy-rpc-work-label>`, IPC
     :ref:`Libmetal<overview-proxy-libmetal-label>`, Hardware Abstraction
 
 
@@ -135,7 +134,7 @@ RPMsg and Virtio
 
 Standardization of the IPC is promoted by the OpenAMP project through the use of :ref:`RPMsg <rpmsg-protocol-work-label>`, using `Open Standard Virtio Devices <https://docs.oasis-open.org/virtio/virtio/v1.3/virtio-v1.3.html>`_ as a HW abstraction or MAC layer.
 
-This abstraction, using virtio, means that the implementer can optionally use :ref:`resource isolation<resource-isolation-work-label>` via a hypervisor, which is exemplified by the first processor in the architecture diagram. The other two remotes are in what is referred to as a hypervisorless-virtio setup because they are using virtio (virtual io) as an abstraction layer but without a hypervisor.
+This abstraction, using virtio, means that the implementer can optionally use :ref:`resource isolation<resource-isolation-work-label>` (e.g. using a hypervisor or secure context), which is exemplified by the first processor in the architecture diagram. The other two remotes are in what is referred to as a hypervisorless-virtio setup because they are using virtio (virtual io) as an abstraction layer but without a hypervisor.
 
 ..  image::  ../images/architecture/overview-architecture-rpmsg.svg
 
