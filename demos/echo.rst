@@ -91,3 +91,4 @@ This Echo Test Sample is demonstrated in the following reference implementations
 
 * :ref:`Docker Images<docker-images-label>` as demo1A
 * :ref:`AMD-Xilinx platforms<demos-AMD-work-label>`
+* :ref:`Inter Process Demos<inter-process-reference-label>`
