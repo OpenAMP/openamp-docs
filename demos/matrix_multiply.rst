@@ -98,3 +98,4 @@ This Matrix Multiply Sample is demonstrated in the following reference implement
 
 * :ref:`Docker Images<docker-images-label>` as demo1B
 * :ref:`AMD-Xilinx platforms<demos-AMD-work-label>`
+* :ref:`Inter Process Demos<inter-process-reference-label>`
