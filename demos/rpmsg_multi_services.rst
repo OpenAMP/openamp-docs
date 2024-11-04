@@ -21,13 +21,10 @@ The host side is implemented in Linux as client drivers to the remote services. 
 
 ..  image::  ../images/demos/rpmsg-multi-services-intro.svg
 
+
+The remote sets up three RPMsg channels, one for each service, starting at address RPMSG_RESERVED_ADDRESSES, which is 0x400 (1024). These channels utilize a single Virtio device.
+
 .. _rpmsg-multi-services-components:
-
-
-
-The linux rpmsg_client_sample driver begins sending 'hello world!' messages on a rpmsg_driver probe, and repeats a predefined time for each response from the remote. The response from the remote application is to return the same packet they received at the :ref:`RPmsg endpoint <rpmsg-endpoint>` from the host controller.
-
-The character and tty driver are demonstrated by sending message to the rpmsg_char and rpmsg_tty driver respectively using the Linux echo command to the respective /dev/rpmsg? and /dev/ttyRPMSG? device files. The response is output by using the Linux cat command.
 
 *******************************
 RPMsg Multi Services Components
@@ -54,10 +51,59 @@ The following architecture diagram shows the components involved in the demonstr
 
 ..  image::  ../images/demos/rpmsg-multi-services-components.svg
 
+.. _rpmsg-control-flow-label:
+
 The top-level control flow is shown in the following message diagram. The remote threads are show sequentially for clarity of diagram but could be executed in parallel.
 
 ..  image::  ../images/demos/rpmsg-multi-services-control-flow.svg
 
+
+.. _rpmsg-client-sample-label:
+
+RPmsg Client Sample
+===================
+
+The Linux rpmsg_client_sample driver begins sending 'hello world!' messages on a rpmsg_driver probe, initiated by a name service announcement from the remote. This is repeated a predefined count times for each response from the remote. The response from the remote application is to return the same packet received at the :ref:`RPmsg endpoint <rpmsg-endpoint>` of the host controller.
+
+When the count (100) responses have been sent, the endpoint is destroyed by the remote.
+
+
+.. _rpmsg-character-driver-sample-label:
+
+Character Driver Samples
+========================
+
+The Linux character and tty driver are demonstrated by sending messages to the rpmsg_char and rpmsg_tty driver respectively by a user space command writing to the respective /dev/rpmsg? and /dev/ttyRPMSG? device files. The response is output by using the Linux cat command.
+
+Writing data to the zeroth index /dev/rpmsg0 and /dev/ttyRPMSG0 files will result in an RPMsg being sent to the channel's address, which start at 0x400 (1024) and are allocated by the remote sequentially on channel creation.
+
+Writing data to indexed driver files will result in an RPMsg being sent the Linux endpoint address, which has a corresponding address on the remote side in either a one to one or many to one relationship as detailed in the following sections.
+
+.. _rpmsg-raw-driver-label:
+
+Raw Character Driver Sample
+---------------------------
+
+When started the character/raw remote service (app_rpmsg_raw thread) creates two RPMsg endpoints. The first with the special RPMSG_ADDR_ANY (-1) address which sets up the RPMsg channel and the second with destination and source address set to 1.
+
+In addition to demonstrating the use of the raw character driver, this application demonstrates the use of an arbitrary number of Linux side RPMsg endpoints, all connected to a single endpoint on remote side (with address 1). The Linux side end points are created using the `rpmsg-utils rpmsg_export_ept utility <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/linux/rpmsg-utils/rpmsg_export_dev.c>`_, and establish a many to one connectivity between host and remote endpoints.
+
+Although there are many endpoints on the Linux side, the remote has only two endpoints.
+
+Refer to the :ref:`flow control diagram<rpmsg-control-flow-label>`.
+
+.. _rpmsg-tty-driver-label:
+
+Tty Driver Sample
+-----------------
+
+When started the tty remote service (app_rpmsg_tty thread) initially creates only a single RPMsg channel by creating the special RPMSG_ADDR_ANY (-1) end point.
+
+The management thread (rpmsg_mng_task) also sets up a 'New Service Callback' (new_service_cb) which monitors for new 'rpmsg-tty' requests. On receipt of such a request the application creates a new channel, and returns a "bound" message. The remote application limits this to two channels.
+
+This application demonstrates the creation and release of RPMsg channels using the `rpmsg-utils rpmsg_export_dev utility <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/linux/rpmsg-utils/rpmsg_export_dev.c>`_, which exercise the ioctl commands RPMSG_CREATE_DEV_IOCTL and RPMSG_RELEASE_DEV_IOCTL.
+
+Refer to the :ref:`flow control diagram<rpmsg-control-flow-label>`.
 
 ********************************
 RPMsg Multi Services Demo Source
@@ -103,7 +149,4 @@ Reference Board Implementations
 This RPMsg Multi Services Sample is demonstrated in the following reference implementations.
 
 * :ref:`ST Micro Platforms<demos-ST-work-label>`
-
-Build and run instructions for reference board.
-https://github.com/OpenAMP/openamp-system-reference/tree/main/examples/zephyr/rpmsg_multi_services
-
+  * Refer to `Zephyr Build Instructions <https://github.com/OpenAMP/openamp-system-reference/tree/main/examples/zephyr/rpmsg_multi_services>`_.
