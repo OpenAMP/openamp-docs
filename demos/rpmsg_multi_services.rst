@@ -149,4 +149,5 @@ Reference Board Implementations
 This RPMsg Multi Services Sample is demonstrated in the following reference implementations.
 
 * :ref:`ST Micro Platforms<demos-ST-work-label>`
-  * Refer to `Zephyr Build Instructions <https://github.com/OpenAMP/openamp-system-reference/tree/main/examples/zephyr/rpmsg_multi_services>`_.
+
+   * Refer to `Zephyr Build Instructions <https://github.com/OpenAMP/openamp-system-reference/tree/main/examples/zephyr/rpmsg_multi_services>`_.
