@@ -11,6 +11,4 @@ This can be useful for demonstration purposes, but can also be leveraged for com
 
 Effectively the `OpenAMP Library <https://github.com/OpenAMP/open-amp/tree/main/lib>`_ and `reference examples <https://github.com/OpenAMP/open-amp/tree/main/apps/examples>`_ are built for the host system along with the `host examples <https://github.com/OpenAMP/openamp-system-reference/tree/main/examples/linux>`_.
 
-To build and execute on a Linux system, refer to:
-
-* ../open-amp/README.md
+To build and execute on a Linux system, refer to the `example to compile OpenAMP for communication between Linux processes <https://github.com/OpenAMP/open-amp/blob/main/README.md#example-to-compile-openamp-for-communication-between-linux-processes>`_.
