@@ -141,6 +141,7 @@ The raw character 'client' is the `RPMsg character driver <https://github.com/to
 
 The tty 'client' is the `PRMsg tty driver <https://github.com/torvalds/linux/blob/master/drivers/tty/rpmsg_tty.c>`_ provided in the Linux source, and becomes available on a name service announcement from the remote whence the driver module is loaded and available at the /dev/ttyRPMSG? device file. To exercise the demonstration, characters can be sent to the device file using echo or cat Linux command.
 
+The RPMsg ioctl (IO control) is performed through `rpmsg_ctrl <https://github.com/torvalds/linux/blob/master/drivers/rpmsg/rpmsg_ctrl.c>`_ provided in the Linux source and is used by the `rpmsg-utils rpmsg_export_dev utility <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/linux/rpmsg-utils/rpmsg_export_dev.c>`_, which exercise the ioctl commands RPMSG_CREATE_DEV_IOCTL and RPMSG_RELEASE_DEV_IOCTL.
 
 *******************************
 Reference Board Implementations
