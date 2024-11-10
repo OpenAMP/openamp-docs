@@ -22,7 +22,7 @@ The host side is implemented in Linux as client drivers to the remote services. 
 ..  image::  ../images/demos/rpmsg-multi-services-intro.svg
 
 
-The remote sets up three RPMsg channels, one for each service, starting at address RPMSG_RESERVED_ADDRESSES, which is 0x400 (1024). These channels utilize a single Virtio device.
+The remote sets up three RPMsg channels, one for each service, starting at address RPMSG_RESERVED_ADDRESSES, which is 0x400 (1024). These channels are multiplexed on a single Virtio device.
 
 .. _rpmsg-multi-services-components:
 
