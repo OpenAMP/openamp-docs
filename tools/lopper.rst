@@ -25,8 +25,9 @@ The `Lopper Tool <https://github.com/devicetree-org/lopper>`_ provides a way to 
 ..  image::  ../images/tools/lopper-intro.svg
 
 
-`Lopper Tool <https://github.com/devicetree-org/lopper>`_ is a data driven tool written in Python, and supports inputs in dts, dtb and yaml format. Actions, which are used to manipulate the input data, are provided as unit operations (lops) dts files. These are small transformation commands, inline Python source or for more complex scenarios `lopper assists <https://github.com/devicetree-org/lopper/tree/master/lopper/assists>`_ Python modules.
+The `Lopper Tool <https://github.com/devicetree-org/lopper>`_ is a data driven tool written in Python, and supports inputs in dts, dtb and yaml format. Actions, which are used to manipulate the input data, are provided as unit operations (lops) as DTS formatted files. These are small transformation commands, inline Python source or for more complex scenarios `lopper assists <https://github.com/devicetree-org/lopper/tree/master/lopper/assists>`_ Python modules.
 
+The diagram below shows an example of three transformations performed by lopper through three independent DTS files which define the actions to perform.
 
 ..  image::  ../images/tools/lopper-actions.svg
 
