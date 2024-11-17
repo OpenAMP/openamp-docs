@@ -12,7 +12,6 @@ Samples and Demos
 
    ../open-amp/apps/examples/linux_rpc_demo/README
    ../hypervisorless_virtio_zcu102/README_demo
-   ../lopper/demos/openamp/README.md
 
 .. toctree::
    :hidden:
