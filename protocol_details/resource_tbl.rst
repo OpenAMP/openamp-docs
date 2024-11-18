@@ -1,11 +1,11 @@
-========================
-Resource Table Evolution
-========================
+==============
+Resource Table
+==============
 
 Overview
 ********
 
-This page is to collect all ideas for the evolution of the remoteproc resource table.
+The resource table is a key part of resource assignment of remoteproc life cycle management.
 
 Needs
 *****
