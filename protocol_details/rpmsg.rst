@@ -1,8 +1,8 @@
 .. _rpmsg-protocol-work-label:
 
-========================
-RPMsg Messaging Protocol
-========================
+=========================================================
+Inter Process Communications (IPC) through RPMsg Protocol
+=========================================================
 
 In asymmetric multiprocessor systems, the most common way for different cores to cooperate is to use a shared memory-based communication. There are many custom implementations, which means that the considered systems cannot be directly interconnected. Therefore, this document’s aim is to offer a standardization of this communication based on existing components (RPMsg, VirtIO).
 
