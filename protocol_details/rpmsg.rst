@@ -6,6 +6,13 @@ RPMsg Messaging Protocol
 
 In asymmetric multiprocessor systems, the most common way for different cores to cooperate is to use a shared memory-based communication. There are many custom implementations, which means that the considered systems cannot be directly interconnected. Therefore, this document’s aim is to offer a standardization of this communication based on existing components (RPMsg, VirtIO).
 
+
+.. toctree::
+   :maxdepth: 2
+
+   rpmsg_comms
+
+
 ***************
 Protocol Layers
 ***************
