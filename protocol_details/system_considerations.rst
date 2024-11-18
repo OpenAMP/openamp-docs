@@ -8,13 +8,13 @@ Take the following system-wide considerations into account to develop unsupervis
 
    - Determine system architecture/topology
 
-   The OpenAMP framework implicitly assumes master-slave (remote) system architecture. The topology for the master-slave (remote) architecture should be determined; either star, chain, or a combination. The following figure shows some simple use cases.
+   The OpenAMP framework implicitly assumes a host controller to remote system architecture. The topology for this architecture should be determined; either star, chain, or a combination. The following figure shows some simple use cases.
 
-      * Case 1 — A single master software context on processor 1 controlling life cycle and communicating with two independent remote software contexts on processors 2 and 3, in star topology,
+      * Case 1 — A single host controller software context on processor 1 controlling life cycle and communicating with two independent remote software contexts on processors 2 and 3, in star topology,
 
-      * Case 2 — Master software context 1 on processor 1 brings up remote software context 1 on processor 2. This context acts as master software context 2 for remote software context 2 on processor 3, in chain topology.
+      * Case 2 — Host controller software context 1 on processor 1 brings up remote software context 1 on processor 2. This context acts as the host software context 2 for remote software context 2 on processor 3, in chain topology.
 
-   .. image:: ../images/topo_types.jpg
+   .. image:: ../images/topo_types.svg
 
    - Determine system and IO resource partitioning
 
@@ -30,15 +30,15 @@ Take the following system-wide considerations into account to develop unsupervis
 
    To develop an AMP system using the OpenAMP Framework, it is important to determine the memory regions that would be owned and shared between each of the participating software environments in the AMP system. For example, in a configuration such as this, the memory address ranges owned (for code/data/bss/heap) by each participating OS or bare metal context, and the shared memory regions to be used by IPC mechanisms (virtio rings and memory for data buffers) needs to be determined. Memory alignment requirements should be taken into consideration while making this determination.
 
-   The following image illustrates the memory layout for Linux master/RTOS-based remote application, and RTOS-based master/bare metal-based remote application in chain configuration. Determinint the Memory Layout in an AMP System
+   The following image illustrates the memory layout for Linux host/RTOS-based remote application, and RTOS-based host/bare metal-based remote application in chain configuration. Determinint the Memory Layout in an AMP System
 
    .. image:: ../images/memory_layout.jpg
 
    - Ensure cooperative usage of shared resources between software environments in the AMP system
 
-   For the purpose of this discussion, assume you are using a Linux master/bare metal- based remote system configuration.
+   For the purpose of this discussion, assume you are using a Linux host/bare metal- based remote system configuration.
 
-   The interrupt controller is typically a shared resource in multicore SoCs. It is general practice for OSs to reset and initialize (clear and disable all interrupts) the interrupt controller during their boot sequence given the general assumption that the OS would own the entire system. This will not work in AMP systems; if an OS in remote software context resets and initializes the interrupt controller, it would catastrophically break the master software contexts run time since the master context could already be using the interrupt controller to manage its interrupt resources. Therefore, remote software environments should be patched such that they cooperatively use the interrupt controller (for example, do not reset/clear/disable all interrupts blindly but initialize only the interrupts that belong to the remote context). Ensure the timer peripheral used by the
+   The interrupt controller is typically a shared resource in multicore SoCs. It is general practice for OSs to reset and initialize (clear and disable all interrupts) the interrupt controller during their boot sequence given the general assumption that the OS would own the entire system. This will not work in AMP systems; if an OS in remote software context resets and initializes the interrupt controller, it would catastrophically break the host controller software contexts run time since the host context could already be using the interrupt controller to manage its interrupt resources. Therefore, remote software environments should be patched such that they cooperatively use the interrupt controller (for example, do not reset/clear/disable all interrupts blindly but initialize only the interrupts that belong to the remote context). Ensure the timer peripheral used by the
 
-   remote OS/RTOS context is different from the one used by the master software context so the individual run-times do not interfere with each other.
+   remote OS/RTOS context is different from the one used by the host controller software context so the individual run-times do not interfere with each other.
 
