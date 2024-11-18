@@ -10,7 +10,7 @@ Lopper Intro
 
 System Device Trees (S-DT) are used to describe resources of `heterogeneous <https://en.wikipedia.org/wiki/Heterogeneous_computing>`_ embedded environments.
 
-Their intent is to be the industry standard method for defining how computing resources are divided into independent runtime domains.
+Their intent is to be the industry standard method for defining how computing resources are divided into independent :ref:`runtime domains<resource-assignment-work-label>`.
 
 Examples of domains are
 
