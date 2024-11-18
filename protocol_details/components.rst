@@ -13,9 +13,13 @@ The key components and the capabilities they provide through the OpenAMP Framewo
    rpmsg
 
 
-- remoteproc — This component allows for the Life Cycle Management (LCM) of remote processors from software running on a master processor. The remoteproc API provided by the OpenAMP Framework is compliant with the remoteproc infrastructure present in upstream Linux 3.4.x kernel onward. The Linux remoteproc infrastructure and API was first implemented by Texas Instruments.
+.. csv-table::
+   :header: "AMP Key Component", "Description"
+   :widths: 30, 90
 
-- RPMsg – The RPMsg API enables `Inter Processor Communications (IPC) <https://en.wikipedia.org/wiki/Inter-process_communication>`_ between independent software contexts running on homogeneous or `heterogeneous <https://en.wikipedia.org/wiki/Heterogeneous_computing>`_ cores present in an AMP system. This API is compliant with the RPMsg bus infrastructure present in upstream Linux 3.4.x kernel onward. The Linux RPMsg bus and API infrastructure was first implemented by Texas Instruments.
+    remoteproc, This component allows for the Life Cycle Management (LCM) of remote processors from software running on a master processor. The remoteproc API provided by the OpenAMP Framework is compliant with the remoteproc infrastructure present in upstream Linux 3.4.x kernel onward. The Linux remoteproc infrastructure and API was first implemented by Texas Instruments.
+    RPMsg, The RPMsg API enables `Inter Processor Communications (IPC) <https://en.wikipedia.org/wiki/Inter-process_communication>`_ between independent software contexts running on homogeneous or `heterogeneous <https://en.wikipedia.org/wiki/Heterogeneous_computing>`_ cores present in an AMP system. This API is compliant with the RPMsg bus infrastructure present in upstream Linux 3.4.x kernel onward. The Linux RPMsg bus and API infrastructure was first implemented by Texas Instruments.
+
 
 *******
 History
