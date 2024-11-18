@@ -5,6 +5,6 @@ OpenAMP Design Docs
    :maxdepth: 1
    :caption: Contents:
 
-   ../open-amp/docs/remoteproc-design
-   ../open-amp/docs/rpmsg-design
+   ../open-amp/doc/remoteproc-design
+   ../open-amp/doc/rpmsg-design
 
