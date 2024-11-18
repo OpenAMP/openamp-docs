@@ -27,7 +27,7 @@ The OpenAMP Framework fills these gaps. It provides the required LCM and IPC inf
 
 The following figure shows the various software environments/configurations supported by the OpenAMP Framework. As shown in this illustration, the OpenAMP Framework can be used with RTOS or bare metal contexts on a remote processor to communicate with Linux applications (in kernel space or user space) or other RTOS/bare metal-based applications running on the master processor through the remoteproc and RPMsg components. Managing Remote Processes with the OpenAMP framework
 
-.. image:: ../images/openamp_components.jpg
+.. image:: ../images/openamp_components.svg
 
 The OpenAMP Framework also serves as a stand-alone library that enables RTOS and bare metal applications on a master processor to manage the life cycle of remote processor/firmware and communicate with them using RPMsg.
 
