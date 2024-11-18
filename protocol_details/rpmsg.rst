@@ -4,7 +4,7 @@
 Inter Process Communications (IPC) through RPMsg Protocol
 =========================================================
 
-In asymmetric multiprocessor systems, the most common way for different cores to cooperate is to use a shared memory-based communication. There are many custom implementations, which means that the considered systems cannot be directly interconnected. Therefore, this document’s aim is to offer a standardization of this communication based on existing components (RPMsg, VirtIO).
+In asymmetric multiprocessor systems, the most common way for different cores to cooperate is to use a shared memory-based communication. There are many custom implementations, which means that the considered systems cannot be directly interconnected. Therefore, OpenAMP's aim is to offer a standardization of this communication based on existing components (RPMsg, VirtIO).
 
 
 .. toctree::
@@ -26,7 +26,7 @@ Physical Layer – Shared Memory
 
 The solution proposed in this document requires only two basic hardware components - shared memory (accessible by both communicating sides) and inter-core interrupts (in a specific configuration optional). The minimum configuration requires one interrupt line per communicating core meaning two interrupts in total. This configuration is briefly presented in figure at the beginning of this section. It is to be noticed that no inter-core synchronization hardware element such as inter-core semaphore, inter-core queue or inter-core mutex is needed! This is thanks to the nature of the virtqueue, which uses single-writer-single-reader circular buffering. (As defined in next subsection)
 
-In case the “used” and “avail” ring buffers have a bit set in their configuration flags field, the generation of interrupts can be completely suppressed - in such a configuration, the interrupts are not necessary. However both cores need to poll the “ring” and “used” ring buffers for new incoming messages, which may not be optimal.
+The use of interrupts by the “used” and “avail” ring buffers is optional and can be suppressed using a bit set in their configuration flags field - in such a configuration, the interrupts are not necessary. However both cores need to poll the “ring” and “used” ring buffers for new incoming messages, which may not be optimal.
 
 .. image:: ../images/core_to_core_interrupt.jpg
 
