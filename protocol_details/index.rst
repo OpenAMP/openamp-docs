@@ -6,17 +6,13 @@
 OpenAMP Design Details
 ======================
 
-This section provides an introduction to AMP and details on the OpenAMP architecture components. For an introduction please refer to :ref:`OpenAMP Architecture<openamp-architecture-work-label>` section.
+This section provides an introduction to `Asymmetric Multiprocessing (AMP) <https://en.wikipedia.org/wiki/Asymmetric_multiprocessing>`_ and detailed design of the OpenAMP architecture components. For an introduction please refer to :ref:`OpenAMP Architecture<openamp-architecture-work-label>` section.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
 
    asymmetric_mp
    components
-   rpmsg
-   rpmsg_comms
-   lifecyclemgmt
    system_considerations
-   resource_tbl
    design_docs

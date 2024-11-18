@@ -4,7 +4,14 @@
 Components and Capabilities
 ===========================
 
-The key components and capabilities provided by the OpenAMP Framework include:
+The key components and the capabilities they provide through the OpenAMP Framework include:
+
+.. toctree::
+   :maxdepth: 2
+
+   rpmsg
+   lifecyclemgmt
+
 
     - remoteproc — This component allows for the Life Cycle Management (LCM) of remote processors from software running on a master processor. The remoteproc API provided by the OpenAMP Framework is compliant with the remoteproc infrastructure present in upstream Linux 3.4.x kernel onward. The Linux remoteproc infrastructure and API was first implemented by Texas Instruments.
 
