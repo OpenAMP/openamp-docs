@@ -3,8 +3,10 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-OpenAMP Protocol Details
-========================
+OpenAMP Design Details
+======================
+
+This section provides an introduction to AMP and details on the OpenAMP architecture components. For an introduction please refer to :ref:`OpenAMP Architecture<openamp-architecture-work-label>` section.
 
 .. toctree::
    :maxdepth: 2
