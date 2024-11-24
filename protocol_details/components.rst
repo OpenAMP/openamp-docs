@@ -4,7 +4,7 @@
 Components and Capabilities
 ===========================
 
-The key components and the capabilities they provide through the OpenAMP Framework include:
+The key components, and the capabilities they provide, of the OpenAMP Framework include:
 
 .. toctree::
    :maxdepth: 2
