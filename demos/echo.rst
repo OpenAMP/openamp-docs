@@ -36,6 +36,8 @@ The following architecture diagram shows the components involved in the demonstr
 
 The top-level control flow is shown in the following message diagram.
 
+.. _echo-test-control-flow:
+
 ..  image::  ../images/demos/echo-test-control-flow.svg
 
 .. _echo-test-remote-app:
