@@ -27,9 +27,10 @@ The whole communication implementation can be separated in three different ISO/O
 Physical Layer – Shared Memory
 ------------------------------
 
-The solution proposed in this document requires only two basic hardware components - shared memory (accessible by both communicating sides) and inter-core interrupts (in a specific configuration optional). The minimum configuration requires one interrupt line per communicating core meaning two interrupts in total. This configuration is briefly presented in figure at the beginning of this section. It is to be noticed that no inter-core synchronization hardware element such as inter-core semaphore, inter-core queue or inter-core mutex is needed! This is thanks to the nature of the virtqueue, which uses single-writer-single-reader circular buffering. (As defined in next subsection)
+The solution proposed in this document requires only two basic hardware components - shared memory (accessible by both communicating sides) and inter-core interrupts (in a specific configuration optional). The minimum configuration requires one interrupt line per communicating core meaning two interrupts in total. This configuration is briefly presented in figure at the beginning of this section. It is to be noticed that no inter-core synchronization hardware element such as inter-core semaphore, inter-core queue or inter-core mutex is needed! This is thanks to the nature of the `virtqueue <https://docs.oasis-open.org/virtio/virtio/v1.3/csd01/virtio-v1.3-csd01.html#x1-270006>`_, which uses single-writer-single-reader circular buffering. (As defined in next subsection).
 
-The use of interrupts by the “used” and “avail” ring buffers is optional and can be suppressed using a bit set in their configuration flags field - in such a configuration, the interrupts are not necessary. However both cores need to poll the “ring” and “used” ring buffers for new incoming messages, which may not be optimal.
+
+The use of interrupts by the ring buffers is optional and can be suppressed using a bit set in their configuration flags field - in such a configuration, the interrupts are not necessary. However both cores need to poll these ring buffers for new incoming messages, which may not be optimal.
 
 .. image:: ../images/core_to_core_interrupt.jpg
 
@@ -45,6 +46,8 @@ This technique is however applicable only in core-to-core configuration, not in 
 The above shown picture describes the vring component. Vring is composed of three elementary parts - buffer descriptor pool, the “available” ring buffer (or input ring buffer) and the “used” ring buffer (or free ring buffer). All three elements are physically stored in the shared memory.
 
 Each buffer descriptor contains a 64-bit buffer address, which holds an address to a buffer stored in the shared memory (as seen physically by the “receiver” or host of this vring), its length as a 32-bit variable, 16-bit flags field and 16-bit link to the next buffer descriptor. The link is used to chain unused buffer descriptors and to chain descriptors, which have the F_NEXT bit set in the flags field to the next descriptor in the chain.
+
+Note that the available and used ring buffer areas contain pointers to buffers, rather than the buffers themselves. Later versions of the `Virtio virtqueue <https://docs.oasis-open.org/virtio/virtio/v1.3/csd01/virtio-v1.3-csd01.html#x1-270006>`_ have change naming of these three sections to Descriptor Table, Driver Area and Device Area.
 
 .. image:: ../images/vring_descriptor.jpg
 
