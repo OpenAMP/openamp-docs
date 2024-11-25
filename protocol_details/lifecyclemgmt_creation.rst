@@ -18,7 +18,7 @@ Procedure
 
     1. Define the resource table structure in the application. The resource table must minimally contain carve-out and VirtIO device information for IPC.
 
-    As an example, please refer to the resource table defined in the bare metal remote echo test application at <open_amp>/apps/machine/zynq/rsc_table.c. The resource table contains entries for memory carve-out and virtio device resources. The memory carve-out entry contains info like firmware ELF image start address and size. The virtio device resource contains virtio device features, vring addresses, size, and alignment information. The resource table data structure is placed in the resource table section of remote firmware ELF image using compiler directives.
+    As an example, please refer to the resource table defined in the bare metal remote echo test application at `rsc_table.c <https://github.com/OpenAMP/open-amp/blob/main/apps/machine/zynqmp_r5/rsc_table.c>`_. The resource table contains entries for memory carve-out and virtio device resources. The memory carve-out entry contains info like firmware ELF image start address and size. The virtio device resource contains virtio device features, vring addresses, size, and alignment information. The resource table data structure is placed in the resource table section of remote firmware ELF image using compiler directives.
 
     2. After defining the resource table and creating the OpenAMP Framework library, link the remote application with the RTOS or bare metal library and the OpenAMP Framework library to create a remote firmware ELF image capable of in-place execution from its pre-determined memory region. (The pre-determined memory region is determined according to guidelines provided by section.)
 
@@ -35,11 +35,11 @@ Procedure
 ~~~~~~~~~
 
     1. If the RTOS- or bare metal-based host software context has a file system, place this firmware ELF image in the file system.
-    2. Implement the get_firmware API in firmware.c (in the <open_amp>/lib/common/ directory) to fetch the remote firmware image by name from the file system.
+    2. Implement the remoteproc APIs to load the remote firmware.
     3. For AMP use cases with Linux as host, place the firmware application in the root file system for use by Linux remoteproc platform drivers.
 
 In the OpenAMP Framework reference port to Zynq ZC702EVK, the bare metal library used by the host software applications do not include a file system. Therefore, the remote image is packaged along with the host ELF image. The remote ELF image is converted to an object file using “objcpy” available in the “GCC bin-utils”. This object file is further linked with the host ELF image.
 
-The remoteproc component on the host uses the start and end symbols from the remote object files to get the remote ELF image base and size. Since the logistics used by the host to obtain a remote firmware image is deployment specific, the config_get_firmware API in firmware.c in the <open_amp>/lib/common/ directory implements all the logistics described in this procedure to enable the OpenAMP Framework remoteproc on the host to obtain the remote firmware image.
+The remoteproc component on the host uses the start and end symbols from the remote object files to get the remote ELF image base and size.
 
 You can now use the remoteproc APIs.
