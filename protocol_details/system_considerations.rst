@@ -6,7 +6,7 @@ AMP systems could either be supervised (using a hypervisor to enforce isolation 
 
 Take the following system-wide considerations into account to develop unsupervised AMP systems using the OpenAMP framework.
 
-   - Determine system architecture/topology
+   - Determine system :ref:`architecture/topology<topology-work-label>`
 
    The OpenAMP framework implicitly assumes a host controller to remote system architecture. The topology for this architecture should be determined; either star, chain, or a combination. The following figure shows some simple use cases.
 
@@ -38,7 +38,5 @@ Take the following system-wide considerations into account to develop unsupervis
 
    For the purpose of this discussion, assume you are using a Linux host/bare metal- based remote system configuration.
 
-   The interrupt controller is typically a shared resource in multicore SoCs. It is general practice for OSs to reset and initialize (clear and disable all interrupts) the interrupt controller during their boot sequence given the general assumption that the OS would own the entire system. This will not work in AMP systems; if an OS in remote software context resets and initializes the interrupt controller, it would catastrophically break the host controller software contexts run time since the host context could already be using the interrupt controller to manage its interrupt resources. Therefore, remote software environments should be patched such that they cooperatively use the interrupt controller (for example, do not reset/clear/disable all interrupts blindly but initialize only the interrupts that belong to the remote context). Ensure the timer peripheral used by the
-
-   remote OS/RTOS context is different from the one used by the host controller software context so the individual run-times do not interfere with each other.
+   The interrupt controller is typically a shared resource in multicore SoCs. It is general practice for OSs to reset and initialize (clear and disable all interrupts) the interrupt controller during their boot sequence given the general assumption that the OS would own the entire system. This will not work in AMP systems; if an OS in remote software context resets and initializes the interrupt controller, it would catastrophically break the host controller software contexts run time since the host context could already be using the interrupt controller to manage its interrupt resources. Therefore, remote software environments should be patched such that they cooperatively use the interrupt controller (for example, do not reset/clear/disable all interrupts blindly but initialize only the interrupts that belong to the remote context). Ensure the timer peripheral used by the remote OS/RTOS context is different from the one used by the host controller software context so the individual run-times do not interfere with each other.
 
