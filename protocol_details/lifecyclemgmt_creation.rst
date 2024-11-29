@@ -16,7 +16,7 @@ Creating a remote image through remoteproc begins by defining the resource table
 Procedure
 ~~~~~~~~~
 
-    1. Define the resource table structure in the application. The resource table must minimally contain carve-out and VirtIO device information for IPC.
+    1. Define the :ref:`resource table<resource-table>` structure in the application. The resource table must minimally contain carve-out and VirtIO device information for IPC.
 
     As an example, please refer to the resource table defined in the bare metal remote echo test application at `rsc_table.c <https://github.com/OpenAMP/open-amp/blob/main/apps/machine/zynqmp_r5/rsc_table.c>`_. The resource table contains entries for memory carve-out and virtio device resources. The memory carve-out entry contains info like firmware ELF image start address and size. The virtio device resource contains virtio device features, vring addresses, size, and alignment information. The resource table data structure is placed in the resource table section of remote firmware ELF image using compiler directives.
 
