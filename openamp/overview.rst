@@ -163,8 +163,6 @@ Vendors porting OpenAMP will provide an implementation of libmetal for their sys
 
 .. _project-aims-work-label:
 
-In the future OpenAMP is envisioned to also encompass other areas important in a heterogeneous environment, such as power management and managing the lifecycle of non-CPU devices.
-
 Read more about the OpenAMP System Components :ref:`here<openamp-components-work-label>`.
 
 ************
