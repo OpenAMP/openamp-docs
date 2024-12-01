@@ -11,6 +11,9 @@ Welcome to the OpenAMP Project Documentation
    :caption: Contents:
 
    openamp/index
+   demos/demos_index
+   demos/reference_boards
+   tools/index
    protocol_details/index
    docs/index
 
