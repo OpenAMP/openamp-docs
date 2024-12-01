@@ -5,7 +5,15 @@ OpenAMP Demo Docker images
 ==========================
 
 The OpenAMP project maintains the following docker images to demonstrate
-the project.  In the future docker images for use with CI will also be provided.
+the project.
+
+Multiple QEMU instances are run in the docker image to emulate both the
+host processor(s) and the remote processor(s) of an OpenAMP system setup.
+
+The :ref:`Supporting Tools<tools_label>` are executed within the docker
+container using host scripts and applications.
+
+In the future docker images for use with CI will also be provided.
 At this time the following images are provided:
 
 .. list-table:: Docker images
@@ -15,7 +23,7 @@ At this time the following images are provided:
     * - Name
       - Description
     * - openamp/demo-lite
-      - Just enough to run the openamp QEMU demos and lopper CLI demo
+      - Just enough to run the openamp QEMU demos and :ref:`supporting tools<tools_label>`, like lopper CLI demo
     * - openamp/demo
       - Placeholder for image *to build* and run the above demos
 
@@ -73,6 +81,8 @@ Some good ones include:
 Start the container
 *******************
 
+The demos should be started using docker run in `interactive mode <https://docs.docker.com/reference/cli/docker/container/run/#interactive>`_ with `pseudo-tty <https://docs.docker.com/reference/cli/docker/container/run/#tty>`_.
+
 ::
 
     you@your-machine:~$ docker run -it openamp/demo-lite
@@ -97,6 +107,19 @@ As part of logging you in, some guidance will be printed on how to run the demos
 
     Enjoy!
     dev@openamp-demo:~$
+
+To :ref:`exit the docker container<exit_docker>` use key combination Ctrl-A x
+or type exit on window 1 (top right of terminal).
+
+We also recommend reading :ref:`Qemu Tips and Tricks<qemu-tips-tricks>` to help
+you during execution of demos.
+
+QEMU Demos Layout
+*****************
+
+The QEMU demos have a consistent terminal layout utilizing
+`tmux <https://en.wikipedia.org/wiki/Tmux>`_, which is a terminal multiplexer,
+allowing for multiple terminals to be displayed on a single window.
 
 
 Run the QEMU based demos
@@ -245,16 +268,20 @@ The script will then step you through the commands in the README and let you
 view the various files.  At the end you can look at all the files in the
 ~/demo5/lopper/demos/openamp directory.
 
+.. _exit-docker:
+
 Exit and clean-up the docker container
 **************************************
 
-When at the docker container prompt, the exit command will stop the container
-and return you to your machine's prompt.
+When at the docker container prompt (window 1 at top right of terminal), the exit
+command will stop the container and return you to your machine's prompt.
 
 ::
 
     dev@openamp-demo:~$ exit
     you@your-machine:~$
+
+Alternately type Ctrl-A x to quit, as instructed on window 0, top left of the terminal.
 
 Now the container is not running but still exists.  To check and delete it do:
 ::
@@ -278,6 +305,7 @@ To see the images and delete the the openamp ones, you can do:
     openamp/demo-lite   latest        6ee85d920453   24 hours ago   837MB
     you@your-machine:~$ docker image rm openamp/demo-lite
 
+.. _qemu-tips-tricks:
 
 qemu-zcu102 tips and tricks
 ***************************
