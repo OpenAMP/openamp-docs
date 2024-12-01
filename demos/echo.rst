@@ -62,6 +62,8 @@ The host is also responsible for loading the firmware containing the :ref:`RPmsg
 
 For host controllers, like Linux, a script can be used to pipe the firmware to the exposed remoteproc system, followed by the execution of the user space echo_test application. For controllers without scripting capability, like baremetal and RTOS (Real Time Operating systems), this would be achieved in the code.
 
+In the :ref:`Demo Docker Images<docker-images-label>` this is script demo1A.
+
 ****************
 Echo Test Source
 ****************
