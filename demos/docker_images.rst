@@ -8,7 +8,8 @@ The OpenAMP project maintains the following docker images to demonstrate
 the project.
 
 Multiple QEMU instances are run in the docker image to emulate both the
-host processor(s) and the remote processor(s) of an OpenAMP system setup.
+host processor(s) and the remote processor(s) of an OpenAMP system
+:ref:`topology<topology-work-label>`.
 
 The :ref:`Supporting Tools<tools_label>` are executed within the docker
 container using host scripts and applications.
@@ -67,7 +68,7 @@ Your life will be easier if you are not behind a corporate firewall.
 However if you can pull the docker image you should be able to run the demos
 as they are self contained.  Some of the other activities described like
 installing new packages etc may not work without additional effort.
-If needed, please checkout `this tutorial <https://www.serverlab.ca/tutorials/containers/docker/how-to-set-the-proxy-for-docker-on-ubuntu/>`_
+If needed, please checkout `this tutorial <https://www.serverlab.ca/tutorials/containers/docker/how-to-set-the-proxy-for-docker-on-ubuntu/>`_.
 
 Docker for other host systems
 -----------------------------
@@ -93,6 +94,11 @@ there.  If it is there it will be used without checking if it is the latest.
 
 It will then create and start a container based on this image and attach to it.
 
+.. _start-docker-demos:
+
+Start Docker Demos using Container
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 You will now be at a command prompt inside the container.
 As part of logging you in, some guidance will be printed on how to run the demos.
 
@@ -109,7 +115,7 @@ As part of logging you in, some guidance will be printed on how to run the demos
     dev@openamp-demo:~$
 
 To :ref:`exit the docker container<exit_docker>` use key combination Ctrl-A x
-or type exit on window 1 (top right of terminal).
+on window 0 (left tmux pane) or type exit on window 1 (top right tmux pane).
 
 We also recommend reading :ref:`Qemu Tips and Tricks<qemu-tips-tricks>` to help
 you during execution of demos.
@@ -120,6 +126,24 @@ QEMU Demos Layout
 The QEMU demos have a consistent terminal layout utilizing
 `tmux <https://en.wikipedia.org/wiki/Tmux>`_, which is a terminal multiplexer,
 allowing for multiple terminals to be displayed on a single window.
+
+..  image::  ../images/demos/tmux-layout.svg
+
+In the figure above the orange text is informative and the white is what is
+actually displayed by the docker image parts.
+
+There are four tmux panes. The left most larger pane is the Linux prompt
+for the OpenAMP demonstration's controller/host processor (not to be confused
+with the docker host). This is where each of the demo scripts are provided
+(in the home folder) to be executed. This pane is also where all of the
+input and output is performed.
+
+The top right tmux pane is the docker host pane, which holds the supporting
+files like firmware images (in a directory called my-extra-stuff) and allows
+you to ssh into the A53 control processor Linux instance (left most tmux
+pane).
+
+The two bottom right panes are for the UART output of the two zcu102 R5s.
 
 
 Run the QEMU based demos
@@ -136,6 +160,7 @@ This will:
     - Build a custom cpio file for the tftp/zcu102 directory
         * This cpio will contain the contents of the base cpio file plus the contents of the my-extra-stuff directory
         * This is done every boot so changes to the my-extra-stuff directory will be used on the next boot
+        * You can view the contents of the my-extra-stuff directory in the top right 'host' pane of tmux. It contains a lib folder with firmware files and a /home/root directory with the demo scripts and login_message displayed on start.
     - Start tmux and create multiple panes
         * The main QEMU pane with the main UART
         * A "host" pane for container level commands
@@ -145,7 +170,7 @@ This will:
         * In a separate QEMU process, emulate the microblaze based PDU
     - The A53s (in main QEMU pane) will:
         * Run TrustedFirmware-A, and U-Boot
-        * U-boot will autoboot from TFTP (provided by by QEMU from the tftp directory)
+        * U-boot will autoboot from TFTP (provided by QEMU from the tftp directory)
         * Load and run the kernel, dtb, and cpio based initramfs
         * present a login prompt
     - The container shell pane will present a container prompt
@@ -158,7 +183,12 @@ This will:
 Let the SOC autoboot (don't stop at the U-boot count down) and then login as
 directed (user is root with no password).
 If you don't see the login prompt hit enter to get a fresh prompt.
-At SOC login, instructions will be printed for running the current demo.
+At SOC login (left tmux pane), instructions will be printed for running the
+current demo.
+
+The following snippet shows the login followed by the login_message
+printed immediately after login.
+
 
 ::
 
@@ -177,7 +207,12 @@ At SOC login, instructions will be printed for running the current demo.
 
 
 Demo1 contains 3 sub-demos, ``demo1A``, ``demo1B`` and ``demo1C``.
-You should look at each before running it:
+You should look at each before running it.
+
+The subsequent snippets show and then run demo1A script, followed by
+the outputs.
+
+Display script:
 
 ::
 
@@ -215,6 +250,9 @@ and then run it:
     main():108 Starting application...
     0 L7 registered generic bus
 
+Note that the output above shows both the Linux control processor output as
+well as the remote processor output interleaved so can be muddled in places.
+
 [snip]
 ::
 
@@ -244,16 +282,23 @@ To exit QEMU do either one of these:
     - In QEMU pane, hit **Ctrl-A** and then **x**
     - Click the "host" shell pane and type the ``exit`` command
 
-Now do the same for ``demo2``, ``demo3``, and ``demo4``.
+Now do the same for the other demos. You need to first
+:ref:`exit docker<exit-docker>` and then
+:ref:`start docker run<start-docker-demos>` for ``demo2``, ``demo3``, and
+``demo4``.
 These demos do not have sub-demos so contain a single demo script.
 
 Run the Lopper CLI demo
 ***********************
 
 The Lopper demo is fairly standalone but the container already has the
-needed requirements and the and the git repository has already been cloned with
+needed requirements and the git repository has already been cloned with
 the correct branch. Additionally, scripts have been written to cut down the
 typing or cut-and-paste required.
+
+Note that this demo is a :ref:`Supporting Tools<tools_label>` demo so does
+not use qemu-zcu102 like the previous demos. Instead the demo is run directly
+to start the corresponding container.
 
 To run this demo use:
 
@@ -267,6 +312,8 @@ in a browser and follow along.
 The script will then step you through the commands in the README and let you
 view the various files.  At the end you can look at all the files in the
 ~/demo5/lopper/demos/openamp directory.
+
+Refer to the :ref:`Lopper Intro<lopper-tool-intro>` for details.
 
 .. _exit-docker:
 
