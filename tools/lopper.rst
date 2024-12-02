@@ -2,7 +2,7 @@
 OpenAMP Lopper Tool
 ===================
 
-.. _lopper-tool-intro-label:
+.. _lopper-tool-intro:
 
 ***************
 Lopper Intro
@@ -37,7 +37,8 @@ Lopper is built on top of device tree tools, `Device Tree Compiler (DTC) <https:
 References
 ^^^^^^^^^^
 
-`Linaro Connect 2020 - System Device Tree & Lopper Slide Set <https://static.linaro.org/connect/lvc20/presentations/LVC20-314-0.pdf>`_
+`Lopper Architecture Readme <https://github.com/devicetree-org/lopper/blob/systemdt-linaro-demo/README-architecture.md>`_
 
+`Linaro Connect 2020 - System Device Tree & Lopper Slide Set <https://static.linaro.org/connect/lvc20/presentations/LVC20-314-0.pdf>`_
 
 `Open Source Summit 2022 Slide Set <https://static.sched.com/hosted_files/ossna2022/d9/Lopper%20ELCNA%202022.pdf>`_
