@@ -1,3 +1,5 @@
+.. _docker-images-label:
+
 ==========================
 OpenAMP Demo Docker images
 ==========================

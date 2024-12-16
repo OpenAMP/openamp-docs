@@ -11,6 +11,5 @@ OpenAMP Project
    :caption: Contents:
 
    overview
-   ../demos/index
    contributing
    links

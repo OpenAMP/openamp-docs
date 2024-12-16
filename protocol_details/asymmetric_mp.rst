@@ -1,8 +1,8 @@
 .. _asymmetric-multiprocessing-work-label:
 
-================================
-Asymmetric Multiprocessing Intro
-================================
+======================================
+Asymmetric Multiprocessing (AMP) Intro
+======================================
 
 An embedded AMP system is characterized by multiple homogeneous and/or heterogeneous processing cores integrated into one System-on-a-Chip (SoC). Examples include:
 
@@ -23,6 +23,6 @@ Other reasons to run heterogeneous software environments (e.g. multi-OS) include
     - Integration of code written for multiple environments
         * Legacy OS and new OS
 
-In AMP systems, it is typical for software running on a master to bring up software/firmware contexts on a remote on a demand-driven basis and communicate with them using IPC mechanisms to offload work during run time. The participating master and remote processors may be homogeneous or heterogeneous in nature.
+In AMP systems, it is typical for software running on a host to bring up software/firmware contexts on a remote on a demand-driven basis and communicate with them using IPC mechanisms to offload work during run time. The participating master and remote processors may be homogeneous or heterogeneous in nature. The remote can also be started automatically, on boot, which may be required where the remote is part of a safety critical system.
 
-A master is defined as the CPU/software that is booted first and is responsible for managing other CPUs and their software contexts present in an AMP system. A remote is defined as the CPU/software context managed by the master software context present.
+A host is defined as the CPU/software that is booted first and is responsible for managing other CPUs and their software contexts present in an AMP system. A remote is defined as the CPU/software context managed by the host software context present.
