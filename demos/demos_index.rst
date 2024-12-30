@@ -13,3 +13,4 @@ OpenAMP Samples and Demos
    rpmsg_multi_services
    linux_rpc
    hvl_virtio
+   split_mode
