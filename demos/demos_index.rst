@@ -14,3 +14,4 @@ OpenAMP Samples and Demos
    linux_rpc
    hvl_virtio
    split_mode
+   replicate_firmware
