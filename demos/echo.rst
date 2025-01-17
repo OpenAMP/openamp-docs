@@ -8,7 +8,7 @@ OpenAMP Echo Test Sample
 Echo Test Intro
 ***************
 
-The echo test reference sample, as the name suggests, demonstrates OpenAMP :ref:`Interprocessor Communications (IPC)<ipc-work-label>` components by providing an echo application on a remote which simply returns (echoes) packets as they are received at an :ref:`RPmsg endpoint <rpmsg-endpoint>` from the host controller. The host controller then verifies the returned packet for integrity.
+The echo test reference sample, as the name suggests, demonstrates OpenAMP :ref:`Interprocessor Communications (IPC)<ipc-work-label>` components by providing an echo application on a remote which simply returns (echoes) packets as they are received at an :ref:`RPMsg endpoint <rpmsg-endpoint>` from the host controller. The host controller then verifies the returned packet for integrity.
 
 ..  image::  ../images/demos/echo-test-intro.svg
 
@@ -19,7 +19,7 @@ Echo Test Components
 ********************
 
 There are two applications involved in this demonstration.
-The :ref:`remote application<echo-test-remote-app>` runs as an echo service, which returns packets it receives on an :ref:`RPmsg endpoint <rpmsg-endpoint>`.
+The :ref:`remote application<echo-test-remote-app>` runs as an echo service, which returns packets it receives on an :ref:`RPMsg endpoint <rpmsg-endpoint>`.
 The :ref:`host application<echo-test-host-app>` is the test application sending packets to the echo service and monitoring for their return.
 
 The underlying OpenAMP architectural components used by these applications are
@@ -42,10 +42,10 @@ The top-level control flow is shown in the following message diagram.
 
 .. _echo-test-remote-app:
 
-RPmsg Echo Remote Application
+RPMsg Echo Remote Application
 =============================
 
-The remote application, rpmsg-echo, is the core of the demonstration. It is a simple application serving a :ref:`RPmsg endpoint <rpmsg-endpoint>` running as the main task on the remote processor, once loaded and started using :ref:`Remoteproc<overview-remoteproc-work-label>`.
+The remote application, rpmsg-echo, is the core of the demonstration. It is a simple application serving a :ref:`RPMsg endpoint <rpmsg-endpoint>` running as the main task on the remote processor, once loaded and started using :ref:`Remoteproc<overview-remoteproc-work-label>`.
 
 
 .. _echo-test-host-app:
@@ -53,12 +53,12 @@ The remote application, rpmsg-echo, is the core of the demonstration. It is a si
 Echo Test Host Application
 ==========================
 
-The echo_test application forms the host controller side of the demonstration. It repeatedly writes an increasing length payload of 0xA5's up to the maximum data size (packet size minus header) to the RPmsg endpoint. Following each packet send, it reads from the same endpoint and verifies the returned packet for correctness. The application will stop and report on the first corruption found.
+The echo_test application forms the host controller side of the demonstration. It repeatedly writes an increasing length payload of 0xA5's up to the maximum data size (packet size minus header) to the RPMsg endpoint. Following each packet send, it reads from the same endpoint and verifies the returned packet for correctness. The application will stop and report on the first corruption found.
 
 Echo Test Host Script
 =====================
 
-The host is also responsible for loading the firmware containing the :ref:`RPmsg Echo Remote Application<echo-test-remote-app>` and starting the remote processor using :ref:`Remoteproc<overview-remoteproc-work-label>`.
+The host is also responsible for loading the firmware containing the :ref:`RPMsg Echo Remote Application<echo-test-remote-app>` and starting the remote processor using :ref:`Remoteproc<overview-remoteproc-work-label>`.
 
 For host controllers, like Linux, a script can be used to pipe the firmware to the exposed remoteproc system, followed by the execution of the user space echo_test application. For controllers without scripting capability, like baremetal and RTOS (Real Time Operating systems), this would be achieved in the code.
 
