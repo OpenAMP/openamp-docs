@@ -8,7 +8,7 @@ OpenAMP Matrix Multiply Sample
 Matrix Multiply Intro
 *********************
 
-The matrix multiply reference sample, as the name suggests, demonstrates OpenAMP :ref:`Interprocessor Communications (IPC)<ipc-work-label>` components through matrix multiplication. The demonstration uses a host client, which generates random matrixes. It sends them to a service/daemon on a remote which performs a matrix calculation and returns the result via a :ref:`RPmsg endpoint <rpmsg-endpoint>`. The host controller then writes the matrix result to console output.
+The matrix multiply reference sample, as the name suggests, demonstrates OpenAMP :ref:`Interprocessor Communications (IPC)<ipc-work-label>` components through matrix multiplication. The demonstration uses a host client, which generates random matrixes. It sends them to a service/daemon on a remote which performs a matrix calculation and returns the result via a :ref:`RPMsg endpoint <rpmsg-endpoint>`. The host controller then writes the matrix result to console output.
 
 ..  image::  ../images/demos/matrix-multiply-intro.svg
 
@@ -19,7 +19,7 @@ Matrix Multiply Components
 **************************
 
 There are two applications involved in this demonstration.
-The :ref:`remote application<matrix-multiply-remote-app>` runs as an daemon/service which performs a matrix calculation and returns the result on an :ref:`RPmsg endpoint <rpmsg-endpoint>`.
+The :ref:`remote application<matrix-multiply-remote-app>` runs as an daemon/service which performs a matrix calculation and returns the result on an :ref:`RPMsg endpoint <rpmsg-endpoint>`.
 The :ref:`host application<matrix-multiply-host-app>` is the client application sending two matrixes as a packet to the daemon/service and monitoring for the return result.
 
 The underlying OpenAMP architectural components used by these applications are
@@ -40,10 +40,10 @@ The top-level control flow is shown in the following message diagram.
 
 .. _matrix-multiply-remote-app:
 
-RPmsg Matrix Multiply Remote Application
+RPMsg Matrix Multiply Remote Application
 ========================================
 
-The remote application, `matrix_multiplyd <https://github.com/OpenAMP/open-amp/blob/main/apps/examples/matrix_multiply/matrix_multiplyd.c>`_, is the core of the demonstration. It is a simple application serving a :ref:`RPmsg endpoint <rpmsg-endpoint>` running as the main task on the remote processor, once loaded and started using :ref:`Remoteproc<overview-remoteproc-work-label>`.
+The remote application, `matrix_multiplyd <https://github.com/OpenAMP/open-amp/blob/main/apps/examples/matrix_multiply/matrix_multiplyd.c>`_, is the core of the demonstration. It is a simple application serving a :ref:`RPMsg endpoint <rpmsg-endpoint>` running as the main task on the remote processor, once loaded and started using :ref:`Remoteproc<overview-remoteproc-work-label>`.
 
 
 .. _matrix-multiply-host-app:
@@ -59,7 +59,7 @@ There are two implementations. The `mat_mul_demo <https://github.com/OpenAMP/ope
 Matrix Multiply Host Script
 ===========================
 
-The host is also responsible for loading the firmware containing the :ref:`RPmsg Matrix Multiply Remote Application<matrix-multiply-remote-app>` and starting the remote processor using :ref:`Remoteproc<overview-remoteproc-work-label>`.
+The host is also responsible for loading the firmware containing the :ref:`RPMsg Matrix Multiply Remote Application<matrix-multiply-remote-app>` and starting the remote processor using :ref:`Remoteproc<overview-remoteproc-work-label>`.
 
 For host controllers, like Linux, a script can be used to pipe the firmware to the exposed remoteproc system, followed by the execution of the user space mat_mul_demo application. For controllers without scripting capability, like baremetal and RTOS (Real Time Operating systems), this would be achieved in the code.
 
@@ -67,14 +67,14 @@ For host controllers, like Linux, a script can be used to pipe the firmware to t
 Matrix Multiply Source
 **********************
 
-RPmsg Matrix Multiply Baremetal Sources
+RPMsg Matrix Multiply Baremetal Sources
 =======================================
 
 There are two baremetal applications, a daemon/service to run on the remote and a host/controller application which is the matrix multiply client requesting the calculations.
 
-The RPmsg Matrix Multiply daemon/service application is available as a baremetal solution in the `OpenAMP Repository <https://github.com/OpenAMP/open-amp/blob/main/apps/examples/matrix_multiply/matrix_multiplyd.c>`_. Take note of the d for daemon at the end of the file.
+The RPMsg Matrix Multiply daemon/service application is available as a baremetal solution in the `OpenAMP Repository <https://github.com/OpenAMP/open-amp/blob/main/apps/examples/matrix_multiply/matrix_multiplyd.c>`_. Take note of the d for daemon at the end of the file.
 
-The RPmsg Matrix Multiple host client application is available as a baremetal solution in the `OpenAMP Repository <https://github.com/OpenAMP/open-amp/blob/main/apps/examples/matrix_multiply/matrix_multiply.c>`_
+The RPMsg Matrix Multiple host client application is available as a baremetal solution in the `OpenAMP Repository <https://github.com/OpenAMP/open-amp/blob/main/apps/examples/matrix_multiply/matrix_multiply.c>`_
 
 Both are CMake application and can be built for any remote as long as the relevant :ref:`OS/HW abstraction layer<porting-guide-work-label>` components like libmetal are ported for that platform.
 

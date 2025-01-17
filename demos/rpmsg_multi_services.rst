@@ -60,10 +60,10 @@ The top-level control flow is shown in the following message diagram. The remote
 
 .. _rpmsg-client-sample-label:
 
-RPmsg Client Sample
+RPMsg Client Sample
 ===================
 
-The Linux rpmsg_client_sample driver begins sending 'hello world!' messages on a rpmsg_driver probe, initiated by a name service announcement from the remote. This is repeated a predefined count times for each response from the remote. The response from the remote application is to return the same packet received at the :ref:`RPmsg endpoint <rpmsg-endpoint>` of the host controller.
+The Linux rpmsg_client_sample driver begins sending 'hello world!' messages on a rpmsg_driver probe, initiated by a name service announcement from the remote. This is repeated a predefined count times for each response from the remote. The response from the remote application is to return the same packet received at the :ref:`RPMsg endpoint <rpmsg-endpoint>` of the host controller.
 
 When the count (100) responses have been sent, the endpoint is destroyed by the remote.
 
