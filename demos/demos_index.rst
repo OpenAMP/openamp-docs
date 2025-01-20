@@ -9,8 +9,8 @@ OpenAMP Samples and Demos
    :caption: Contents:
 
    echo
-   matrix_multiply
    rpmsg_multi_services
+   matrix_multiply
    linux_rpc
    hvl_virtio
    split_mode
