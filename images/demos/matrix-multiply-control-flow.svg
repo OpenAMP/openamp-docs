@@ -171,7 +171,7 @@
         <rect class="BoundingBox" stroke="none" fill="none" x="15174" y="8967" width="4093" height="1420"/>
         <path fill="none" stroke="rgb(190,72,10)" d="M 16477,8968 C 18461,8968 18456,9702 16760,9776"/>
         <path fill="rgb(190,72,10)" stroke="none" d="M 16780,9925 L 16477,9782 16774,9625 16780,9925 Z"/>
-        <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Liberation Sans, sans-serif" font-size="635px" font-weight="400"><tspan class="TextPosition" x="15142" y="9669"><tspan fill="rgb(0,0,0)" stroke="none">Create RPmsg</tspan></tspan></tspan><tspan class="TextParagraph" font-family="Liberation Sans, sans-serif" font-size="635px" font-weight="400"><tspan class="TextPosition" x="15449" y="10380"><tspan fill="rgb(0,0,0)" stroke="none">Virtio Device</tspan></tspan></tspan></text>
+        <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Liberation Sans, sans-serif" font-size="635px" font-weight="400"><tspan class="TextPosition" x="15142" y="9669"><tspan fill="rgb(0,0,0)" stroke="none">Create RPMsg</tspan></tspan></tspan><tspan class="TextParagraph" font-family="Liberation Sans, sans-serif" font-size="635px" font-weight="400"><tspan class="TextPosition" x="15449" y="10380"><tspan fill="rgb(0,0,0)" stroke="none">Virtio Device</tspan></tspan></tspan></text>
        </g>
       </g>
       <g class="com.sun.star.drawing.CustomShape">
@@ -184,7 +184,7 @@
         <rect class="BoundingBox" stroke="none" fill="none" x="15228" y="10784" width="4094" height="1420"/>
         <path fill="none" stroke="rgb(190,72,10)" d="M 16532,10785 C 18515,10785 18510,11519 16815,11593"/>
         <path fill="rgb(190,72,10)" stroke="none" d="M 16835,11742 L 16532,11599 16829,11442 16835,11742 Z"/>
-        <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Liberation Sans, sans-serif" font-size="635px" font-weight="400"><tspan class="TextPosition" x="15197" y="11486"><tspan fill="rgb(0,0,0)" stroke="none">Create RPmsg</tspan></tspan></tspan><tspan class="TextParagraph" font-family="Liberation Sans, sans-serif" font-size="635px" font-weight="400"><tspan class="TextPosition" x="15902" y="12197"><tspan fill="rgb(0,0,0)" stroke="none">End Point</tspan></tspan></tspan></text>
+        <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Liberation Sans, sans-serif" font-size="635px" font-weight="400"><tspan class="TextPosition" x="15197" y="11486"><tspan fill="rgb(0,0,0)" stroke="none">Create RPMsg</tspan></tspan></tspan><tspan class="TextParagraph" font-family="Liberation Sans, sans-serif" font-size="635px" font-weight="400"><tspan class="TextPosition" x="15902" y="12197"><tspan fill="rgb(0,0,0)" stroke="none">End Point</tspan></tspan></tspan></text>
        </g>
       </g>
       <g class="com.sun.star.drawing.ConnectorShape">
@@ -216,7 +216,7 @@
         <rect class="BoundingBox" stroke="none" fill="none" x="4352" y="16301" width="12164" height="621"/>
         <path fill="none" stroke="rgb(190,72,10)" d="M 4353,16771 L 16235,16771"/>
         <path fill="rgb(190,72,10)" stroke="none" d="M 16215,16621 L 16515,16771 16215,16921 16215,16621 Z"/>
-        <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Liberation Sans, sans-serif" font-size="635px" font-weight="400"><tspan class="TextPosition" x="7509" y="16761"><tspan fill="rgb(0,0,0)" stroke="none">Send RPmsg Packet</tspan></tspan></tspan></text>
+        <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Liberation Sans, sans-serif" font-size="635px" font-weight="400"><tspan class="TextPosition" x="7509" y="16761"><tspan fill="rgb(0,0,0)" stroke="none">Send RPMsg Packet</tspan></tspan></tspan></text>
        </g>
       </g>
       <g class="com.sun.star.drawing.ConnectorShape">
@@ -224,7 +224,7 @@
         <rect class="BoundingBox" stroke="none" fill="none" x="4267" y="18094" width="12190" height="593"/>
         <path fill="none" stroke="rgb(190,72,10)" stroke-width="53" stroke-linejoin="round" d="M 4527,18538 L 16429,18538"/>
         <path fill="rgb(190,72,10)" stroke="none" d="M 4546,18678 L 4267,18538 4546,18399 4546,18678 Z"/>
-        <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Liberation Sans, sans-serif" font-size="635px" font-weight="400"><tspan class="TextPosition" x="7211" y="18554"><tspan fill="rgb(0,0,0)" stroke="none">Return RPmsg Packet</tspan></tspan></tspan></text>
+        <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Liberation Sans, sans-serif" font-size="635px" font-weight="400"><tspan class="TextPosition" x="7211" y="18554"><tspan fill="rgb(0,0,0)" stroke="none">Return RPMsg Packet</tspan></tspan></tspan></text>
        </g>
       </g>
       <g class="com.sun.star.drawing.ConnectorShape">

@@ -6,7 +6,7 @@ The remoteproc APIs provide life cycle management of remote processors by perfor
 
     - Allow the host software applications to load the code and data sections of the remote firmware image to appropriate locations in memory for in-place execution
     - Release the remote processor from reset to start execution of the remote firmware
-    - Establish RPMsg communication channels for run-time communications with the remote context
+    - Establish RPMsg communication channels for runtime communications with the remote context
     - Shut down the remote software context and processor when its services are not needed
     - Provide an API for use in the remote application context that allows the remote applications to seamlessly initialize the remoteproc system and establish communication channels with the host context
 
@@ -35,7 +35,7 @@ The host receives the advertisement messages and performs the following tasks:
     1. Invokes the channel created callback registered by the host application
     2. Responds to remote context with a name service acknowledgement message
 
-After the acknowledgement is received from host, remoteproc on the remote side invokes the RPMsg channel-created callback registered by the remote application. The RPMsg channel is established at this point. All RPMsg APIs can be used subsequently on both sides for run time communications between the host and remote software contexts.
+After the acknowledgement is received from host, remoteproc on the remote side invokes the RPMsg channel-created callback registered by the remote application. The RPMsg channel is established at this point. All RPMsg APIs can be used subsequently on both sides for runtime communications between the host and remote software contexts.
 
 To shut down the remote processor/firmware, the remoteproc_shutdown API is to be used from the host context. Invoking this API with the desired remoteproc instance handle asynchronously shuts down the remote processor. Using this API directly does not allow for graceful shutdown of remote context.
 

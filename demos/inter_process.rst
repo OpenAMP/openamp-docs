@@ -1,8 +1,8 @@
 .. _inter-process-reference-label:
 
-===========================
-OpenAMP Inter Process Demos
-===========================
+===================================
+Running Demos as Processes on Linux
+===================================
 
 The `OpenAMP project examples <https://github.com/OpenAMP/open-amp/tree/main/apps/examples>`_
 are intended to execute on the remote of a reference board but can also be demonstrated by implementing as a process on the host, effectively emulating a remote.

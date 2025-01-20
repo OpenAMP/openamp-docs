@@ -6,7 +6,7 @@ Project Overview
 OpenAMP Intro
 *************
 
-`Asymmetric Multiprocessing (AMP) <https://en.wikipedia.org/wiki/Asymmetric_multiprocessing>`_ involves the management, control and communication of multiple computer systems, where processors have independent tasks and are often in a `heterogeneous <https://en.wikipedia.org/wiki/Heterogeneous_computing>`_ embedded environment where there are different types of processors. This is in contrast to `Symmetric Multiprocessing (SMP) <https://en.wikipedia.org/wiki/Symmetric_multiprocessing>`_ which involves central control and load sharing using identical processor cores and is common place in servers and desktop computers.
+`Asymmetric Multiprocessing (AMP) <https://en.wikipedia.org/wiki/Asymmetric_multiprocessing>`_ involves the management, control and communication of multi-core computer systems, where processors have independent tasks and are often in a `heterogeneous <https://en.wikipedia.org/wiki/Heterogeneous_computing>`_ embedded environment where there are different types of processors. This is in contrast to `Symmetric Multiprocessing (SMP) <https://en.wikipedia.org/wiki/Symmetric_multiprocessing>`_ which involves central control and load sharing using identical processor cores and is common place in servers and desktop computers.
 
 The **OpenAMP** project is a community effort that is standardizing and implementing how these multiple embedded systems interact with each other in an AMP environment. It provides conventions and standards as well as an open source implementation to facilitate AMP development for embedded systems.
 
@@ -15,6 +15,26 @@ The vision is that regardless of the operating environment/operating system, it 
 Furthermore, these operating environments can interoperate over a standardized protocol, making it possible to mix and match any two or more operating systems in the same device.
 
 Read more about Asymmetric Multiprocessing :ref:`here<asymmetric-multiprocessing-work-label>`.
+
+
+************
+Project Aims
+************
+
+To provide a solution to cover the :ref:`AMP Fundamentals<openamp-fundamentals-work-label>`, the OpenAMP project is divided into the following efforts:
+
+    * A standardization group under Linaro Community Projects
+        - Standardizing the low-level protocol that allows systems to interact (:ref:`more info here<rpmsg-protocol-work-label>`)
+            + Built on top of the `Virtio Open Standard <https://docs.oasis-open.org/virtio/virtio/v1.3/virtio-v1.3.html>`_
+        - Standardizing on the user level APIs that allow applications to be portable
+            + :ref:`RPMSG<rpmsg-protocol-work-label>`
+            + :ref:`remoteproc<lcm-work-label>`
+        - **Standardizing on the low-level** :ref:`OS/HW abstraction layer<porting-guide-work-label>` **that abstracts the open source implementation from the underlying OS and hardware, simplifying the porting to new environments**
+
+    * An open source project that implements a clean-room implementation of OpenAMP
+        - Runs in :ref:`multiple environments<operating-environments-work-label>`
+        - BSD License
+
 
 .. _openamp-fundamentals-work-label:
 
@@ -25,7 +45,7 @@ OpenAMP Fundamentals
 There are some AMP fundamentals which influence the OpenAMP architecture.
 
 * **Topology**: Different runtime systems need to coexist and collaborate as `Asymmetric Multiprocessing <https://en.wikipedia.org/wiki/Asymmetric_multiprocessing>`_ sets no restrictions on how systems can or should be utilized.
-* **Resource Assignment**: Resources need to be assigned and shared into **run time domains**.
+* **Resource Assignment**: Resources need to be assigned and shared into **runtime domains**.
 * **Runtime Control**: Remote application/firmware loading, starting and stopping is required to manage the system.
 * **IPC**: `Inter Processor Communications <https://en.wikipedia.org/wiki/Inter-process_communication>`_ needs to be established to enable communication and control.
 * **Resource Isolation**: AMP systems can be supervised (e.g. using a hypervisor) or unsupervised.
@@ -165,25 +185,6 @@ Vendors porting OpenAMP will provide an implementation of libmetal for their sys
 
 Read more about the OpenAMP System Components :ref:`here<openamp-components-work-label>`.
 
-************
-Project Aims
-************
-
-To provide a solution to cover the :ref:`AMP Fundamentals<openamp-fundamentals-work-label>` the OpenAMP project is divided into the following efforts:
-
-    * A standardization group under Linaro Community Projects
-        - Standardizing the low-level protocol that allows systems to interact (:ref:`more info here<rpmsg-protocol-work-label>`)
-            + Built on top of the `Virtio Open Standard <https://docs.oasis-open.org/virtio/virtio/v1.3/virtio-v1.3.html>`_
-        - Standardizing on the user level APIs that allow applications to be portable
-            + :ref:`RPMSG<rpmsg-protocol-work-label>`
-            + :ref:`remoteproc<lcm-work-label>`
-        - **Standardizing on the low-level** :ref:`OS/HW abstraction layer<porting-guide-work-label>` **that abstracts the open source implementation from the underlying OS and hardware, simplifying the porting to new environments**
-
-    * An open source project that implements a clean-room implementation of OpenAMP
-        - Runs in :ref:`multiple environments<operating-environments-work-label>`
-        - BSD License
-
-
 .. _operating-environments-work-label:
 
 **********************
@@ -192,17 +193,19 @@ Operating Environments
 
 OpenAMP aims to provide components which are portable and aim to be environment agnostic.
 
-The result is that OpenAMP is supported in various operating environments through an a) `OpenAMP open source project (OAOS) <https://github.com/OpenAMP/open-amp>`_, b) a Linux kernel project (OALK), and c) multiple proprietary implementations (OAPI). The Linux kernel support (OALK) comes through the regular `remoteproc <https://www.kernel.org/doc/html/latest/staging/remoteproc.html>`_/`RPMsg <https://www.kernel.org/doc/html/latest/staging/rpmsg.html>`_/`Virtio <https://docs.kernel.org/driver-api/virtio/virtio.html>`_ efforts in the kernel.
+The result is that OpenAMP is supported in various operating environments through
+  - an `OpenAMP open source project <https://github.com/OpenAMP>`_  (OAOS),
+  - a Linux kernel project (OALK), coming through the regular `remoteproc <https://www.kernel.org/doc/html/latest/staging/remoteproc.html>`_/`RPMsg <https://www.kernel.org/doc/html/latest/staging/rpmsg.html>`_/`Virtio <https://docs.kernel.org/driver-api/virtio/virtio.html>`_ efforts in the kernel.
+  - multiple proprietary implementations (OAPI).
 
 The operating environments that OpenAMP supports include:
 
-    - Linux user space - OAOS
-    - Linux kernel - OALK
-    - Multiple RTOS's - OAOS/OAPI including `Nucleus <https://resources.sw.siemens.com/en-US/fact-sheet-nucleus-rtos>`_, `FreeRTOS <https://freertos.org/>`_, `uC/OS <https://www.osrtos.com/rtos/uc-os-iii/>`_, `VxWorks <https://www.windriver.com/products/vxworks>`_, `Zephyr <https://www.zephyrproject.org/>`_ and more
-    - Bare Metal (No OS) - OAOS
-    - In OS's on top of hypervisors - OAOS/OAPI
-    - Within hypervisors - OAPI
-
+  - Linux user space - OAOS
+  - Linux kernel - OALK
+  - Multiple RTOS's - OAOS/OAPI including `FreeRTOS <https://freertos.org/>`_, `NuttX <https://nuttx.apache.org/>`_, `Zephyr <https://www.zephyrproject.org/>`_, `VxWorks <https://www.windriver.com/products/vxworks>`_, and more
+  - Bare Metal (No OS) - OAOS
+  - In OS's on top of hypervisors - OAOS/OAPI
+  - Within hypervisors - OAPI
 
 .. _governance-work-label:
 
