@@ -24,7 +24,7 @@ At this time the following images are provided:
     * - Name
       - Description
     * - openamp/demo-lite
-      - Just enough to run the openamp QEMU demos and :ref:`supporting tools<tools_label>`, like lopper CLI demo
+      - Just enough to run the OpenAMP QEMU demos and :ref:`supporting tools<tools_label>`, like lopper CLI demo
     * - openamp/demo
       - Placeholder for image *to build* and run the above demos
 
@@ -61,7 +61,7 @@ You can check your groups with the command:
 .. warning::
     If you cannot add yourself to the docker group, you can run docker with ``sudo``
     but doing so with *any* docker image is not recommended based on general
-    security best practice.  There is nothing in the openamp images that should
+    security best practice.  There is nothing in the OpenAMP images that should
     make them more dangerous than other images.
 
 Your life will be easier if you are not behind a corporate firewall.
@@ -392,7 +392,7 @@ You can manually send output to the 2nd UART like so:
 Docker cheat-sheet
 ******************
 
-First some tips specific to the openamp demo containers
+First some tips specific to the OpenAMP demo containers
 
 The container is based on the standard Ubuntu 20.04 docker image.
 Like the Ubuntu standard images it is minimized (no man pages etc).
