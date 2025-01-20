@@ -6,7 +6,7 @@ Project Overview
 OpenAMP Intro
 *************
 
-`Asymmetric Multiprocessing (AMP) <https://en.wikipedia.org/wiki/Asymmetric_multiprocessing>`_ involves the management, control and communication of multiple computer systems, where processors have independent tasks and are often in a `heterogeneous <https://en.wikipedia.org/wiki/Heterogeneous_computing>`_ embedded environment where there are different types of processors. This is in contrast to `Symmetric Multiprocessing (SMP) <https://en.wikipedia.org/wiki/Symmetric_multiprocessing>`_ which involves central control and load sharing using identical processor cores and is common place in servers and desktop computers.
+`Asymmetric Multiprocessing (AMP) <https://en.wikipedia.org/wiki/Asymmetric_multiprocessing>`_ involves the management, control and communication of multi-core computer systems, where processors have independent tasks and are often in a `heterogeneous <https://en.wikipedia.org/wiki/Heterogeneous_computing>`_ embedded environment where there are different types of processors. This is in contrast to `Symmetric Multiprocessing (SMP) <https://en.wikipedia.org/wiki/Symmetric_multiprocessing>`_ which involves central control and load sharing using identical processor cores and is common place in servers and desktop computers.
 
 The **OpenAMP** project is a community effort that is standardizing and implementing how these multiple embedded systems interact with each other in an AMP environment. It provides conventions and standards as well as an open source implementation to facilitate AMP development for embedded systems.
 
@@ -25,7 +25,7 @@ OpenAMP Fundamentals
 There are some AMP fundamentals which influence the OpenAMP architecture.
 
 * **Topology**: Different runtime systems need to coexist and collaborate as `Asymmetric Multiprocessing <https://en.wikipedia.org/wiki/Asymmetric_multiprocessing>`_ sets no restrictions on how systems can or should be utilized.
-* **Resource Assignment**: Resources need to be assigned and shared into **run time domains**.
+* **Resource Assignment**: Resources need to be assigned and shared into **runtime domains**.
 * **Runtime Control**: Remote application/firmware loading, starting and stopping is required to manage the system.
 * **IPC**: `Inter Processor Communications <https://en.wikipedia.org/wiki/Inter-process_communication>`_ needs to be established to enable communication and control.
 * **Resource Isolation**: AMP systems can be supervised (e.g. using a hypervisor) or unsupervised.
@@ -169,7 +169,7 @@ Read more about the OpenAMP System Components :ref:`here<openamp-components-work
 Project Aims
 ************
 
-To provide a solution to cover the :ref:`AMP Fundamentals<openamp-fundamentals-work-label>` the OpenAMP project is divided into the following efforts:
+To provide a solution to cover the :ref:`AMP Fundamentals<openamp-fundamentals-work-label>`, the OpenAMP project is divided into the following efforts:
 
     * A standardization group under Linaro Community Projects
         - Standardizing the low-level protocol that allows systems to interact (:ref:`more info here<rpmsg-protocol-work-label>`)
