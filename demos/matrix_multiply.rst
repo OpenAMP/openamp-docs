@@ -74,9 +74,9 @@ There are two baremetal applications, a daemon/service to run on the remote and 
 
 The RPMsg Matrix Multiply daemon/service application is available as a baremetal solution in the `OpenAMP Repository <https://github.com/OpenAMP/open-amp/blob/main/apps/examples/matrix_multiply/matrix_multiplyd.c>`_. Take note of the d for daemon at the end of the file.
 
-The RPMsg Matrix Multiple host client application is available as a baremetal solution in the `OpenAMP Repository <https://github.com/OpenAMP/open-amp/blob/main/apps/examples/matrix_multiply/matrix_multiply.c>`_
+The RPMsg Matrix Multiple host client application is available as a baremetal solution in the `OpenAMP Repository <https://github.com/OpenAMP/open-amp/blob/main/apps/examples/matrix_multiply/matrix_multiply.c>`_.
 
-Both are CMake application and can be built for any remote as long as the relevant :ref:`OS/HW abstraction layer<porting-guide-work-label>` components like libmetal are ported for that platform.
+Both are CMake applications and can be built for any remote as long as the relevant :ref:`OS/HW abstraction layer<porting-guide-work-label>` components like libmetal are ported for that platform.
 
 .. _matrix-multiply-linux-app:
 
@@ -86,9 +86,9 @@ Matrix Multiply Linux Source
 The matrix multiply Linux application is executed on the Linux host controller as a user space application.
 The application is available in the `OpenAMP System Reference repository <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/linux/rpmsg-mat-mul/mat_mul_demo.c>`_.
 
-It is a Makefile application and can be built using the `Yocto rpmsg-mat-mul recipe <https://github.com/OpenAMP/meta-openamp/blob/master/recipes-openamp/rpmsg-examples/rpmsg-mat-mul_1.0.bb>`_
+It is a Makefile application and can be built using the `Yocto rpmsg-mat-mul recipe <https://github.com/OpenAMP/meta-openamp/blob/master/recipes-openamp/rpmsg-examples/rpmsg-mat-mul_1.0.bb>`_.
 
-An example host control script is given in the `matrix multiply readme <https://github.com/OpenAMP/openamp-system-reference/tree/main/examples/linux/rpmsg-mat-mul#run-the-demo>`_
+An example host control script is given in the `matrix multiply readme <https://github.com/OpenAMP/openamp-system-reference/tree/main/examples/linux/rpmsg-mat-mul#run-the-demo>`_.
 
 *******************************
 Reference Board Implementations
