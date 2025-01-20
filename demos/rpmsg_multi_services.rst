@@ -84,9 +84,9 @@ Writing data to indexed driver files will result in an RPMsg being sent the Linu
 Raw Character Driver Sample
 ---------------------------
 
-When started the character/raw remote service (app_rpmsg_raw thread) creates two RPMsg endpoints. The first with the special RPMSG_ADDR_ANY (-1) address which sets up the RPMsg channel and the second with destination and source address set to 1.
+When started, the character/raw remote service (app_rpmsg_raw thread) creates two RPMsg endpoints. The first with the special RPMSG_ADDR_ANY (-1) address which sets up the RPMsg channel and the second with destination and source address set to 1.
 
-In addition to demonstrating the use of the raw character driver, this application demonstrates the use of an arbitrary number of Linux side RPMsg endpoints, all connected to a single endpoint on remote side (with address 1). The Linux side end points are created using the `rpmsg-utils rpmsg_export_ept utility <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/linux/rpmsg-utils/rpmsg_export_dev.c>`_, and establish a many to one connectivity between host and remote endpoints.
+In addition to demonstrating the use of the raw character driver, this application demonstrates the use of an arbitrary number of Linux side RPMsg endpoints, all connected to a single endpoint on the remote side (with address 1). The Linux side end points are created using the `rpmsg-utils rpmsg_export_ept utility <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/linux/rpmsg-utils/rpmsg_export_dev.c>`_, and establish a many to one connectivity between host and remote endpoints.
 
 Although there are many endpoints on the Linux side, the remote has only two endpoints.
 
@@ -97,7 +97,7 @@ Refer to the :ref:`flow control diagram<rpmsg-control-flow-label>`.
 Tty Driver Sample
 -----------------
 
-When started the tty remote service (app_rpmsg_tty thread) initially creates only a single RPMsg channel by creating the special RPMSG_ADDR_ANY (-1) end point.
+When started, the tty remote service (app_rpmsg_tty thread) initially creates only a single RPMsg channel by creating the special RPMSG_ADDR_ANY (-1) end point.
 
 The management thread (rpmsg_mng_task) also sets up a 'New Service Callback' (new_service_cb) which monitors for new 'rpmsg-tty' requests. On receipt of such a request the application creates a new channel, and returns a "bound" message. The remote application limits this to two channels.
 
@@ -139,7 +139,7 @@ The direct RPMsg client is a `dedicated Linux sample driver <https://github.com/
 
 The raw character 'client' is the `RPMsg character driver <https://github.com/torvalds/linux/blob/master/drivers/rpmsg/rpmsg_char.c>`_ provided in the Linux source, and becomes available on a name service announcement from the remote whence the driver module is loaded and available at the /dev/rpmsg? device file. To exercise the demonstration, characters can be sent to the device file using the `rpmsg-utils/rpmsg_ping <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/linux/rpmsg-utils/rpmsg_ping.c>`_ command. The RPMsg device id name is "rpmsg-raw".
 
-The tty 'client' is the `PRMsg tty driver <https://github.com/torvalds/linux/blob/master/drivers/tty/rpmsg_tty.c>`_ provided in the Linux source, and becomes available on a name service announcement from the remote whence the driver module is loaded and available at the /dev/ttyRPMSG? device file. To exercise the demonstration, characters can be sent to the device file using echo or cat Linux command.
+The tty 'client' is the `PRMsg tty driver <https://github.com/torvalds/linux/blob/master/drivers/tty/rpmsg_tty.c>`_ provided in the Linux source, and becomes available on a name service announcement from the remote whence the driver module is loaded and available at the /dev/ttyRPMSG? device file. To exercise the demonstration, characters can be sent to the device file using the echo or cat Linux command.
 
 The RPMsg ioctl (IO control) is performed through `rpmsg_ctrl <https://github.com/torvalds/linux/blob/master/drivers/rpmsg/rpmsg_ctrl.c>`_ provided in the Linux source and is used by the `rpmsg-utils rpmsg_export_dev utility <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/linux/rpmsg-utils/rpmsg_export_dev.c>`_, which exercise the ioctl commands RPMSG_CREATE_DEV_IOCTL and RPMSG_RELEASE_DEV_IOCTL.
 
