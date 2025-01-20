@@ -11,7 +11,7 @@ The resource table is a key part of resource assignment of remoteproc life cycle
 
 The table consists of a header detailing a version, number of resource entries and an array pointing at the offset location of each entry.
 Directly following the header are the resource entries themselves, each of which has a 32 bit type.
-These in remote context will likely be memory carve outs for location of parts of the remote system and virtio device definitions.
+These in remote context will likely be memory carve outs for locations of parts of the remote system and virtio device definitions.
 
 
 .. csv-table::
