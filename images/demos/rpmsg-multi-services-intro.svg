@@ -342,7 +342,7 @@
       <g class="TextShape">
        <g id="id31">
         <rect class="BoundingBox" stroke="none" fill="none" x="4500" y="9739" width="9201" height="1362"/>
-        <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Liberation Sans, sans-serif" font-size="458px" font-weight="400"><tspan class="TextPosition" x="5697" y="10579"><tspan fill="rgb(0,0,0)" stroke="none">from ept 0x001: ping /dev/rpmsg1</tspan></tspan></tspan></text>
+        <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Liberation Sans, sans-serif" font-size="458px" font-weight="400"><tspan class="TextPosition" x="5697" y="10579"><tspan fill="rgb(0,0,0)" stroke="none">from ept 0x0402: ping /dev/rpmsg1</tspan></tspan></tspan></text>
        </g>
       </g>
       <g class="TextShape">
