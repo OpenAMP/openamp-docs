@@ -76,7 +76,7 @@ Reference Board Implementations
 
 This Hypervisorless Virtio Samples are demonstrated in the following reference implementations.
 
-* :ref:`Docker Images<docker-images-label>` as demo1A
+* :ref:`Docker Images<docker-images-label>` as demo4
 * :ref:`AMD-Xilinx platforms<demos-AMD-work-label>`
 
 For information on building and running the demonstrations for zcu102 refer to
