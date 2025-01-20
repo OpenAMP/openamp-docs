@@ -16,6 +16,26 @@ Furthermore, these operating environments can interoperate over a standardized p
 
 Read more about Asymmetric Multiprocessing :ref:`here<asymmetric-multiprocessing-work-label>`.
 
+
+************
+Project Aims
+************
+
+To provide a solution to cover the :ref:`AMP Fundamentals<openamp-fundamentals-work-label>`, the OpenAMP project is divided into the following efforts:
+
+    * A standardization group under Linaro Community Projects
+        - Standardizing the low-level protocol that allows systems to interact (:ref:`more info here<rpmsg-protocol-work-label>`)
+            + Built on top of the `Virtio Open Standard <https://docs.oasis-open.org/virtio/virtio/v1.3/virtio-v1.3.html>`_
+        - Standardizing on the user level APIs that allow applications to be portable
+            + :ref:`RPMSG<rpmsg-protocol-work-label>`
+            + :ref:`remoteproc<lcm-work-label>`
+        - **Standardizing on the low-level** :ref:`OS/HW abstraction layer<porting-guide-work-label>` **that abstracts the open source implementation from the underlying OS and hardware, simplifying the porting to new environments**
+
+    * An open source project that implements a clean-room implementation of OpenAMP
+        - Runs in :ref:`multiple environments<operating-environments-work-label>`
+        - BSD License
+
+
 .. _openamp-fundamentals-work-label:
 
 ********************
@@ -164,25 +184,6 @@ Vendors porting OpenAMP will provide an implementation of libmetal for their sys
 .. _project-aims-work-label:
 
 Read more about the OpenAMP System Components :ref:`here<openamp-components-work-label>`.
-
-************
-Project Aims
-************
-
-To provide a solution to cover the :ref:`AMP Fundamentals<openamp-fundamentals-work-label>`, the OpenAMP project is divided into the following efforts:
-
-    * A standardization group under Linaro Community Projects
-        - Standardizing the low-level protocol that allows systems to interact (:ref:`more info here<rpmsg-protocol-work-label>`)
-            + Built on top of the `Virtio Open Standard <https://docs.oasis-open.org/virtio/virtio/v1.3/virtio-v1.3.html>`_
-        - Standardizing on the user level APIs that allow applications to be portable
-            + :ref:`RPMSG<rpmsg-protocol-work-label>`
-            + :ref:`remoteproc<lcm-work-label>`
-        - **Standardizing on the low-level** :ref:`OS/HW abstraction layer<porting-guide-work-label>` **that abstracts the open source implementation from the underlying OS and hardware, simplifying the porting to new environments**
-
-    * An open source project that implements a clean-room implementation of OpenAMP
-        - Runs in :ref:`multiple environments<operating-environments-work-label>`
-        - BSD License
-
 
 .. _operating-environments-work-label:
 
