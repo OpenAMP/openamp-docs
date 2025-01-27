@@ -46,7 +46,7 @@ The top-level control flow is shown in the following message diagram.
 Hypervisorless Virtio Remote Application
 ========================================
 
-The remote application is the core of the demonstration. It is a simple application utilising a number of Virtio devices, once loaded and started using :ref:`Remoteproc<overview-remoteproc-work-label>`.
+The remote application is the core of the demonstration. It is a simple application utilising a number of Virtio devices.
 
 The remote application when started initially calls on the `Virtio Entropy Device <https://docs.oasis-open.org/virtio/virtio/v1.3/csd01/virtio-v1.3-csd01.html#x1-3360004>`_ to obtain entropy values to print to the UART console. Subsequently, it sets up `Virtio Network Device <https://docs.oasis-open.org/virtio/virtio/v1.3/csd01/virtio-v1.3-csd01.html#x1-2340001>`_ to provide communications between the host at 192.168.200.254 and remote at 192.168.200.2.
 
