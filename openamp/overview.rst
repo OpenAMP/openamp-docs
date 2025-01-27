@@ -160,10 +160,10 @@ This abstraction, using virtio, means that the implementer can optionally use :r
 
 .. _overview-proxy-rpc-work-label:
 
-Proxy and RPC
-=============
+RPMsg Services
+==============
 
-The OpenAMP Proxy and RPC Service are higher level IPC components.
+OpenAMP provides higher level IPC components as RPMsg Services. There is a Remote Procedure Call (RPC) service and Proxy service.
 
 The proxy provides file IO on the remote allowing access to the filesystem on the host controller. This provides a mechanism for remotes to access files occasionally without having to introduce a full filesystem on the remote. In the architecture diagram the center processor remote proxies file IO from its host controller on the left.
 
