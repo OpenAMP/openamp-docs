@@ -43,7 +43,7 @@ The top-level control flow is shown in the following message diagram.
 RPMsg Matrix Multiply Remote Application
 ========================================
 
-The remote application, `matrix_multiplyd <https://github.com/OpenAMP/open-amp/blob/main/apps/examples/matrix_multiply/matrix_multiplyd.c>`_, is the core of the demonstration. It is a simple application serving a :ref:`RPMsg endpoint <rpmsg-endpoint>` running as the main task on the remote processor.
+The remote application, `matrix_multiplyd <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/legacy_apps/examples/matrix_multiply/matrix_multiplyd.c>`_, is the core of the demonstration. It is a simple application serving a :ref:`RPMsg endpoint <rpmsg-endpoint>` running as the main task on the remote processor.
 
 
 .. _matrix-multiply-host-app:
@@ -53,7 +53,7 @@ Matrix Multiply Host Application
 
 The host application generates two matrices into a structure with size and 6x6 matrix, sequentially into a RPMsg packet. It then waits for matrix sized bytes to be returned and prints the resultant matrix as calculated by the remote.
 
-There are two implementations. The `mat_mul_demo <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/linux/rpmsg-mat-mul/mat_mul_demo.c>`_ application forms the host controller side of the demonstration, as a linux user space client application. The `matrix_multiply <https://github.com/OpenAMP/open-amp/blob/main/apps/examples/matrix_multiply/matrix_multiply.c>`_ application forms the host controller side of the demonstration, as a baremetal client application.
+There are two implementations. The `mat_mul_demo <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/linux/rpmsg-mat-mul/mat_mul_demo.c>`_ application forms the host controller side of the demonstration, as a linux user space client application. The `matrix_multiply <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/legacy_apps/examples/matrix_multiply/matrix_multiply.c>`_ application forms the host controller side of the demonstration, as a baremetal client application.
 
 
 Matrix Multiply Host Script
@@ -72,9 +72,9 @@ RPMsg Matrix Multiply Baremetal Sources
 
 There are two baremetal applications, a daemon/service to run on the remote and a host/controller application which is the matrix multiply client requesting the calculations.
 
-The RPMsg Matrix Multiply daemon/service application is available as a baremetal solution in the `OpenAMP Repository <https://github.com/OpenAMP/open-amp/blob/main/apps/examples/matrix_multiply/matrix_multiplyd.c>`_. Take note of the d for daemon at the end of the file.
+The RPMsg Matrix Multiply daemon/service application is available as a baremetal solution in the `OpenAMP Repository <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/legacy_apps/examples/matrix_multiply/matrix_multiplyd.c>`_. Take note of the d for daemon at the end of the file.
 
-The RPMsg Matrix Multiple host client application is available as a baremetal solution in the `OpenAMP Repository <https://github.com/OpenAMP/open-amp/blob/main/apps/examples/matrix_multiply/matrix_multiply.c>`_.
+The RPMsg Matrix Multiple host client application is available as a baremetal solution in the `OpenAMP Repository <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/legacy_apps/examples/matrix_multiply/matrix_multiplyd.c>`_.
 
 Both are CMake applications and can be built for any remote as long as the relevant :ref:`OS/HW abstraction layer<porting-guide-work-label>` components like libmetal are ported for that platform.
 
