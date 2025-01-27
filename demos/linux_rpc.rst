@@ -31,7 +31,7 @@ The underlying OpenAMP architectural components used by these applications are
 * :ref:`RPC<overview-proxy-rpc-work-label>`
 * :ref:`Libmetal<overview-proxy-libmetal-label>`
 
-The Linux file and stdio access is performed in the `linux_rpc_demod application <https://github.com/OpenAMP/open-amp/blob/main/apps/examples/linux_rpc_demo/linux_rpc_demod.c>`_.
+The Linux file and stdio access is performed in the `linux_rpc_demod application <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/legacy_apps/examples/linux_rpc_demo/linux_rpc_demod.c>`_.
 
 The following architecture diagram shows the primary components involved in the demonstration.
 
@@ -71,12 +71,12 @@ Linux RPC Demo Source
 Linux RPC Server Source
 =======================
 
-The current implementation is a Linux process `linux_rpc_demod <https://github.com/OpenAMP/open-amp/blob/main/apps/examples/linux_rpc_demo/linux_rpc_demod.c>`_, which can be run as a daemon to provide the host/driver side of the demonstration.
+The current implementation is a Linux process `linux_rpc_demod <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/legacy_apps/examples/linux_rpc_demo/linux_rpc_demod.c>`_, which can be run as a daemon to provide the host/driver side of the demonstration.
 
 Linux RPC Client Source
 =======================
 
-The current implementation is a Linux process `linux_rpc_demo <https://github.com/OpenAMP/open-amp/blob/main/apps/examples/linux_rpc_demo/linux_rpc_demo.c>`_
+The current implementation is a Linux process `linux_rpc_demo <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/legacy_apps/examples/linux_rpc_demo/linux_rpc_demo.c>`_
 
 
 *******************************
