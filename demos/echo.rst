@@ -45,7 +45,7 @@ The top-level control flow is shown in the following message diagram.
 RPMsg Echo Remote Application
 =============================
 
-The remote application, rpmsg-echo, is the core of the demonstration. It is a simple application serving a :ref:`RPMsg endpoint <rpmsg-endpoint>` running as the main task on the remote processor, once loaded and started using :ref:`Remoteproc<overview-remoteproc-work-label>`.
+The remote application, rpmsg-echo, is the core of the demonstration. It is a simple application serving a :ref:`RPMsg endpoint <rpmsg-endpoint>` running as the main task on the remote processor.
 
 
 .. _echo-test-host-app:
