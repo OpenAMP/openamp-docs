@@ -22,7 +22,7 @@ All demonstrations are run on a remote running `Zephyr Operating System (OS) <ht
 Hypervisorless Virtio Components
 ********************************
 
-This demonstration uses a single application on the remote and a setup and demo script on the host.
+This demonstration uses a single application on the remote and a setup and demo script on the main controller.
 
 The underlying OpenAMP architectural components used by these applications are
 
@@ -48,12 +48,12 @@ Hypervisorless Virtio Remote Application
 
 The remote application is the core of the demonstration. It is a simple application utilising a number of Virtio devices.
 
-The remote application when started initially calls on the `Virtio Entropy Device <https://docs.oasis-open.org/virtio/virtio/v1.3/csd01/virtio-v1.3-csd01.html#x1-3360004>`_ to obtain entropy values to print to the UART console. Subsequently, it sets up `Virtio Network Device <https://docs.oasis-open.org/virtio/virtio/v1.3/csd01/virtio-v1.3-csd01.html#x1-2340001>`_ to provide communications between the host at 192.168.200.254 and remote at 192.168.200.2.
+The remote application when started initially calls on the `Virtio Entropy Device <https://docs.oasis-open.org/virtio/virtio/v1.3/csd01/virtio-v1.3-csd01.html#x1-3360004>`_ to obtain entropy values to print to the UART console. Subsequently, it sets up `Virtio Network Device <https://docs.oasis-open.org/virtio/virtio/v1.3/csd01/virtio-v1.3-csd01.html#x1-2340001>`_ to provide communications between the main controller at 192.168.200.254 and remote at 192.168.200.2.
 
-Hypervisorless Virtio Host Script
+Hypervisorless Virtio Main Script
 =================================
 
-The host is responsible for setting up a `virtual/tap network <https://en.wikipedia.org/wiki/TUN/TAP>`_, loading the firmware containing the :ref:`Hypervisorless Virtio Application<hvl-virtio-remote-app>` and starting the remote processor using :ref:`Remoteproc<overview-remoteproc-work-label>`.
+The main controller is responsible for setting up a `virtual/tap network <https://en.wikipedia.org/wiki/TUN/TAP>`_, loading the firmware containing the :ref:`Hypervisorless Virtio Application<hvl-virtio-remote-app>` and starting the remote processor using :ref:`Remoteproc<overview-remoteproc-work-label>`.
 
 The scripts are available in the :ref:`Demo Docker Images<docker-images-label>` as `demo4 <https://github.com/OpenAMP/openamp-demo/blob/main/demos/demo-hvl-virtio/my-extra-stuff/home/root/demo4>`_ and `setup.sh <https://github.com/OpenAMP/openamp-demo/blob/main/demos/demo-hvl-virtio/my-extra-stuff/hvl/setup.sh>`_.
 

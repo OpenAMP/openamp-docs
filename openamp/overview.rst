@@ -56,15 +56,15 @@ There are some AMP fundamentals which influence the OpenAMP architecture.
 Topology
 ========
 
-The OpenAMP framework assumes a host controller to remote system architecture, but otherwise the **topology** of the different runtime systems may be star, chain or a combination.
+The OpenAMP framework assumes a main controller to remote system architecture, but otherwise the **topology** of the different runtime systems may be star, chain or a combination.
 
 .. image:: ../images/topo_types.svg
 
-A host will control one or more remotes cores each on a remote processor (star), and any remote processor could also act as a controller to manager another set of cores on a different remote processor (chain). Each remote could be an individual or multiple cores of a processor.
+A main controller will control one or more remote cores each on a remote processor (star), and any remote processor could also act as a controller to manage another set of cores on a different remote processor (chain). Each remote could be an individual or multiple cores of a processor.
 
-To exemplify, the following sections use diagrams detailing a star topology with a single Linux host controller and dual remote cores, with one remote core running an RTOS and the other a bare metal image. The choice of operating systems is arbitrary and just for this example.
+To exemplify, the following sections use diagrams detailing a star topology with a single Linux main controller and dual remote cores, with one remote core running an RTOS and the other a bare metal image. The choice of operating systems is arbitrary and just for this example.
 
-..  image:: ../images/fundamentals/host-2-remote.svg
+..  image:: ../images/fundamentals/main-2-remote.svg
 
 .. _resource-assignment-work-label:
 
@@ -75,7 +75,7 @@ This diagram details the Resource Assignment using a different color for each **
 
 ..  image:: ../images/fundamentals/resource-assignment.svg
 
-The yellow colored boxes are the Linux **runtime domain** as the host controller running on a single processor, utilizing the two cores in a `Symmetric Multiprocessing <https://en.wikipedia.org/wiki/Symmetric_multiprocessing>`_ setup. The green and blue colored boxes details the RTOS and Bare Metal remote applications each running on a single core of a remote processor as their own **runtime domain**. The Linux system shares memory with both remotes, but the remote applications do not share memory. Each domain owns independent peripherals in the system. Although the Linux domain is `SMP <https://en.wikipedia.org/wiki/Symmetric_multiprocessing>`_, all three **runtime domains** together make up an `AMP <https://en.wikipedia.org/wiki/Asymmetric_multiprocessing>`_ system.
+The yellow colored boxes are the Linux **runtime domain** as the main controller running on a single processor, utilizing the two cores in a `Symmetric Multiprocessing <https://en.wikipedia.org/wiki/Symmetric_multiprocessing>`_ setup. The green and blue colored boxes details the RTOS and Bare Metal remote applications each running on a single core of a remote processor as their own **runtime domain**. The Linux system shares memory with both remotes, but the remote applications do not share memory. Each domain owns independent peripherals in the system. Although the Linux domain is `SMP <https://en.wikipedia.org/wiki/Symmetric_multiprocessing>`_, all three **runtime domains** together make up an `AMP <https://en.wikipedia.org/wiki/Asymmetric_multiprocessing>`_ system.
 
 .. _runtime-control-work-label:
 
@@ -84,7 +84,7 @@ Runtime Control
 
 ..  image:: ../images/fundamentals/runtime-control.svg
 
-With the domains defined, **runtime control** of the asymmetric remote applications can be started to handle :ref:`Life Cycle Management (LCM)<lcm-work-label>` of the remotes. The host controller will load and control the images as required. In this example the RTOS image could be loaded at power on to perform say environmental instrument monitoring and the bare metal image on demand to perform some specific high intensity calculations, but stopped on completion for power savings. The control flow will be implementation specific.
+With the domains defined, **runtime control** of the asymmetric remote applications can be started to handle :ref:`Life Cycle Management (LCM)<lcm-work-label>` of the remotes. The main controller will load and control the images as required. In this example the RTOS image could be loaded at power on to perform say environmental instrument monitoring and the bare metal image on demand to perform some specific high intensity calculations, but stopped on completion for power savings. The control flow will be implementation specific.
 
 .. _ipc-work-label:
 
@@ -93,10 +93,10 @@ Inter Processor Communications
 
 ..  image::  ../images/fundamentals/ipc.svg
 
-`Inter Processor Communications <https://en.wikipedia.org/wiki/Inter-process_communication>`_ is performed through shared memory and is between host controller and remote.
-In the example, the IPC could be instrument updates from the RTOS remote to the Linux host controller to display, and independently :ref:`Remote Procedure Calls (RPC)<overview-proxy-rpc-work-label>` between the Linux host controller and the other, bare metal, remote responsible for resource intensive calculations.
+`Inter Processor Communications <https://en.wikipedia.org/wiki/Inter-process_communication>`_ is performed through shared memory and is between main controller and remote.
+In the example, the IPC could be instrument updates from the RTOS remote to the Linux main controller to display, and independently :ref:`Remote Procedure Calls (RPC)<overview-proxy-rpc-work-label>` between the Linux main controller and the other, bare metal, remote responsible for resource intensive calculations.
 
-In this star topology example the remotes cannot communicate with each other. If that were required a chain topology would be used instead to allow one remote to be both a remote and a host controller in which case they could communicate (refer to :ref:`Architecture Section<openamp-architecture-work-label>` for an example).
+In this star topology example the remotes cannot communicate with each other. If that were required a chain topology would be used instead to allow one remote to be both a remote and a main controller in which case they could communicate (refer to :ref:`Architecture Section<openamp-architecture-work-label>` for an example).
 
 .. _resource-isolation-work-label:
 
@@ -128,9 +128,9 @@ The components comprising OpenAMP are:
     :ref:`Libmetal<overview-proxy-libmetal-label>`, Hardware Abstraction
 
 
-The :ref:`topology<topology-work-label>` is limited to host controller to remote system but otherwise open to the implementation.
+The :ref:`topology<topology-work-label>` is limited to main controller to remote system but otherwise open to the implementation.
 
-The architecture is exemplified below via a daisy chained topology, with the center processor being both remote and host controller for the next processor in the chain. This is an alternate topology to the previous example in the :ref:`OpenAMP Fundamentals<openamp-fundamentals-work-label>` section.
+The architecture is exemplified below via a daisy chained topology, with the center processor being both remote and main controller for the next processor in the chain. This is an alternate topology to the previous example in the :ref:`OpenAMP Fundamentals<openamp-fundamentals-work-label>` section.
 
 ..  image::  ../images/architecture/overview-architecture.svg
 
@@ -165,9 +165,9 @@ RPMsg Services
 
 OpenAMP provides higher level IPC components as RPMsg Services. There is a Remote Procedure Call (RPC) service and Proxy service.
 
-The proxy provides file IO on the remote allowing access to the filesystem on the host controller. This provides a mechanism for remotes to access files occasionally without having to introduce a full filesystem on the remote. In the architecture diagram the center processor remote proxies file IO from its host controller on the left.
+The proxy provides file IO on the remote allowing access to the filesystem on the main controller. This provides a mechanism for remotes to access files occasionally without having to introduce a full filesystem on the remote. In the architecture diagram the center processor remote proxies file IO from its main controller on the left.
 
-The RPC service provides for remote procedure calls from a server to a client. In the architecture diagram the right hand processor has the RPC server servicing the center host controller processor's RPC client.
+The RPC service provides for remote procedure calls from a server to a client. In the architecture diagram the right hand processor has the RPC server servicing the center main controller processor's RPC client.
 
 ..  image::  ../images/architecture/overview-architecture-proxy.svg
 

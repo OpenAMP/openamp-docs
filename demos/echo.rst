@@ -8,7 +8,7 @@ OpenAMP Echo Test Sample
 Echo Test Intro
 ***************
 
-The echo test reference sample, as the name suggests, demonstrates OpenAMP :ref:`Interprocessor Communications (IPC)<ipc-work-label>` components by providing an echo application on a remote which simply returns (echoes) packets as they are received at an :ref:`RPMsg endpoint <rpmsg-endpoint>` from the host controller. The host controller then verifies the returned packet for integrity.
+The echo test reference sample, as the name suggests, demonstrates OpenAMP :ref:`Interprocessor Communications (IPC)<ipc-work-label>` components by providing an echo application on a remote which simply returns (echoes) packets as they are received at an :ref:`RPMsg endpoint <rpmsg-endpoint>` from the main controller. The main controller then verifies the returned packet for integrity.
 
 ..  image::  ../images/demos/echo-test-intro.svg
 
@@ -20,7 +20,7 @@ Echo Test Components
 
 There are two applications involved in this demonstration.
 The :ref:`remote application<echo-test-remote-app>` runs as an echo service, which returns packets it receives on an :ref:`RPMsg endpoint <rpmsg-endpoint>`.
-The :ref:`host application<echo-test-host-app>` is the test application sending packets to the echo service and monitoring for their return.
+The :ref:`main controller application<echo-test-host-app>` is the test application sending packets to the echo service and monitoring for their return.
 
 The underlying OpenAMP architectural components used by these applications are
 
@@ -50,17 +50,17 @@ The remote application, rpmsg-echo, is the core of the demonstration. It is a si
 
 .. _echo-test-host-app:
 
-Echo Test Host Application
+Echo Test Main Application
 ==========================
 
-The echo_test application forms the host controller side of the demonstration. It repeatedly writes an increasing length payload of 0xA5's up to the maximum data size (packet size minus header) to the RPMsg endpoint. Following each packet send, it reads from the same endpoint and verifies the returned packet for correctness. The application will stop and report on the first corruption found.
+The echo_test application forms the main controller side of the demonstration. It repeatedly writes an increasing length payload of 0xA5's up to the maximum data size (packet size minus header) to the RPMsg endpoint. Following each packet send, it reads from the same endpoint and verifies the returned packet for correctness. The application will stop and report on the first corruption found.
 
-Echo Test Host Script
+Echo Test Main Script
 =====================
 
-The host is also responsible for loading the firmware containing the :ref:`RPMsg Echo Remote Application<echo-test-remote-app>` and starting the remote processor using :ref:`Remoteproc<overview-remoteproc-work-label>`.
+The main controller is also responsible for loading the firmware containing the :ref:`RPMsg Echo Remote Application<echo-test-remote-app>` and starting the remote processor using :ref:`Remoteproc<overview-remoteproc-work-label>`.
 
-For host controllers, like Linux, a script can be used to pipe the firmware to the exposed remoteproc system, followed by the execution of the user space echo_test application. For controllers without scripting capability, like baremetal and RTOS (Real Time Operating systems), this would be achieved in the code.
+For main controllers, like Linux, a script can be used to pipe the firmware to the exposed remoteproc system, followed by the execution of the user space echo_test application. For controllers without scripting capability, like baremetal and RTOS (Real Time Operating systems), this would be achieved in the code.
 
 In the :ref:`Demo Docker Images<docker-images-label>` this is script demo1A.
 
@@ -80,12 +80,12 @@ It is a CMake application and can be built for any remote as long as the relevan
 Echo Test Linux Source
 ======================
 
-The echo test Linux application is executed on the Linux host controller as a user space application.
+The echo test Linux application is executed on the Linux main controller as a user space application.
 The application is available in the `OpenAMP System Reference repository <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/linux/rpmsg-echo-test/echo_test.c>`_.
 
 It is a Makefile application and can be built using the `Yocto rpmsg-echo-test recipe <https://github.com/OpenAMP/meta-openamp/blob/master/recipes-openamp/rpmsg-examples/rpmsg-echo-test_1.0.bb>`_
 
-An example host control script is given in the `echo test readme <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/linux/rpmsg-echo-test/README.md#run-the-demo>`_
+An example main control script is given in the `echo test readme <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/linux/rpmsg-echo-test/README.md#run-the-demo>`_
 
 *******************************
 Reference Board Implementations
