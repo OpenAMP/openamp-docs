@@ -12,7 +12,7 @@ Release Cycle
 Roadmap discussion and publication
 ----------------------------------
 - Feature freeze period of a release used for roadmap discussions for next release
-- Contributers propose features posted and discussed on `mailing list <https://lists.openampproject.org/mailman3/lists>`_
+- Contributors propose features posted and discussed on `mailing list <https://lists.openampproject.org/mailman3/lists>`_
 - Maintainer collects accepted proposals
 - Maintainer posts list of development tasks, owners, at open of release cycle
 
