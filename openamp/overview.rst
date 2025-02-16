@@ -17,6 +17,15 @@ Furthermore, these operating environments can interoperate over a common protoco
 Read more about Asymmetric Multiprocessing :ref:`here<asymmetric-multiprocessing-work-label>`.
 
 
+*******
+History
+*******
+
+Texas Instruments’ remoteproc and RPMsg infrastructure available in the upstream Linux kernel enable the Linux applications running on a host processor to manage the life cycle of remote processor/firmware and perform IPC with them. However, there was no open- source API/software available that provided similar functionality and interfaces for other possible software contexts (RTOS- or bare metal-based applications) running on the remote processor to communicate with the Linux host. Also, AMP applications may require RTOS- or bare metal-based applications to run on the host processor and be able to manage and communicate with various software environments (RTOS, bare metal, or even Linux) on the remote processor.
+
+The OpenAMP Framework fills these gaps. It provides the required LCM and IPC infrastructure from the RTOS and bare metal environments with the API conformity and functional symmetry available in the upstream Linux kernel. As in upstream Linux, the OpenAMP Framework's remoteproc and RPMsg infrastructure uses virtio as the transport layer/abstraction.
+
+
 ************
 Project Aims
 ************
