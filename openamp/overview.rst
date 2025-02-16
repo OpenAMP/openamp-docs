@@ -8,11 +8,11 @@ OpenAMP Intro
 
 `Asymmetric Multiprocessing (AMP) <https://en.wikipedia.org/wiki/Asymmetric_multiprocessing>`_ involves the management, control and communication of multi-core computer systems, where processors have independent tasks and are often in a `heterogeneous <https://en.wikipedia.org/wiki/Heterogeneous_computing>`_ embedded environment where there are different types of processors. This is in contrast to `Symmetric Multiprocessing (SMP) <https://en.wikipedia.org/wiki/Symmetric_multiprocessing>`_ which involves central control and load sharing using identical processor cores and is common place in servers and desktop computers.
 
-The **OpenAMP** project is a community effort that is standardizing and implementing how these multiple embedded systems interact with each other in an AMP environment. It provides conventions and standards as well as an open source implementation to facilitate AMP development for embedded systems.
+The **OpenAMP** project is a community effort that is promoting and implementing how these multiple embedded systems interact with each other in an AMP environment. It provides conventions and open source implementation to facilitate AMP development for embedded systems.
 
 The vision is that regardless of the operating environment/operating system, it should be possible to use identical interfaces to interact with other operating environments in the same system.
 
-Furthermore, these operating environments can interoperate over a standardized protocol, making it possible to mix and match any two or more operating systems in the same device.
+Furthermore, these operating environments can interoperate over a common protocol, making it possible to mix and match any two or more operating systems in the same device.
 
 Read more about Asymmetric Multiprocessing :ref:`here<asymmetric-multiprocessing-work-label>`.
 
@@ -23,13 +23,13 @@ Project Aims
 
 To provide a solution to cover the :ref:`AMP Fundamentals<openamp-fundamentals-work-label>`, the OpenAMP project is divided into the following efforts:
 
-    * A standardization group under Linaro Community Projects
-        - Standardizing the low-level protocol that allows systems to interact (:ref:`more info here<rpmsg-protocol-work-label>`)
+    * A guidance group under Linaro Community Projects
+        - Provides guidance for the low-level protocol that allows systems to interact (:ref:`more info here<rpmsg-protocol-work-label>`)
             + Built on top of the `Virtio Open Standard <https://docs.oasis-open.org/virtio/virtio/v1.3/virtio-v1.3.html>`_
-        - Standardizing on the user level APIs that allow applications to be portable
+        - Maintaining common user level APIs that allow applications to be portable
             + :ref:`RPMSG<rpmsg-protocol-work-label>`
             + :ref:`remoteproc<lcm-work-label>`
-        - **Standardizing on the low-level** :ref:`OS/HW abstraction layer<porting-guide-work-label>` **that abstracts the open source implementation from the underlying OS and hardware, simplifying the porting to new environments**
+        - **Provide low-level** :ref:`OS/HW abstraction layer<porting-guide-work-label>` APIs **that abstracts the open source implementation from the underlying OS and hardware, simplifying the porting to new environments**
 
     * An open source project that implements a clean-room implementation of OpenAMP
         - Runs in :ref:`multiple environments<operating-environments-work-label>`
