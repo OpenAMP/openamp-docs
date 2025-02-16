@@ -227,5 +227,3 @@ There are a few guiding principles that governs OpenAMP:
 
 There are a number of project members as outlined in `OpenAMP Project Page <https://www.openampproject.org/about/>`_ as well as many community members, so please join the :ref:`OpenAMP open source project<openamp-maintenance-work-label>`!
     - See https://github.com/OpenAMP/open-amp
-
-If you want to contribute and port OpenAMP to your platform read more about OpenAMP porting :ref:`here<porting-guide-work-label>`.
