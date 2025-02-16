@@ -4,6 +4,8 @@
 Contributing to the OpenAMP Project
 ===================================
 
+If you want to contribute and port OpenAMP to your platform read more about OpenAMP porting :ref:`here<porting-guide-work-label>`.
+
 Release Cycle
 -------------
 - Release branch (feature freeze) cut 1 month before release target
