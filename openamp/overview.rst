@@ -223,7 +223,7 @@ There are a few guiding principles that governs OpenAMP:
         * In particular :ref:`remoteproc<lcm-work-label>`, :ref:`RPMsg <rpmsg-protocol-work-label>` and virtio
     - **Never standardize on anything unless there is an open source implementation that can prove it**
     - Always be backwards compatible (unless there is a really, really good reason to change)
-        * In particular make sure to be compatible with the Linux kernel implementation of :ref:`remoteproc<lcm-work-label>`/:ref:`RPMsg <rpmsg-protocol-work-label>`/virtio
+        * In particular make sure to be compatible with the Linux kernel implementation of :ref:`remoteproc<lcm-work-label>`/:ref:`RPMsg <rpmsg-protocol-work-label>`/`Virtio <https://docs.oasis-open.org/virtio/virtio/v1.3/virtio-v1.3.html>`_
 
 There are a number of project members as outlined in `OpenAMP Project Page <https://www.openampproject.org/about/>`_ as well as many community members, so please join the :ref:`OpenAMP open source project<openamp-maintenance-work-label>`!
     - See https://github.com/OpenAMP/open-amp
