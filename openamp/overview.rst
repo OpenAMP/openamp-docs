@@ -163,7 +163,7 @@ RPMsg and Virtio
 
 Standardization of the IPC is promoted by the OpenAMP project through the use of :ref:`RPMsg <rpmsg-protocol-work-label>`, using `Open Standard Virtio Devices <https://docs.oasis-open.org/virtio/virtio/v1.3/virtio-v1.3.html>`_ as a HW abstraction or MAC layer.
 
-This abstraction, using virtio, means that the implementer can optionally use :ref:`resource isolation<resource-isolation-work-label>` (e.g. using a hypervisor or secure context), which is exemplified by the first processor in the architecture diagram. The other two remotes are in what is referred to as a hypervisorless-virtio setup because they are using virtio (virtual io) as an abstraction layer but without a hypervisor.
+This abstraction, using virtio, means that the implementer can optionally use :ref:`resource isolation<resource-isolation-work-label>` (e.g. using a hypervisor or secure context), which is exemplified by the first processor in the architecture diagram.
 
 ..  image::  ../images/architecture/overview-architecture-rpmsg.svg
 
