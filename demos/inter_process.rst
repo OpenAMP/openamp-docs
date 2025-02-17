@@ -4,7 +4,7 @@
 Running Demos as Processes on Linux
 ===================================
 
-The `OpenAMP project examples <https://github.com/OpenAMP/open-amp/tree/main/apps/examples>`_
+The `OpenAMP project examples <https://github.com/OpenAMP/openamp-system-reference/tree/main/examples>`_
 are intended to execute on the remote of a reference board but can also be demonstrated by implementing as a process on the main controller, effectively emulating a remote.
 
 This can be useful for demonstration purposes, but can also be leveraged for component testing, even as part of a continuous integration setup.
