@@ -16,6 +16,7 @@ Welcome to the OpenAMP Project Documentation
    tools/index
    protocol_details/index
    docs/index
+   openamp/glossary
 
 Indices and tables
 ==================
