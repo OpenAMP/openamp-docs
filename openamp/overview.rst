@@ -204,7 +204,7 @@ OpenAMP aims to provide components which are portable and aim to be environment 
 
 The result is that OpenAMP is supported in various operating environments through
   - an `OpenAMP open source project <https://github.com/OpenAMP>`_  (OAOS),
-  - a Linux kernel project (OALK), coming through the regular `remoteproc <https://www.kernel.org/doc/html/latest/staging/remoteproc.html>`_/`RPMsg <https://www.kernel.org/doc/html/latest/staging/rpmsg.html>`_/`Virtio <https://docs.kernel.org/driver-api/virtio/virtio.html>`_ efforts in the kernel.
+  - an OpenAMP Linux Kernel (OALK) project, coming through the regular `remoteproc <https://www.kernel.org/doc/html/latest/staging/remoteproc.html>`_/`RPMsg <https://www.kernel.org/doc/html/latest/staging/rpmsg.html>`_/`Virtio <https://docs.kernel.org/driver-api/virtio/virtio.html>`_ efforts in the kernel.
   - multiple proprietary implementations (OAPI).
 
 The operating environments that OpenAMP supports include:
