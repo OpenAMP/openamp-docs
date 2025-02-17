@@ -27,7 +27,7 @@ This layer is the key part of the whole solution - thanks to this layer, there i
 
 This technique is however applicable only in core-to-core configuration, not in core-to-multicore configuration, since in such a case, there would be multiple writers to the “IN” ring buffer. This would require a synchronization element, [such as a semaphore?], which is not desirable.
 
-The above shown picture describes the vring component. The Vring is composed of three elementary parts - buffer descriptor pool, the “available” ring buffer (or input ring buffer) and the “used” ring buffer (or free ring buffer). All three elements are physically stored in the shared memory.
+The above shown picture describes the vring component. The Vring is composed of three elementary parts - buffer descriptor pool, the available ring buffer and the used ring buffer. All three elements are physically stored in the shared memory.
 
 Each buffer descriptor contains a 64-bit buffer address, which holds an address to a buffer stored in the shared memory (as seen physically by the “receiver” or host of this vring), its length as a 32-bit variable, 16-bit flags field and 16-bit link to the next buffer descriptor. The link is used to chain unused buffer descriptors and to chain descriptors, which have the F_NEXT bit set in the flags field to the next descriptor in the chain.
 
@@ -35,15 +35,17 @@ Note that the available and used ring buffer areas contain pointers to buffers, 
 
 .. image:: ../images/vring_descriptor.jpg
 
-The input ring buffer contains its own flags field, where only the 0th bit is used - if it is set, the “writer” side should not be notified, when the “reader” side consumes a buffer from the input or “avail” ring buffer. By default the bit is not set, so after the reader consumes a buffer, the writer should be notified by triggering an interrupt. The next field of the input ring buffer is the index of the head, which is updated by the writer, after a buffer index containing a new message is written in the ring[x] field.
+The available ring buffer contains its own flags field, where only the 0th bit is used - if it is set, the “writer” side should not be notified, when the “reader” side consumes a buffer from the available ring buffer. By default the bit is not set, so after the reader consumes a buffer, the writer should be notified by triggering an interrupt. The next field of the available ring buffer is the index of the head, which is updated by the writer, after a buffer index containing a new message is written in the ring[x] field.
 
-.. image:: ../images/vring_descriptor_flags.jpg
+.. figure:: ../images/vring_descriptor_flags.jpg
 
-The last part of the vring is the “used” ring buffer. It contains also a flags field and only the 0th bit is used - if set, the writer side will not be notified when the reader updates the head index of this free ring buffer. The following picture shows the ring buffer structure. The used ring buffer differs from the avail ring buffer. For each entry, the length of the buffer is stored as well.
+   Flags (16 bit) Fields of Available Ring Buffer Descriptor
+
+The last part of the vring is the used ring buffer. It contains also a flags field and only the 0th bit is used - if set, the writer side will not be notified when the reader updates the head index of this used ring buffer. The following picture shows the ring buffer structure. The used ring buffer differs from the available ring buffer. For each entry, the length of the buffer is stored as well.
 
 .. image:: ../images/vrings_used_buffers.jpg
 
-Both “used” and “avail” ring buffers have a flags field. Its purpose is mainly to tell the writer whether he should interrupt the other core when updating the head of the ring. The same bit is used for this purpose in both “used” and “avail” ring buffers:
+Both used and available ring buffers have a flags field. Its purpose is mainly to tell the writer whether he should interrupt the other core when updating the head of the ring. The same bit is used for this purpose in both used and available ring buffers:
 
 .. image:: ../images/vrings_used_buffers_flags.jpg
 
