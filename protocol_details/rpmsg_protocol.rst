@@ -75,7 +75,7 @@ Every remote core in the RPMsg component is represented by an RPMsg device that 
 RPMsg Endpoint
 ~~~~~~~~~~~~~~
 
-RPMsg endpoints provide logical connections on top of an RPMsg channel. They allows the user to bind multiple rx callbacks on the same channel.
+RPMsg endpoints provide logical connections on top of an RPMsg channel. They allow the user to bind multiple rx callbacks on the same channel.
 
 Every RPMsg endpoint has a unique src address and associated call back function. When an application creates an endpoint with the local address, all further inbound messages with the destination address equal to the local address of endpoint are routed to that callback function. Every channel has a default endpoint which enables applications to communicate without even creating new endpoints.
 

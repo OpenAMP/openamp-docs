@@ -18,7 +18,7 @@ The `Split Mode Demo <https://github.com/OpenAMP/openamp-demo/tree/main/demos/de
 Split Mode Components
 *********************
 
-This demonstration uses a single application, sent independently to the two remotes, utilising a demo script on the host.
+This demonstration uses a single application, sent independently to the two remotes, utilising a demo script on the main controller.
 
 The underlying OpenAMP architectural components used by these applications are
 
@@ -41,18 +41,18 @@ The top-level control flow is shown in the following message diagram.
 Split Mode Remote Application
 =============================
 
-The remote application is a simple application which once loaded calls printf to write to the host console, interleaved with other host console output.
+The remote application is a simple application which once loaded calls printf to write to the main controller console, interleaved with other main controller console output.
 
 .. _split-mode-linux-script:
 
-Split Mode Host Script
+Split Mode Main Script
 ======================
 
-The host is responsible for loading the firmware and starting the remote processors by writing start and stop to /sys/class/remoteproc/remoteproc0 and /sys/class/remoteproc/remoteproc1 alternately.
+The main controller is responsible for loading the firmware and starting the remote processors by writing start and stop to /sys/class/remoteproc/remoteproc0 and /sys/class/remoteproc/remoteproc1 alternately.
 
 The scripts is available in the :ref:`Demo Docker Images<docker-images-label>` as `demo2 <https://github.com/OpenAMP/openamp-demo/blob/main/demos/demo-r5-combo/my-extra-stuff/home/root/demo2B>`_.
 
-Split Mode Host Configuration
+Split Mode Main Configuration
 =============================
 
 The remoteproc configuration binding `cluster-mode <https://github.com/torvalds/linux/blob/master/Documentation/devicetree/bindings/remoteproc/xlnx%2Czynqmp-r5fss.yaml#L37>`_ is set to 0 for split-mode as per the `system reference implementation <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/linux/dts/xilinx/zynqmp-split.dtso>`_.
