@@ -8,7 +8,7 @@ OpenAMP Matrix Multiply Sample
 Matrix Multiply Intro
 *********************
 
-The matrix multiply reference sample, as the name suggests, demonstrates OpenAMP :ref:`Interprocessor Communications (IPC)<ipc-work-label>` components through matrix multiplication. The demonstration uses a main controller client, which generates random matrixes. It sends them to a service/daemon on a remote which performs a matrix calculation and returns the result via a :ref:`RPMsg endpoint <rpmsg-endpoint>`. The main controller then writes the matrix result to console output.
+The matrix multiply reference sample, as the name suggests, demonstrates OpenAMP :ref:`Interprocessor Communications (IPC)<ipc-work-label>` components through matrix multiplication. The demonstration uses a main controller client, which generates random matrices. It sends them to a service/daemon on a remote which performs a matrix calculation and returns the result via a :ref:`RPMsg endpoint <rpmsg-endpoint>`. The main controller then writes the matrix result to console output.
 
 ..  image::  ../images/demos/matrix-multiply-intro.svg
 
@@ -20,7 +20,7 @@ Matrix Multiply Components
 
 There are two applications involved in this demonstration.
 The :ref:`remote application<matrix-multiply-remote-app>` runs as an daemon/service which performs a matrix calculation and returns the result on an :ref:`RPMsg endpoint <rpmsg-endpoint>`.
-The :ref:`main controller application<matrix-multiply-host-app>` is the client application sending two matrixes as a packet to the daemon/service and monitoring for the return result.
+The :ref:`main controller application<matrix-multiply-host-app>` is the client application sending two matrices as a packet to the daemon/service and monitoring for the return result.
 
 The underlying OpenAMP architectural components used by these applications are
 
