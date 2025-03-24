@@ -61,8 +61,16 @@ extensions = [
     'sphinx.ext.todo',
     'rst2pdf.pdfbuilder',
     'myst_parser',
+    'sphinxcontrib.doxylink',
     'breathe'
 ]
+
+# Name doxylink "links" to library repositories <library>_doc_link as it is a
+# link to doxygen pages
+doxylink = {
+    'openamp_doc_link': (f'{readthedocs_dir}/openamp/doc/openamp_lib.tag', f'{url_base}doxygen/openamp'),
+    'libmetal_doc_link': (f'{readthedocs_dir}/libmetal/doc/libmetal.tag', f'{url_base}doxygen/libmetal')
+}
 
 # Name breathe projects "embedded" content <library>_doc_embed as doxygen
 # content is embedded into sphinx pages
