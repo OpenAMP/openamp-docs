@@ -10,7 +10,8 @@ import subprocess
 from datetime import datetime
 
 pwd = os.getcwd()
-url_base = os.environ.get('READTHEDOCS_CANONICAL_URL', "file:" + pwd + "/_build/html/")
+readthedocs_dir = os.environ.get('READTHEDOCS_OUTPUT', f'{pwd}/_build')
+url_base = os.environ.get('READTHEDOCS_CANONICAL_URL', "file:" + readthedocs_dir + "/html/")
 if not url_base.endswith("/"):
     url_base = url_base + "/"
 
@@ -60,7 +61,16 @@ extensions = [
     'sphinx.ext.todo',
     'rst2pdf.pdfbuilder',
     'myst_parser',
+    'breathe'
 ]
+
+# Name breathe projects "embedded" content <library>_doc_embed as doxygen
+# content is embedded into sphinx pages
+breathe_projects = {
+    "openamp_doc_embed": f'{readthedocs_dir}/openamp/doc/xml',
+    "libmetal_doc_embed": f'{readthedocs_dir}/libmetal/doc/xml'
+}
+breathe_default_project = "openamp_doc_embed"
 
 pdf_documents = [('index', u'openamppdf', u'Sample openamppdf doc', u'Tammy Leino'),]
 
