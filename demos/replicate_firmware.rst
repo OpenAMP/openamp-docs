@@ -18,7 +18,7 @@ The Replicate Firmware Demo is provided to demonstrate the use of two remote pro
 Replicate Firmware Components
 *****************************
 
-This demonstration uses a single application, sent independently to the two remotes, utilising a demo script on the host.
+This demonstration uses a single application, sent independently to the two remotes, utilising a demo script on the main controller.
 
 The underlying OpenAMP architectural components used by these applications are
 
@@ -45,16 +45,16 @@ The remote application is a hello world application, which once loaded calls pri
 
 .. _replicate-firmware-linux-script:
 
-Replicate Firmware Host Script
+Replicate Firmware Main Script
 ==============================
 
-The host is responsible for loading the firmware and starting the remote processors by writing start and stop to /sys/class/remoteproc/remoteproc0 and /sys/class/remoteproc/remoteproc1 alternately.
+The main controller is responsible for loading the firmware and starting the remote processors by writing start and stop to /sys/class/remoteproc/remoteproc0 and /sys/class/remoteproc/remoteproc1 alternately.
 
 The same firmware is loaded, and this is made possible as the system uses `Tightly Coupled Memory <https://docs.amd.com/r/en-US/ug1085-zynq-ultrascale-trm/Tightly-Coupled-Memory-Functional-Description>`_, so each processor is assigned its own bank of memory.
 
 The scripts is available in the :ref:`Demo Docker Images<docker-images-label>` as demo3.
 
-Replicate Firmware Host Configuration
+Replicate Firmware Main Configuration
 =====================================
 
 The remoteproc configuration binding `cluster-mode <https://github.com/torvalds/linux/blob/master/Documentation/devicetree/bindings/remoteproc/xlnx%2Czynqmp-r5fss.yaml#L37>`_ is set to 0 for split-mode as per the `system reference implementation <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/linux/dts/xilinx/zynqmp-split.dtso>`_.

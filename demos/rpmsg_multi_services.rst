@@ -17,7 +17,7 @@ Three channel types are demonstrated.
 * Raw `character device <https://linux-kernel-labs.github.io/refs/heads/master/labs/device_drivers.html>`_ Channel
 * `tty Device <https://www.kernel.org/doc/html/latest/driver-api/tty/index.html>`_ Channel
 
-The host side is implemented in Linux as client drivers to the remote services. The Direct RPMsg driver is a dedicated demo driver and the character and tty RPMsg drivers are generic character drivers that can be used by any user space application through their respective device files.
+The main controller side is implemented in Linux as client drivers to the remote services. The Direct RPMsg driver is a dedicated demo driver and the character and tty RPMsg drivers are generic character drivers that can be used by any user space application through their respective device files.
 
 ..  image::  ../images/demos/rpmsg-multi-services-intro.svg
 
@@ -30,7 +30,7 @@ The remote sets up three RPMsg channels, one for each service, starting at addre
 RPMsg Multi Services Components
 *******************************
 
-The three :ref:`Interprocessor Communications (IPC)<ipc-work-label>` paths in this demonstration provide an identical application flow, namely a host based client sending packets via RPMsg to the remote which echoes the packet.
+The three :ref:`Interprocessor Communications (IPC)<ipc-work-label>` paths in this demonstration provide an identical application flow, namely a main controller based client sending packets via RPMsg to the remote which echoes the packet.
 
 The main target of the demonstration is to show the different RPMsg types as supported by Linux drivers, namely 'direct', 'character' and 'tty' driver.
 
@@ -42,7 +42,7 @@ The underlying OpenAMP architectural components used by these applications are
 * :ref:`Virtio<overview-rpmsg-work-label>`
 * :ref:`Libmetal<overview-proxy-libmetal-label>`
 
-The supporting Linux architectural components used by the drivers on the host side are
+The supporting Linux architectural components used by the drivers on the main controller side are
 
 * `RPMsg character device <https://linux-kernel-labs.github.io/refs/heads/master/labs/device_drivers.html>`_
 * `tty device <https://www.kernel.org/doc/html/latest/driver-api/tty/index.html>`_
@@ -53,7 +53,9 @@ The following architecture diagram shows the components involved in the demonstr
 
 .. _rpmsg-control-flow-label:
 
-The top-level control flow is shown in the following message diagram. The remote threads are show sequentially for clarity of diagram but could be executed in parallel.
+The top-level control flow is shown in the following message diagram. The control flow for each service is exemplified in the three boxes labeled A, B and C for the drivers direct, tty and character/raw.
+The remote threads are shown sequentially for clarity of diagram but could be executed in parallel.
+
 
 ..  image::  ../images/demos/rpmsg-multi-services-control-flow.svg
 
@@ -63,10 +65,11 @@ The top-level control flow is shown in the following message diagram. The remote
 RPMsg Client Sample
 ===================
 
-The Linux rpmsg_client_sample driver begins sending 'hello world!' messages on a rpmsg_driver probe, initiated by a name service announcement from the remote. This is repeated a predefined count times for each response from the remote. The response from the remote application is to return the same packet received at the :ref:`RPMsg endpoint <rpmsg-endpoint>` of the host controller.
+The Linux rpmsg_client_sample driver begins sending 'hello world!' messages on a rpmsg_driver probe, initiated by a name service announcement from the remote. This is repeated a predefined count times for each response from the remote. The response from the remote application is to return the same packet received at the :ref:`RPMsg endpoint <rpmsg-endpoint>` of the main controller.
 
 When the count (100) responses have been sent, the endpoint is destroyed by the remote.
 
+Refer to box A (direct) in :ref:`flow control diagram<rpmsg-control-flow-label>`.
 
 .. _rpmsg-character-driver-sample-label:
 
@@ -86,11 +89,11 @@ Raw Character Driver Sample
 
 When started, the character/raw remote service (app_rpmsg_raw thread) creates two RPMsg endpoints. The first with the special RPMSG_ADDR_ANY (-1) address which sets up the RPMsg channel and the second with destination and source address set to 1.
 
-In addition to demonstrating the use of the raw character driver, this application demonstrates the use of an arbitrary number of Linux side RPMsg endpoints, all connected to a single endpoint on the remote side (with address 1). The Linux side end points are created using the `rpmsg-utils rpmsg_export_ept utility <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/linux/rpmsg-utils/rpmsg_export_dev.c>`_, and establish a many to one connectivity between host and remote endpoints.
+In addition to demonstrating the use of the raw character driver, this application demonstrates the use of an arbitrary number of Linux side RPMsg endpoints, all connected to a single endpoint on the remote side (with address 1). The Linux side end points are created using the `rpmsg-utils rpmsg_export_ept utility <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/linux/rpmsg-utils/rpmsg_export_dev.c>`_, and establish a many to one connectivity between main controller and remote endpoints.
 
 Although there are many endpoints on the Linux side, the remote has only two endpoints.
 
-Refer to the :ref:`flow control diagram<rpmsg-control-flow-label>`.
+Refer to box C (char) in :ref:`flow control diagram<rpmsg-control-flow-label>`.
 
 .. _rpmsg-tty-driver-label:
 
@@ -103,7 +106,7 @@ The management thread (rpmsg_mng_task) also sets up a 'New Service Callback' (ne
 
 This application demonstrates the creation and release of RPMsg channels using the `rpmsg-utils rpmsg_export_dev utility <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/linux/rpmsg-utils/rpmsg_export_dev.c>`_, which exercise the ioctl commands RPMSG_CREATE_DEV_IOCTL and RPMSG_RELEASE_DEV_IOCTL.
 
-Refer to the :ref:`flow control diagram<rpmsg-control-flow-label>`.
+Refer to box B (tty) in :ref:`flow control diagram<rpmsg-control-flow-label>`.
 
 ********************************
 RPMsg Multi Services Demo Source
@@ -143,6 +146,7 @@ The tty 'client' is the `PRMsg tty driver <https://github.com/torvalds/linux/blo
 
 The RPMsg ioctl (IO control) is performed through `rpmsg_ctrl <https://github.com/torvalds/linux/blob/master/drivers/rpmsg/rpmsg_ctrl.c>`_ provided in the Linux source and is used by the `rpmsg-utils rpmsg_export_dev utility <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/linux/rpmsg-utils/rpmsg_export_dev.c>`_, which exercise the ioctl commands RPMSG_CREATE_DEV_IOCTL and RPMSG_RELEASE_DEV_IOCTL.
 
+
 *******************************
 Reference Board Implementations
 *******************************
@@ -152,3 +156,8 @@ This RPMsg Multi Services Sample is demonstrated in the following reference impl
 * :ref:`ST Micro Platforms<demos-ST-work-label>`
 
    * Refer to `Zephyr Build Instructions <https://github.com/OpenAMP/openamp-system-reference/tree/main/examples/zephyr/rpmsg_multi_services>`_.
+   * Refer to `example demo script <https://github.com/OpenAMP/openamp-demo/blob/main/demos/demo-stm32mp157c-dk2/my-extra-stuff/home/root/demo1>`_.
+
+* :ref:`NXP <reference_board_NXP>`
+
+   * Refer to Application Note `AN13970 Running Zephyr RTOS <https://www.nxp.com/docs/en/application-note/AN13970.pdf>`_
