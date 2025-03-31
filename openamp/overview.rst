@@ -34,7 +34,7 @@ To provide a solution to cover the :ref:`AMP Fundamentals<openamp-fundamentals-w
 
     * A guidance group under Linaro Community Projects
         - Provides guidance for the low-level protocol that allows systems to interact (:ref:`more info here<rpmsg-protocol-work-label>`)
-            + Built on top of the `Virtio Open Standard <https://docs.oasis-open.org/virtio/virtio/v1.3/virtio-v1.3.html>`_
+            + Built on top of the `Virtio Open Standard <https://docs.oasis-open.org/virtio/virtio>`_
         - Maintaining common user level APIs that allow applications to be portable
             + :ref:`RPMSG<rpmsg-protocol-work-label>`
             + :ref:`remoteproc<lcm-work-label>`
@@ -161,7 +161,7 @@ RemoteProc
 RPMsg and Virtio
 ================
 
-Standardization of the IPC is promoted by the OpenAMP project through the use of :ref:`RPMsg <rpmsg-protocol-work-label>`, using `Open Standard Virtio Devices <https://docs.oasis-open.org/virtio/virtio/v1.3/virtio-v1.3.html>`_ as a HW abstraction or MAC layer.
+Standardization of the IPC is promoted by the OpenAMP project through the use of :ref:`RPMsg <rpmsg-protocol-work-label>`, using `Open Standard Virtio Devices <https://docs.oasis-open.org/virtio/virtio>`_ as a HW abstraction or MAC layer.
 
 This abstraction, using virtio, means that the implementer can optionally use :ref:`resource isolation<resource-isolation-work-label>` (e.g. using a hypervisor or secure context), which is exemplified by the first processor in the architecture diagram.
 
@@ -229,10 +229,10 @@ There are a few guiding principles that governs OpenAMP:
     - Provide a clean-room implementation of OpenAMP with business friendly APIs and licensing
         * Allow for compatible proprietary implementations and products
     - Base as much as possible on existing technologies/open source projects/standards
-        * In particular :ref:`remoteproc<lcm-work-label>`, :ref:`RPMsg <rpmsg-protocol-work-label>` and virtio
+        * In particular :ref:`remoteproc<lcm-work-label>`, :ref:`RPMsg <rpmsg-protocol-work-label>` and `virtio <https://docs.oasis-open.org/virtio/virtio>`_
     - **Never standardize on anything unless there is an open source implementation that can prove it**
     - Always be backwards compatible (unless there is a really, really good reason to change)
-        * In particular make sure to be compatible with the Linux kernel implementation of :ref:`remoteproc<lcm-work-label>`/:ref:`RPMsg <rpmsg-protocol-work-label>`/`Virtio <https://docs.oasis-open.org/virtio/virtio/v1.3/virtio-v1.3.html>`_
+        * In particular make sure to be compatible with the Linux kernel implementation of :ref:`remoteproc<lcm-work-label>`/:ref:`RPMsg <rpmsg-protocol-work-label>`/`Virtio <https://docs.oasis-open.org/virtio/virtio>`_
 
 There are a number of project members as outlined in `OpenAMP Project Page <https://www.openampproject.org/about/>`_ as well as many community members, so please join the :ref:`OpenAMP open source project<openamp-maintenance-work-label>`!
     - See https://github.com/OpenAMP/open-amp
