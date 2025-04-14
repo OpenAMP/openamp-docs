@@ -30,25 +30,41 @@ libmetal uses C11/C++11 stdatomics interface for atomic operations, if you use a
 Platform Specific Remoteproc Driver
 ***********************************
 
-User will need to implement platform specific remoteproc driver to use remoteproc life cycle management APIs. The remoteproc driver platform specific functions are defined in this file: lib/include/openamp/remoteproc.h. Here are the remoteproc functions needs platform specific implementation.
+Any OpenAMP port will need to implement a platform specific remoteproc driver to use remoteproc life cycle management (LCM) APIs. The remoteproc driver platform specific functions are defined in `lib/include/openamp/remoteproc.h <https://github.com/OpenAMP/open-amp/blob/main/lib/include/openamp/remoteproc.h>`_ and provided through the :openamp_doc_link:`remoteproc_ops data structure <remoteproc_ops>`.
 
-    - init(), instantiate the remoteproc instance with platform specific config parameters.
-    - remove(), destroy the remoteproc instance and its resource.
-    - mmap(), map the memory speficified with physical address or remote device address so that it can be used by the application.
-    - handle_rsc(), handler to the platform specific resource which is specified in the resource table.
-    - config(), configure the remote processor to get it ready to load application.
-    - start(), start the remote processor to run the application.
-    - stop(), stop the remote processor from running but not power it down.
-    - shutdown(), shutdown the remote processor and you can power it down.
-    - notify(), notify the remote processor.
+The remoteproc LCM APIs use these platform specific implementation of init, remove, mmap, handle_rsc, config, start, stop, shutdown and notify. These functions are passed to remoteproc via the remoteproc_ops structure which contains function pointers to each.
+
+.. doxygenstruct:: remoteproc_ops
+   :members:
+
+The remoteproc_init API receives this structure, and its function pointers, which are then used by the other APIs.
 
 **********************************************************************
 Platform Specific Porting to Use Remoteproc to Manage Remote Processor
 **********************************************************************
 
-User will need to implement the above platform specific remoteproc driver functions. After that, user can use remoteproc APIs to run application on a remote processor. E.g.:
+With the platform specific remoteproc driver functions implemented by the port, the user can use remoteproc APIs to run application on a remote processor.
 
-::
+.. doxygenfunction:: remoteproc_init
+   :project: openamp_doc_embed
+
+.. doxygenfunction:: remoteproc_remove
+
+.. doxygenfunction:: remoteproc_mmap
+
+.. doxygenfunction:: remoteproc_config
+
+.. doxygenfunction:: remoteproc_start
+
+.. doxygenfunction:: remoteproc_stop
+
+.. doxygenfunction:: remoteproc_shutdown
+
+
+The following code snippet is an example execution.
+
+
+.. code-block:: c
 
   #include <openamp/remoteproc.h>
 
