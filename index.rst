@@ -16,10 +16,4 @@ Welcome to the OpenAMP Project Documentation
    tools/index
    protocol_details/index
    docs/index
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   openamp/glossary
