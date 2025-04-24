@@ -13,4 +13,5 @@ In general the OpenAMP feature being exemplified is found in the `OpenAMP source
    system_reference-AMD-Xilinx
    system_reference-ST
    system_reference-NXP
+   system_reference-TI
    inter_process
