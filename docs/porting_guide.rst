@@ -175,34 +175,34 @@ The following code snippet is an example execution.
 
   void main(void)
   {
-	/* Instantiate the remoteproc instance */
-	remoteproc_init(&rproc, &rproc_ops, &private_data);
+  	/* Instantiate the remoteproc instance */
+  	remoteproc_init(&rproc, &rproc_ops, &private_data);
 
-	/* Optional, required, if user needs to configure the remote before
-	 * loading applications.
-	 */
-	remoteproc_config(&rproc, &platform_config);
+  	/* Optional, required, if user needs to configure the remote before
+  	 * loading applications.
+  	 */
+  	remoteproc_config(&rproc, &platform_config);
 
-	/* Load Application. It only supports ELF for now. */
-	remoteproc_load(&rproc, img_path, img_store_info, &img_store_ops, NULL);
+  	/* Load Application. It only supports ELF for now. */
+  	remoteproc_load(&rproc, img_path, img_store_info, &img_store_ops, NULL);
 
-	/* Start the processor to run the application. */
-	remoteproc_start(&rproc);
+  	/* Start the processor to run the application. */
+  	remoteproc_start(&rproc);
 
-	/* ... */
+  	/* ... */
 
-	/* Optional. Stop the processor, but the processor is not powered
-	 * down.
-	 */
-	remoteproc_stop(&rproc);
+  	/* Optional. Stop the processor, but the processor is not powered
+  	 * down.
+  	 */
+  	remoteproc_stop(&rproc);
 
-	/* Shutdown the processor. The processor is supposed to be powered
-	 * down.
-	 */
-	remoteproc_shutdown(&rproc);
+  	/* Shutdown the processor. The processor is supposed to be powered
+  	 * down.
+  	 */
+  	remoteproc_shutdown(&rproc);
 
-	/* Destroy the remoteproc instance */
-	remoteproc_remove(&rproc);
+  	/* Destroy the remoteproc instance */
+  	remoteproc_remove(&rproc);
   }
 
 .. _port-rpmsg:
@@ -219,7 +219,8 @@ implement your own VirtIO backend, you can refer to the
 
 Here are the steps to use OpenAMP for RPMsg communication:
 
-::
+
+.. code-block:: c
 
   #include <openamp/remoteproc.h>
   #include <openamp/rpmsg.h>
@@ -227,10 +228,10 @@ Here are the steps to use OpenAMP for RPMsg communication:
 
   /* User defined remoteproc operations for communication */
   sturct remoteproc rproc_ops = {
-	.init = local_rproc_init;
-	.mmap = local_rproc_mmap;
-	.notify = local_rproc_notify;
-	.remove = local_rproc_remove;
+  	.init = local_rproc_init;
+  	.mmap = local_rproc_mmap;
+  	.notify = local_rproc_notify;
+  	.remove = local_rproc_remove;
   };
 
   /* Remoteproc instance. If you don't use Remoteproc VirtIO backend,
@@ -282,83 +283,85 @@ Here are the steps to use OpenAMP for RPMsg communication:
 
   /* User defined RPMsg endpoint received message callback */
   void rpmsg_ept_cb(struct rpmsg_endpoint *ept, void *data, size_t len,
-		  uint32_t src, void *priv);
+  		uint32_t src, void *priv);
 
   /* User defined RPMsg name service unbind request callback */
   void ns_unbind_cb(struct rpmsg_device *rdev, const char *name, uint32_t dest);
 
   void main(void)
   {
-	/* Instantiate remoteproc instance */
-	remoteproc_init(&rproc, &rproc_ops);
+  	/* Instantiate remoteproc instance */
+  	remoteproc_init(&rproc, &rproc_ops);
 
-	/* Mmap shared memories so that they can be used */
-	remoteproc_mmap(&rproc, &physical_address, NULL, size,
-			<memory_attributes>, &shm_io);
+  	/* Mmap shared memories so that they can be used */
+  	remoteproc_mmap(&rproc, &physical_address, NULL, size,
+  			<memory_attributes>, &shm_io);
 
-	/* Parse resource table to remoteproc */
-	remoteproc_set_rsc_table(&rproc, rsc_table, rsc_size);
+  	/* Parse resource table to remoteproc */
+  	remoteproc_set_rsc_table(&rproc, rsc_table, rsc_size);
 
-	/* Create VirtIO device from remoteproc.
-	 * VirtIO device master will initiate the VirtIO rings, and assign
-	 * shared buffers. If you running the application as VirtIO slave, you
-	 * set the role as VIRTIO_DEV_SLAVE.
-	 * If you don't use remoteproc, you will need to define your own VirtIO
-	 * device.
-	 */
-	vdev = remoteproc_create_virtio(&rproc, 0, VIRTIO_DEV_MASTER, NULL);
+  	/* Create VirtIO device from remoteproc.
+  	 * VirtIO device master will initiate the VirtIO rings, and assign
+  	 * shared buffers. If you running the application as VirtIO slave, you
+  	 * set the role as VIRTIO_DEV_SLAVE.
+  	 * If you don't use remoteproc, you will need to define your own VirtIO
+  	 * device.
+  	 */
+  	vdev = remoteproc_create_virtio(&rproc, 0, VIRTIO_DEV_MASTER, NULL);
 
-	/* This step is only required if you are VirtIO device master.
-	 * Initialize the shared buffers pool.
-	 */
-	shbuf = metal_io_phys_to_virt(shm_io, SHARED_BUF_PA);
-	rpmsg_virtio_init_shm_pool(&shpool, shbuf, SHARED_BUFF_SIZE);
+  	/* This step is only required if you are VirtIO device master.
+  	 * Initialize the shared buffers pool.
+  	 */
+  	shbuf = metal_io_phys_to_virt(shm_io, SHARED_BUF_PA);
+  	rpmsg_virtio_init_shm_pool(&shpool, shbuf, SHARED_BUFF_SIZE);
 
-	/* Initialize RPMsg VirtIO device with the VirtIO device */
-	/* If it is VirtIO device slave, it will not return until the master
-	 * side set the VirtIO device DRIVER OK status bit.
-	 */
-	rpmsg_init_vdev(&rpmsg_vdev, vdev, ns_bind_cb, io, shm_io, &shpool);
+  	/* Initialize RPMsg VirtIO device with the VirtIO device */
+  	/* If it is VirtIO device slave, it will not return until the master
+  	 * side set the VirtIO device DRIVER OK status bit.
+  	 */
+  	rpmsg_init_vdev(&rpmsg_vdev, vdev, ns_bind_cb, io, shm_io, &shpool);
 
-	/* Get RPMsg device from RPMsg VirtIO device */
-	rpmsg_dev = rpmsg_virtio_get_rpmsg_device(&rpmsg_vdev);
+  	/* Get RPMsg device from RPMsg VirtIO device */
+  	rpmsg_dev = rpmsg_virtio_get_rpmsg_device(&rpmsg_vdev);
 
-	/* Create RPMsg endpoint. */
-	rpmsg_create_ept(&ept, rdev, RPMSG_SERVICE_NAME, RPMSG_ADDR_ANY,
-			 rpmsg_ept_cb, ns_unbind_cb);
+  	/* Create RPMsg endpoint. */
+  	rpmsg_create_ept(&ept, rdev, RPMSG_SERVICE_NAME, RPMSG_ADDR_ANY,
+  			 rpmsg_ept_cb, ns_unbind_cb);
 
-	/* If it is VirtIO device master, it sends the first message */
-	while (!is_rpmsg_ept_read(&ept)) {
-		/* check if the endpoint has binded.
-		 * If not, wait for notification. If local endpoint hasn't
-		 * been bound with the remote endpoint, it will fail to
-		 * send the message to the remote.
-		 */
-		/* If you prefer to use interrupt, you can wait for
-		 * interrupt here, and call the VirtIO notified function
-		 * in the interrupt handling task.
-		 */
-		rproc_virtio_notified(vdev, RSC_NOTIFY_ID_ANY);
-	}
-	/* Send RPMsg */
-	rpmsg_send(&ept, data, size);
+  	/* If it is VirtIO device master, it sends the first message */
+  	while (!is_rpmsg_ept_read(&ept)) {
+  		/* check if the endpoint has binded.
+  		 * If not, wait for notification. If local endpoint hasn't
+  		 * been bound with the remote endpoint, it will fail to
+  		 * send the message to the remote.
+  		 */
+  		/* If you prefer to use interrupt, you can wait for
+  		 * interrupt here, and call the VirtIO notified function
+  		 * in the interrupt handling task.
+  		 */
+  		rproc_virtio_notified(vdev, RSC_NOTIFY_ID_ANY);
+  	}
+  	/* Send RPMsg */
+  	rpmsg_send(&ept, data, size);
 
-	do {
-		/* If you prefer to use interrupt, you can wait for
-		 * interrupt here, and call the VirtIO notified function
-		 * in the interrupt handling task.
-		 * If vdev is notified, the endpoint callback will be
-		 * called.
-		 */
-		rproc_virtio_notified(vdev, RSC_NOTIFY_ID_ANY);
-	} while(!ns_unbind_cb_is_called && !user_decided_to_end_communication);
+  	do {
+  		/* If you prefer to use interrupt, you can wait for
+  		 * interrupt here, and call the VirtIO notified function
+  		 * in the interrupt handling task.
+  		 * If vdev is notified, the endpoint callback will be
+  		 * called.
+  		 */
+  		rproc_virtio_notified(vdev, RSC_NOTIFY_ID_ANY);
+  	} while(!ns_unbind_cb_is_called && !user_decided_to_end_communication);
 
-	/* End of communication, destroy the endpoint */
-	rpmsg_destroy_ept(&ept);
+  	/* End of communication, destroy the endpoint */
+  	rpmsg_destroy_ept(&ept);
 
-	rpmsg_deinit_vdev(&rpmsg_vdev);
+  	rpmsg_deinit_vdev(&rpmsg_vdev);
 
-	remoteproc_remove_virtio(&rproc, vdev);
+  	remoteproc_remove_virtio(&rproc, vdev);
 
-	remoteproc_remove(&rproc);
+  	remoteproc_remove(&rproc);
   }
+
+.
