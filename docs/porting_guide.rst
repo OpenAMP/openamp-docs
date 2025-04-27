@@ -12,7 +12,7 @@ need to:
 
     - add your system environment support to :ref:`libmetal<port-libmetal>`,
     - implement your platform specific :ref:`remoteproc driver<port-remoteproc>`.
-    - define your shared memory layout and specify it in a resource table.
+    - define your shared memory layout and specify it in a :ref:`resource table<resource-table>`.
 
 .. _port-libmetal:
 
@@ -131,8 +131,8 @@ by the other APIs.
 Platform Specific Porting to Use Remoteproc to Manage Remote Processor
 **********************************************************************
 
-With the platform specific remoteproc driver functions implemented by the port, the user can
-use remoteproc APIs to run application on a remote processor.
+With the platform specific :ref:`remoteproc driver functions<port-remoteproc-driver>`
+implemented by the port, the user can use remoteproc APIs to run application on a remote processor.
 
 .. doxygenfunction:: remoteproc_init
    :project: openamp_doc_embed
@@ -211,11 +211,13 @@ The following code snippet is an example execution.
 Platform Specific Porting to Use RPMsg
 **************************************
 
-RPMsg in OpenAMP implementation uses VirtIO to manage the shared buffers. OpenAMP library provides
-remoteproc VirtIO backend implementation. You don't have to use remoteproc backend. You can
-implement your VirtIO backend with the VirtIO and RPMsg implementation in OpenAMP. If you want to
-implement your own VirtIO backend, you can refer to the
-`remoteproc VirtIO backend implementation <https://github.com/OpenAMP/open-amp/blob/master/lib/remoteproc/remoteproc_virtio.c>`_
+RPMsg in OpenAMP implementation uses `VirtIO <https://docs.oasis-open.org/virtio/virtio/>`_
+to manage the shared buffers. OpenAMP library provides
+`remoteproc VirtIO backend implementation <https://github.com/OpenAMP/open-amp/blob/master/lib/remoteproc/remoteproc_virtio.c>`_.
+You don't have to use remoteproc backend. You can implement your VirtIO backend with the VirtIO
+and RPMsg implementation in OpenAMP. If you want to implement your own VirtIO backend, you can
+refer to the
+`remoteproc VirtIO backend implementation <https://github.com/OpenAMP/open-amp/blob/master/lib/remoteproc/remoteproc_virtio.c>`_.
 
 Here are the steps to use OpenAMP for RPMsg communication:
 
