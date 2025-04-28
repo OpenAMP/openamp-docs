@@ -9,6 +9,7 @@ low-level design information.
    :maxdepth: 1
    :caption: Contents:
 
+   ../docs/data_structures
    ../open-amp/doc/remoteproc-design
    ../open-amp/doc/rpmsg-design
 

@@ -15,5 +15,5 @@ Welcome to the OpenAMP Project Documentation
    demos/reference_boards
    tools/index
    protocol_details/index
-   docs/index
+   docs/porting_guide
    openamp/glossary
