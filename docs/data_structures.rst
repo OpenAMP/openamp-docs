@@ -5,5 +5,5 @@ Data Structures
    :maxdepth: 1
    :caption: Contents:
 
-   ../open-amp/doc/data-structure
+   ./data_structures_content
 
