@@ -10,6 +10,5 @@ OpenAMP Libraries User Guide
    :maxdepth: 1
    :caption: Contents:
 
-   data_structures
    porting_guide
 
