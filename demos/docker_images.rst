@@ -17,19 +17,18 @@ container using host scripts and applications.
 In the future docker images for use with CI will also be provided.
 At this time the following images are provided:
 
-.. list-table:: Docker images
-    :widths: 25 75
-    :header-rows: 1
 
-    * - Name
-      - Description
-    * - openamp/demo-lite
-      - Just enough to run the OpenAMP QEMU demos and :ref:`supporting tools<tools_label>`, like lopper CLI demo
-    * - openamp/demo
-      - Placeholder for image *to build* and run the above demos
++-------------------+------------------------------------------------------------------------------+
+|       Name        |                                  Description                                 |
++===================+==============================================================================+
+| openamp/demo-lite | Just enough to run the OpenAMP QEMU demos and                                |
+|                   | :ref:`supporting tools<tools_label>`, like lopper CLI demo                   |
++-------------------+------------------------------------------------------------------------------+
+| openamp/demo      | Placeholder for image *to build* and run the above demos                     |
++-------------------+------------------------------------------------------------------------------+
 
 Docker setup
-*********************************
+************
 
 You will need docker on your machine. A docker install from your Linux
 distribution or from the official docker project should work fine.
@@ -68,7 +67,8 @@ Your life will be easier if you are not behind a corporate firewall.
 However if you can pull the docker image you should be able to run the demos
 as they are self contained.  Some of the other activities described like
 installing new packages etc may not work without additional effort.
-If needed, please checkout `this tutorial <https://www.serverlab.ca/tutorials/containers/docker/how-to-set-the-proxy-for-docker-on-ubuntu/>`_.
+If needed, please checkout
+`this tutorial <https://www.serverlab.ca/tutorials/containers/docker/how-to-set-the-proxy-for-docker-on-ubuntu/>`_.
 
 Docker for other host systems
 -----------------------------
@@ -77,12 +77,15 @@ There are a ton of tutorials for installing and using docker on the web.
 Some good ones include:
 
     - `Official docker documentation <https://docs.docker.com/desktop/>`_
-    - `Digital Ocean tutorial <https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04>`_
+    - `Digital Ocean tutorial
+      <https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04>`_
 
 Start the container
 *******************
 
-The demos should be started using docker run in `interactive mode <https://docs.docker.com/reference/cli/docker/container/run/#interactive>`_ with `pseudo-tty <https://docs.docker.com/reference/cli/docker/container/run/#tty>`_.
+The demos should be started using docker run in
+`interactive mode <https://docs.docker.com/reference/cli/docker/container/run/#interactive>`_ with
+`pseudo-tty <https://docs.docker.com/reference/cli/docker/container/run/#tty>`_.
 
 ::
 
@@ -97,7 +100,7 @@ It will then create and start a container based on this image and attach to it.
 .. _start-docker-demos:
 
 Start Docker Demos using Container
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+**********************************
 
 You will now be at a command prompt inside the container.
 As part of logging you in, some guidance will be printed on how to run the demos.
@@ -158,9 +161,13 @@ To run demo1, use the following command:
 This will:
 
     - Build a custom cpio file for the tftp/zcu102 directory
-        * This cpio will contain the contents of the base cpio file plus the contents of the my-extra-stuff directory
-        * This is done every boot so changes to the my-extra-stuff directory will be used on the next boot
-        * You can view the contents of the my-extra-stuff directory in the top right 'host' pane of tmux. It contains a lib folder with firmware files and a /home/root directory with the demo scripts and login_message displayed on start.
+        * This cpio will contain the contents of the base cpio file plus the contents of the
+          my-extra-stuff directory
+        * This is done every boot so changes to the my-extra-stuff directory will be used on the
+          next boot
+        * You can view the contents of the my-extra-stuff directory in the top right 'host' pane of
+          tmux. It contains a lib folder with firmware files and a /home/root directory with the
+          demo scripts and login_message displayed on start.
     - Start tmux and create multiple panes
         * The main QEMU pane with the main UART
         * A "host" pane for container level commands
