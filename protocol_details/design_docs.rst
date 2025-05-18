@@ -10,6 +10,6 @@ low-level design information.
    :caption: Contents:
 
    ../docs/data_structures
-   ../open-amp/doc/remoteproc-design
+   ../docs/remoteproc_design
    ../open-amp/doc/rpmsg-design
 
