@@ -8,6 +8,6 @@ The OpenAMP design documents reside in the `OpenAMP open-amp repository <https:/
    :caption: Contents:
 
    ../docs/data_structures
-   ../open-amp/doc/remoteproc-design
+   ../docs/remoteproc_design
    ../open-amp/doc/rpmsg-design
 
