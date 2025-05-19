@@ -11,5 +11,5 @@ low-level design information.
 
    ../docs/data_structures
    ../docs/remoteproc_design
-   ../open-amp/doc/rpmsg-design
+   ../docs/rpmsg_design
 
