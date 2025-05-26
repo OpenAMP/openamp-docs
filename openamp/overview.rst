@@ -279,24 +279,23 @@ Operating Environments
 
 OpenAMP aims to provide components which are portable and aim to be environment agnostic.
 
-The result is that OpenAMP is supported in various operating environments through
-  - an `OpenAMP open source project <https://github.com/OpenAMP>`_  (OAOS),
-  - an OpenAMP Linux Kernel (OALK) project, coming through the regular
+-The result is that OpenAMP is supported in various operating environments through
+  - an `OpenAMP open source project <https://github.com/OpenAMP>`_,
+  - an OpenAMP Linux Kernel project, coming through the regular
     `remoteproc <https://www.kernel.org/doc/html/latest/staging/remoteproc.html>`_/
     `RPMsg <https://www.kernel.org/doc/html/latest/staging/rpmsg.html>`_/
     `Virtio <https://docs.kernel.org/driver-api/virtio/virtio.html>`_ efforts in the kernel.
-  - multiple proprietary implementations (OAPI).
+  - multiple proprietary implementations.
 
 The operating environments that OpenAMP supports include:
 
-  - Linux user space - OAOS
-  - Linux kernel - OALK
-  - Multiple RTOS's - OAOS/OAPI including `FreeRTOS <https://freertos.org/>`_,
-    `NuttX <https://nuttx.apache.org/>`_, `Zephyr <https://www.zephyrproject.org/>`_,
-    `VxWorks <https://www.windriver.com/products/vxworks>`_, and more
-  - Bare Metal (No OS) - OAOS
-  - In OS's on top of hypervisors - OAOS/OAPI
-  - Within hypervisors - OAPI
+  - Linux user space
+  - Linux kernel
+  - Multiple RTOS's - including `FreeRTOS <https://freertos.org/>`_, `NuttX <https://nuttx.apache.org/>`_, `Zephyr <https://www.zephyrproject.org/>`_, `VxWorks <https://www.windriver.com/products/vxworks>`_, and more
+  - Bare Metal (No OS)
+  - In OS's on top of hypervisors
+  - Within hypervisors
+
 
 .. _governance-work-label:
 
