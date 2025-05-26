@@ -197,9 +197,10 @@ The components comprising OpenAMP are:
 The :ref:`topology<topology-work-label>` is limited to main controller to remote system but otherwise
 open to the implementation.
 
-The architecture is exemplified below via a daisy chained topology, with the center processor being
-both remote and main controller for the next processor in the chain. This is an alternate topology
-to the previous example in the :ref:`OpenAMP Fundamentals<openamp-fundamentals-work-label>` section.
+The architecture is exemplified below via a daisy chained topology, with a main processor
+controlling a single remote in the chain. This implements the left half of the daisy chain
+topology detailed in the :ref:`OpenAMP Fundamentals<openamp-fundamentals-work-label>` section, and
+is the commonly implemented topology.
 
 ..  image::  ../images/architecture/overview-architecture.svg
 
