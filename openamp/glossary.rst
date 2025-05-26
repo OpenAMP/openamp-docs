@@ -11,9 +11,6 @@ Glossary
     GPL, `GNU General Public License <https://en.wikipedia.org/wiki/GNU_General_Public_License>`_
     IPC, `Inter-Processor Communications <https://en.wikipedia.org/wiki/Inter-process_communication>`_
     LCM,  Life-Cycle Management
-    OALK, OpenAMP Linux Kernel
-    OAOS, `OpenAMP Open Source Project <https://github.com/OpenAMP>`_
-    OAPI, OpenAMP Proprietary Implementations
     RPC, :ref:`Remote Procedure Calls (RPC)<overview-proxy-rpc-work-label>`
     RTOS, Real Time Operating System
     RPMsg, `Remote Processor Messaging <https://en.wikipedia.org/wiki/RPMsg>`_
