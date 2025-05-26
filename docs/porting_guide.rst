@@ -4,7 +4,9 @@
 Porting GuideLine
 =================
 
-The OpenAMP Framework uses libmetal to provide abstractions that allow for porting of the OpenAMP Framework to various software environments (operating systems and bare metal environments) and machines (processors/platforms). To port OpenAMP for your platform, you will need to:
+The OpenAMP Framework uses libmetal to provide abstractions that allow for porting of the OpenAMP
+Framework to various software environments (operating systems and bare metal environments) and
+machines (processors/platforms). To port OpenAMP for your platform, you will need to:
 
     - add your system environment support to libmetal,
     - implement your platform specific remoteproc driver.
@@ -14,27 +16,35 @@ The OpenAMP Framework uses libmetal to provide abstractions that allow for porti
 Add System/Machine Support in Libmetal
 **************************************
 
-User will need to add system/machine support to lib/system/<SYS>/ directory in libmetal repository. OpenAMP requires the following libmetal primitives:
+User will need to add system/machine support to lib/system/<SYS>/ directory in libmetal repository.
+OpenAMP requires the following libmetal primitives:
 
     - alloc, for memory allocation and memory free
-    - io, for memory mapping. OpenAMP required memory mapping in order to access vrings and carved out memory.
+    - io, for memory mapping. OpenAMP required memory mapping in order to access vrings and carved
+      out memory.
     - mutex
-    - sleep, at the moment, OpenAMP only requires microseconds sleep as when OpenAMP fails to get a buffer to send messages, it will call this function to sleep and then try again.
+    - sleep, at the moment, OpenAMP only requires microseconds sleep as when OpenAMP fails to get a
+      buffer to send messages, it will call this function to sleep and then try again.
     - init, for libmetal initialization.
 
 Please refer to lib/system/generic/ when adding RTOS support to libmetal.
 
-libmetal uses C11/C++11 stdatomics interface for atomic operations, if you use a different compiler to GNU gcc, you may need to implement the atomic operations defined in lib/compiler/gcc/atomic.h.
+libmetal uses C11/C++11 stdatomics interface for atomic operations, if you use a different compiler
+to GNU gcc, you may need to implement the atomic operations defined in lib/compiler/gcc/atomic.h.
 
 ***********************************
 Platform Specific Remoteproc Driver
 ***********************************
 
-User will need to implement platform specific remoteproc driver to use remoteproc life cycle management APIs. The remoteproc driver platform specific functions are defined in this file: lib/include/openamp/remoteproc.h. Here are the remoteproc functions needs platform specific implementation.
+User will need to implement platform specific remoteproc driver to use remoteproc life cycle
+management APIs. The remoteproc driver platform specific functions are defined in this file:
+lib/include/openamp/remoteproc.h. Here are the remoteproc functions needs platform specific
+implementation.
 
     - init(), instantiate the remoteproc instance with platform specific config parameters.
     - remove(), destroy the remoteproc instance and its resource.
-    - mmap(), map the memory speficified with physical address or remote device address so that it can be used by the application.
+    - mmap(), map the memory speficified with physical address or remote device address so that it
+      can be used by the application.
     - handle_rsc(), handler to the platform specific resource which is specified in the resource table.
     - config(), configure the remote processor to get it ready to load application.
     - start(), start the remote processor to run the application.
@@ -46,7 +56,8 @@ User will need to implement platform specific remoteproc driver to use remotepro
 Platform Specific Porting to Use Remoteproc to Manage Remote Processor
 **********************************************************************
 
-User will need to implement the above platform specific remoteproc driver functions. After that, user can use remoteproc APIs to run application on a remote processor. E.g.:
+User will need to implement the above platform specific remoteproc driver functions. After that,
+user can use remoteproc APIs to run application on a remote processor. E.g.:
 
 ::
 
@@ -104,7 +115,11 @@ User will need to implement the above platform specific remoteproc driver functi
 Platform Specific Porting to Use RPMsg
 **************************************
 
-RPMsg in OpenAMP implementation uses VirtIO to manage the shared buffers. OpenAMP library provides remoteproc VirtIO backend implementation. You don't have to use remoteproc backend. You can implement your VirtIO backend with the VirtIO and RPMsg implementation in OpenAMP. If you want to implement your own VirtIO backend, you can refer to the [remoteproc VirtIO backend implementation]: https://github.com/OpenAMP/open-amp/blob/master/lib/remoteproc/remoteproc_virtio.c
+RPMsg in OpenAMP implementation uses VirtIO to manage the shared buffers. OpenAMP library provides
+remoteproc VirtIO backend implementation. You don't have to use remoteproc backend. You can
+implement your VirtIO backend with the VirtIO and RPMsg implementation in OpenAMP. If you want to
+implement your own VirtIO backend, you can refer to the
+`remoteproc VirtIO backend implementation <https://github.com/OpenAMP/open-amp/blob/master/lib/remoteproc/remoteproc_virtio.c>`_
 
 Here are the steps to use OpenAMP for RPMsg communication:
 

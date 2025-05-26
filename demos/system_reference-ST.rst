@@ -120,7 +120,8 @@ Generate the Zephyr rpmsg multi service example
 Initialize the Zephyr environment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Refer to  `zephyr example readme <https://openamp.readthedocs.io/en/latest/openamp-system-reference/examples/zephyr/README.html#initialization>`_ article.
+Refer to
+`zephyr example readme <https://openamp.readthedocs.io/en/latest/openamp-system-reference/examples/zephyr/README.html#initialization>`_ article.
 
 Build the Zephyr image
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -131,7 +132,8 @@ From the zephy_rpmsg_multi_services directory
 
    west build -b stm32mp157c_dk2 openamp-system-reference/examples/zephyr/rpmsg_multi_services
 
-For details refer to `rpmsg_multi_services readme <https://openamp.readthedocs.io/en/latest/openamp-system-reference/examples/zephyr/rpmsg_multi_services/README.html#building-the-application>`_ article.
+For details refer to
+`rpmsg_multi_services readme <https://openamp.readthedocs.io/en/latest/openamp-system-reference/examples/zephyr/rpmsg_multi_services/README.html#building-the-application>`_ article.
 
 
 Install the Zephyr binary on the sdcard
@@ -153,7 +155,8 @@ Don't forget to properly unmoumt the sdcard partitions.
 
 Build and install the rpmsg-utils tools
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-This chapter explains how to build and install the `rpmsg-utils <https://github.com/OpenAMP/openamp-system-reference/tree/main/examples/linux/rpmsg-utils>`_
+This chapter explains how to build and install the
+`rpmsg-utils <https://github.com/OpenAMP/openamp-system-reference/tree/main/examples/linux/rpmsg-utils>`_
 for the STM32MP157C/F-DK2 board.
 
 
@@ -187,7 +190,9 @@ Demos
 Start the demo environment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- power on the `stm32mp157C/F-dk2 board <https://wiki.st.com/stm32mpu/nsfr_img_auth.php/thumb/8/82/STM32MP157C-DK2_with_power_stlink_flasher_ethernet.png/600px-STM32MP157C-DK2_with_power_stlink_flasher_ethernet.png>`_, and wait login prompt on your serial terminal
+- Power on the
+  `stm32mp157C/F-dk2 board <https://wiki.st.com/stm32mpu/nsfr_img_auth.php/thumb/8/82/STM32MP157C-DK2_with_power_stlink_flasher_ethernet.png/600px-STM32MP157C-DK2_with_power_stlink_flasher_ethernet.png>`_,
+  and wait login prompt on your serial terminal
 
 .. code-block:: console
 
@@ -288,4 +293,5 @@ This informs that following rpmsg channels devices have been created:
 Run the multi RPMsg services demo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Refer to `rpmsg multi service <https://openamp.readthedocs.io/en/latest/openamp-system-reference/examples/zephyr/rpmsg_multi_services/README.html#running-the-sample>`_ article.
+Refer to
+`rpmsg multi service <https://openamp.readthedocs.io/en/latest/openamp-system-reference/examples/zephyr/rpmsg_multi_services/README.html#running-the-sample>`_ article.

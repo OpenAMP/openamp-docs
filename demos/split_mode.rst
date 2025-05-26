@@ -41,27 +41,38 @@ The top-level control flow is shown in the following message diagram.
 Split Mode Remote Application
 =============================
 
-The remote application is a simple application which once loaded calls printf to write to the main controller console, interleaved with other main controller console output.
+The remote application is a simple application which once loaded calls printf to write to the main
+controller console, interleaved with other main controller console output.
 
 .. _split-mode-linux-script:
 
 Split Mode Main Script
 ======================
 
-The main controller is responsible for loading the firmware and starting the remote processors by writing start and stop to /sys/class/remoteproc/remoteproc0 and /sys/class/remoteproc/remoteproc1 alternately.
+The main controller is responsible for loading the firmware and starting the remote processors by
+writing start and stop to /sys/class/remoteproc/remoteproc0 and /sys/class/remoteproc/remoteproc1 alternately.
 
-The scripts is available in the :ref:`Demo Docker Images<docker-images-label>` as `demo2 <https://github.com/OpenAMP/openamp-demo/blob/main/demos/demo-r5-combo/my-extra-stuff/home/root/demo2B>`_.
+The script is available in the
+:ref:`Demo Docker Images<docker-images-label>` as
+`demo2 <https://github.com/OpenAMP/openamp-demo/blob/main/demos/demo-r5-combo/my-extra-stuff/home/root/demo2B>`_.
 
 Split Mode Main Configuration
 =============================
 
-The remoteproc configuration binding `cluster-mode <https://github.com/torvalds/linux/blob/master/Documentation/devicetree/bindings/remoteproc/xlnx%2Czynqmp-r5fss.yaml#L37>`_ is set to 0 for split-mode as per the `system reference implementation <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/linux/dts/xilinx/zynqmp-split.dtso>`_.
+The remoteproc configuration binding
+`cluster-mode <https://github.com/torvalds/linux/blob/master/Documentation/devicetree/bindings/remoteproc/xlnx%2Czynqmp-r5fss.yaml#L37>`_
+is set to 0 for split-mode as per the
+`system reference implementation <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/linux/dts/xilinx/zynqmp-split.dtso>`_.
 
 ************************************
 Split Mode Remote Application Source
 ************************************
 
-The application is deployed as binary in the :ref:`Demo Docker Images<docker-images-label>` repository, and the source is derived from the `echo-test <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/linux/rpmsg-echo-test/echo_test.c>`_ application, leaving out the RPMsg creation step and simply using LPRINTF to print the starting message "Starting application on RPU0 and waiting for stop...".
+The application is deployed as binary in the :ref:`Demo Docker Images<docker-images-label>`
+repository, and the source is derived from the
+`echo-test <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/linux/rpmsg-echo-test/echo_test.c>`_
+application, leaving out the RPMsg creation step and simply using LPRINTF to print the starting
+message "Starting application on RPU0 and waiting for stop...".
 
 *******************************
 Reference Board Implementations

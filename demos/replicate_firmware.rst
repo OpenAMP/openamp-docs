@@ -41,23 +41,30 @@ The top-level control flow is shown in the following message diagram.
 Replicate Firmware Remote Application
 =====================================
 
-The remote application is a hello world application, which once loaded calls printf. The output of printf is directed to a UART.
+The remote application is a hello world application, which once loaded calls printf. The output of
+printf is directed to a UART.
 
 .. _replicate-firmware-linux-script:
 
 Replicate Firmware Main Script
 ==============================
 
-The main controller is responsible for loading the firmware and starting the remote processors by writing start and stop to /sys/class/remoteproc/remoteproc0 and /sys/class/remoteproc/remoteproc1 alternately.
+The main controller is responsible for loading the firmware and starting the remote processors by
+writing start and stop to /sys/class/remoteproc/remoteproc0 and /sys/class/remoteproc/remoteproc1 alternately.
 
-The same firmware is loaded, and this is made possible as the system uses `Tightly Coupled Memory <https://docs.amd.com/r/en-US/ug1085-zynq-ultrascale-trm/Tightly-Coupled-Memory-Functional-Description>`_, so each processor is assigned its own bank of memory.
+The same firmware is loaded, and this is made possible as the system uses
+`Tightly Coupled Memory <https://docs.amd.com/r/en-US/ug1085-zynq-ultrascale-trm/Tightly-Coupled-Memory-Functional-Description>`_,
+so each processor is assigned its own bank of memory.
 
-The scripts is available in the :ref:`Demo Docker Images<docker-images-label>` as demo3.
+The script is available in the :ref:`Demo Docker Images<docker-images-label>` as demo3.
 
 Replicate Firmware Main Configuration
 =====================================
 
-The remoteproc configuration binding `cluster-mode <https://github.com/torvalds/linux/blob/master/Documentation/devicetree/bindings/remoteproc/xlnx%2Czynqmp-r5fss.yaml#L37>`_ is set to 0 for split-mode as per the `system reference implementation <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/linux/dts/xilinx/zynqmp-split.dtso>`_.
+The remoteproc configuration binding
+`cluster-mode <https://github.com/torvalds/linux/blob/master/Documentation/devicetree/bindings/remoteproc/xlnx%2Czynqmp-r5fss.yaml#L37>`_
+is set to 0 for split-mode as per the
+`system reference implementation <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/linux/dts/xilinx/zynqmp-split.dtso>`_.
 
 ********************************************
 Replicate Firmware Remote Application Source
