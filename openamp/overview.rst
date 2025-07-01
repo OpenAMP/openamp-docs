@@ -197,9 +197,10 @@ The components comprising OpenAMP are:
 The :ref:`topology<topology-work-label>` is limited to main controller to remote system but otherwise
 open to the implementation.
 
-The architecture is exemplified below via a daisy chained topology, with the center processor being
-both remote and main controller for the next processor in the chain. This is an alternate topology
-to the previous example in the :ref:`OpenAMP Fundamentals<openamp-fundamentals-work-label>` section.
+The architecture is exemplified below via a daisy chained topology, with a main processor
+controlling a single remote in the chain. This implements the left half of the daisy chain
+topology detailed in the :ref:`OpenAMP Fundamentals<openamp-fundamentals-work-label>` section, and
+is the commonly implemented topology.
 
 ..  image::  ../images/architecture/overview-architecture.svg
 
@@ -220,8 +221,6 @@ remote processor and starting and stopping the remote.
 and peripheral allocation as well as information for establishing the IPC between associated
 processors.
 
-..  image::  ../images/architecture/overview-architecture-remoteproc.svg
-
 .. _overview-rpmsg-work-label:
 
 RPMsg and Virtio
@@ -234,8 +233,6 @@ as a HW abstraction or MAC layer.
 This abstraction, using virtio, means that the implementer can optionally use
 :ref:`resource isolation<resource-isolation-work-label>` (e.g. using a hypervisor or secure
 context), which is exemplified by the first processor in the architecture diagram.
-
-..  image::  ../images/architecture/overview-architecture-rpmsg.svg
 
 .. _overview-proxy-rpc-work-label:
 
@@ -254,8 +251,6 @@ The RPC service provides for remote procedure calls from a server to a client. I
 diagram the right hand processor has the RPC server servicing the center main controller processor's
 RPC client.
 
-..  image::  ../images/architecture/overview-architecture-proxy.svg
-
 .. _overview-proxy-libmetal-label:
 
 Libmetal
@@ -264,8 +259,6 @@ Libmetal
 :doc:`Libmetal <../libmetal/readme>` is a hardware abstraction component, intended to provide for
 portability across different platforms.
 Vendors porting OpenAMP will provide an implementation of libmetal for their system.
-
-..  image::  ../images/architecture/overview-architecture-libmetal.svg
 
 .. _project-aims-work-label:
 
