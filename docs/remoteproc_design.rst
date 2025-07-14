@@ -18,7 +18,7 @@ Remoteproc LCM States
     Ready, "The remote presented by the remoteproc instance has application loaded, and ready to run."
     Stopped, "The remote presented by the remoteproc instance has stopped from running. But the remote is still powered on. And the remote's resource hasn't been released."
 
-..  image:: ../open-amp/doc/img/rproc-lcm-state-machine.png
+..  image:: ../images/design/img/rproc-lcm-state-machine.png
 
 
 State Transition
