@@ -12,15 +12,15 @@ RPMsg User API Flow Charts
 RPMsg Static Endpoint
 ^^^^^^^^^^^^^^^^^^^^^
 
-..  image:: ../open-amp/doc/img/coprocessor-rpmsg-static-ep.png
+..  image:: ../images/design/img/coprocessor-rpmsg-static-ep.png
 
 Binding Endpoint Dynamically with Name Service
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-..  image:: ../open-amp/doc/img/coprocessor-rpmsg-ns.png
+..  image:: ../images/design/img/coprocessor-rpmsg-ns.png
 
 Creating Endpoint Dynamically with Name Service
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-..  image:: ../open-amp/doc/img/coprocessor-rpmsg-ns-dynamic.png
+..  image:: ../images/design/img/coprocessor-rpmsg-ns-dynamic.png
 
 RPMsg User APIs
 ---------------
