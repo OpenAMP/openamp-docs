@@ -121,7 +121,7 @@ Initialize the Zephyr environment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Refer to
-`zephyr example readme <https://openamp.readthedocs.io/en/latest/openamp-system-reference/examples/zephyr/README.html#initialization>`_ article.
+:ref:`zephyr example readme<openamp-system-reference/examples/zephyr/README:initialization>` article.
 
 Build the Zephyr image
 ^^^^^^^^^^^^^^^^^^^^^^

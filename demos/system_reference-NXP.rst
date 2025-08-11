@@ -28,9 +28,8 @@ Generate the Zephyr rpmsg multi service example
 Initialize the Zephyr environment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Refer to `zephyr example readme
-<https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/zephyr/README.md#initialization>`_
-article.
+Refer to :ref:`zephyr example readme<openamp-system-reference/examples/zephyr/README:initialization>` article.
+
 
 Build the Zephyr image
 ^^^^^^^^^^^^^^^^^^^^^^
