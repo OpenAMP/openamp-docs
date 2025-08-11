@@ -140,5 +140,9 @@ html_context = {
     }
 }
 
+# Set automatically generated heading anchors to 4 levels, i.e. h1,h2,h3,h4
+myst_heading_anchors = 4
+autosectionlabel_prefix_document = True
+
 print(f"url_base: {url_base}  version: {version}  is_release: {is_release}  is_pr: {is_pr}")
 print(f"html_context: {html_context}")
