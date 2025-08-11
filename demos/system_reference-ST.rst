@@ -133,7 +133,7 @@ From the zephy_rpmsg_multi_services directory
    west build -b stm32mp157c_dk2 openamp-system-reference/examples/zephyr/rpmsg_multi_services
 
 For details refer to
-`rpmsg_multi_services readme <https://openamp.readthedocs.io/en/latest/openamp-system-reference/examples/zephyr/rpmsg_multi_services/README.html#building-the-application>`_ article.
+:ref:`rpmsg_multi_services readme<openamp-system-reference/examples/zephyr/rpmsg_multi_services/README:building the application>` article.
 
 
 Install the Zephyr binary on the sdcard
@@ -294,4 +294,4 @@ Run the multi RPMsg services demo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Refer to
-`rpmsg multi service <https://openamp.readthedocs.io/en/latest/openamp-system-reference/examples/zephyr/rpmsg_multi_services/README.html#running-the-sample>`_ article.
+:ref:`rpmsg multi service <openamp-system-reference/examples/zephyr/rpmsg_multi_services/README:running the sample>` article.
