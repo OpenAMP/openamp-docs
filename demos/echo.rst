@@ -106,7 +106,7 @@ It is a Makefile application and can be built using the
 `Yocto rpmsg-echo-test recipe <https://github.com/OpenAMP/meta-openamp/blob/master/recipes-openamp/rpmsg-examples/rpmsg-echo-test_1.0.bb>`_
 
 An example main control script is given in the
-`echo test readme <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/linux/rpmsg-echo-test/README.md#run-the-demo>`_
+:ref:`echo test readme<openamp-system-reference/examples/linux/rpmsg-echo-test/README:run the demo>`
 
 *******************************
 Reference Board Implementations
