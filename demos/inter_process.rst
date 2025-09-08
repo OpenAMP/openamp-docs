@@ -17,4 +17,4 @@ the main controller system along with the
 `main controller examples <https://github.com/OpenAMP/openamp-system-reference/tree/main/examples/linux>`_.
 
 To build and execute on a Linux system, refer to the
-`example to compile OpenAMP for communication between Linux processes <https://github.com/OpenAMP/open-amp/blob/main/README.md#example-to-compile-openamp-for-communication-between-linux-processes>`_.
+:ref:`example to compile OpenAMP for communication between Linux processes<open-amp/README:example to compile openamp for communication between linux processes:>`.
