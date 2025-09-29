@@ -197,9 +197,10 @@ The components comprising OpenAMP are:
 The :ref:`topology<topology-work-label>` is limited to main controller to remote system but otherwise
 open to the implementation.
 
-The architecture is exemplified below via a daisy chained topology, with the center processor being
-both remote and main controller for the next processor in the chain. This is an alternate topology
-to the previous example in the :ref:`OpenAMP Fundamentals<openamp-fundamentals-work-label>` section.
+The architecture is exemplified below via a daisy chained topology, with a main processor
+controlling a single remote in the chain. This implements the left half of the daisy chain
+topology detailed in the :ref:`OpenAMP Fundamentals<openamp-fundamentals-work-label>` section, and
+is the commonly implemented topology.
 
 ..  image::  ../images/architecture/overview-architecture.svg
 
@@ -220,8 +221,6 @@ remote processor and starting and stopping the remote.
 and peripheral allocation as well as information for establishing the IPC between associated
 processors.
 
-..  image::  ../images/architecture/overview-architecture-remoteproc.svg
-
 .. _overview-rpmsg-work-label:
 
 RPMsg and Virtio
@@ -234,8 +233,6 @@ as a HW abstraction or MAC layer.
 This abstraction, using virtio, means that the implementer can optionally use
 :ref:`resource isolation<resource-isolation-work-label>` (e.g. using a hypervisor or secure
 context), which is exemplified by the first processor in the architecture diagram.
-
-..  image::  ../images/architecture/overview-architecture-rpmsg.svg
 
 .. _overview-proxy-rpc-work-label:
 
@@ -254,8 +251,6 @@ The RPC service provides for remote procedure calls from a server to a client. I
 diagram the right hand processor has the RPC server servicing the center main controller processor's
 RPC client.
 
-..  image::  ../images/architecture/overview-architecture-proxy.svg
-
 .. _overview-proxy-libmetal-label:
 
 Libmetal
@@ -264,8 +259,6 @@ Libmetal
 :doc:`Libmetal <../libmetal/readme>` is a hardware abstraction component, intended to provide for
 portability across different platforms.
 Vendors porting OpenAMP will provide an implementation of libmetal for their system.
-
-..  image::  ../images/architecture/overview-architecture-libmetal.svg
 
 .. _project-aims-work-label:
 
@@ -279,24 +272,23 @@ Operating Environments
 
 OpenAMP aims to provide components which are portable and aim to be environment agnostic.
 
-The result is that OpenAMP is supported in various operating environments through
-  - an `OpenAMP open source project <https://github.com/OpenAMP>`_  (OAOS),
-  - an OpenAMP Linux Kernel (OALK) project, coming through the regular
+-The result is that OpenAMP is supported in various operating environments through
+  - an `OpenAMP open source project <https://github.com/OpenAMP>`_,
+  - an OpenAMP Linux Kernel project, coming through the regular
     `remoteproc <https://www.kernel.org/doc/html/latest/staging/remoteproc.html>`_/
     `RPMsg <https://www.kernel.org/doc/html/latest/staging/rpmsg.html>`_/
     `Virtio <https://docs.kernel.org/driver-api/virtio/virtio.html>`_ efforts in the kernel.
-  - multiple proprietary implementations (OAPI).
+  - multiple proprietary implementations.
 
 The operating environments that OpenAMP supports include:
 
-  - Linux user space - OAOS
-  - Linux kernel - OALK
-  - Multiple RTOS's - OAOS/OAPI including `FreeRTOS <https://freertos.org/>`_,
-    `NuttX <https://nuttx.apache.org/>`_, `Zephyr <https://www.zephyrproject.org/>`_,
-    `VxWorks <https://www.windriver.com/products/vxworks>`_, and more
-  - Bare Metal (No OS) - OAOS
-  - In OS's on top of hypervisors - OAOS/OAPI
-  - Within hypervisors - OAPI
+  - Linux user space
+  - Linux kernel
+  - Multiple RTOS's - including `FreeRTOS <https://freertos.org/>`_, `NuttX <https://nuttx.apache.org/>`_, `Zephyr <https://www.zephyrproject.org/>`_, `VxWorks <https://www.windriver.com/products/vxworks>`_, and more
+  - Bare Metal (No OS)
+  - In OS's on top of hypervisors
+  - Within hypervisors
+
 
 .. _governance-work-label:
 
