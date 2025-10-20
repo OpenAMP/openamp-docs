@@ -11,7 +11,7 @@ environments) and machines (processors/platforms). To port OpenAMP for your plat
 need to:
 
     - add your system environment support to :ref:`libmetal<port-libmetal>`,
-    - implement your platform specific :ref:`remoteproc driver<port-remoteproc>`.
+    - optionally implement a platform specific :ref:`remoteproc driver<port-remoteproc>`.
     - define your shared memory layout and specify it in a :ref:`resource table<resource-table>`.
 
 .. _port-libmetal:
@@ -111,7 +111,7 @@ compiler to GNU gcc, you may need to implement the atomic operations defined in
 Platform Specific Remoteproc Driver
 ***********************************
 
-Any OpenAMP port will need to implement a platform specific remoteproc driver to use remoteproc
+An OpenAMP port could need a platform specific remoteproc driver to use remoteproc
 life cycle management (LCM) APIs. The remoteproc driver platform specific functions are defined
 in `lib/include/openamp/remoteproc.h <https://github.com/OpenAMP/open-amp/blob/main/lib/include/openamp/remoteproc.h>`_ and provided through the :openamp_doc_link:`remoteproc_ops data structure <remoteproc_ops>`.
 
