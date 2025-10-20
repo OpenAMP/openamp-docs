@@ -303,23 +303,23 @@ Here are the steps to use OpenAMP for RPMsg communication:
   	remoteproc_set_rsc_table(&rproc, rsc_table, rsc_size);
 
   	/* Create VirtIO device from remoteproc.
-  	 * VirtIO device master will initiate the VirtIO rings, and assign
-  	 * shared buffers. If you running the application as VirtIO slave, you
-  	 * set the role as VIRTIO_DEV_SLAVE.
+  	 * VirtIO device main controller will initiate the VirtIO rings, and assign
+  	 * shared buffers. If you running the application as VirtIO device, you
+  	 * set the role as VIRTIO_DEV_DEVICE.
   	 * If you don't use remoteproc, you will need to define your own VirtIO
   	 * device.
   	 */
-  	vdev = remoteproc_create_virtio(&rproc, 0, VIRTIO_DEV_MASTER, NULL);
+  	vdev = remoteproc_create_virtio(&rproc, 0, VIRTIO_DEV_DRIVER, NULL);
 
-  	/* This step is only required if you are VirtIO device master.
+  	/* This step is only required if you are VirtIO device main controller.
   	 * Initialize the shared buffers pool.
   	 */
   	shbuf = metal_io_phys_to_virt(shm_io, SHARED_BUF_PA);
   	rpmsg_virtio_init_shm_pool(&shpool, shbuf, SHARED_BUFF_SIZE);
 
   	/* Initialize RPMsg VirtIO device with the VirtIO device */
-  	/* If it is VirtIO device slave, it will not return until the master
-  	 * side set the VirtIO device DRIVER OK status bit.
+  	/* If it is VirtIO device, it will not return until the main
+  	 * controller side sets the VirtIO device DRIVER OK status bit.
   	 */
   	rpmsg_init_vdev(&rpmsg_vdev, vdev, ns_bind_cb, io, shm_io, &shpool);
 
@@ -330,7 +330,7 @@ Here are the steps to use OpenAMP for RPMsg communication:
   	rpmsg_create_ept(&ept, rdev, RPMSG_SERVICE_NAME, RPMSG_ADDR_ANY,
   			 rpmsg_ept_cb, ns_unbind_cb);
 
-  	/* If it is VirtIO device master, it sends the first message */
+  	/* If it is VirtIO device main controller, it sends the first message */
   	while (!is_rpmsg_ept_read(&ept)) {
   		/* check if the endpoint has binded.
   		 * If not, wait for notification. If local endpoint hasn't
