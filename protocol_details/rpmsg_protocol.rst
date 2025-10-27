@@ -38,6 +38,9 @@ cores need to poll these ring buffers for new incoming messages, which may not b
 
 .. image:: ../images/core_to_core_interrupt.jpg
 
+
+.. _rpmsg-protocol-mac:
+
 Media Access Layer - VirtIO
 ---------------------------
 
@@ -45,6 +48,8 @@ This layer is the key part of the whole solution - thanks to this layer, there i
 inter-core synchronization. This is achieved by a technique called single-writer single-reader
 circular buffering, which is a data structure enabling multiple asynchronous contexts to
 interchange data.
+
+.. _rpmsg-protocol-figure-vring:
 
 .. image:: ../images/vrings.jpg
 
