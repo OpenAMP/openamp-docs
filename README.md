@@ -46,21 +46,46 @@ You can locate the Sphinx rendered documentation for the PR by
 
 If you wish to build the documents on the desktop, you can do as follows.
 
-Setup for Ubuntu 22.04:
+### Setup for Ubuntu (only the first time)
+
+Setup Linux system requirements:
 
     $ sudo apt update
     $ sudo apt install cmake doxygen libhugetlbfs-dev libsysfs-dev
     $ sudo apt install python3-pip git
+
+Setup the document repository on your machine:
+
     $ git clone --recurse https://github.com/openAMP/openamp-docs.git
     $ cd openamp-docs
+    $ git submodule update
+
+### Building using virtual environment
+
+When possible it is recommended to use a
+[Python virtual environment](https://docs.python.org/3/library/venv.html)
+(Python 3.3 and higher, required by Ubuntu 24.04 or higher):
+
+    $ python3 -m venv .venv
+    $ . .venv/bin/activate
+
+Install pip modules
+
     $ python3 -m pip install -r requirements.txt
 
-To build and view the html documents:
+#### Activate the virtual environment for build session
+
+When using a virtual environment activate it before each build session:
+
+    $ cd openamp-docs
+    $ . .venv/bin/activate
+
+### Build and view the html documents
 
     $ make html
     $ xdg-open _build/html/index.html
 
-To build and view the pdf:
+### Build and view the pdf
 
     $ make pdf
     $ xdg-open _build/pdf/openamppdf.pdf
