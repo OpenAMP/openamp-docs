@@ -28,7 +28,7 @@ State Transition
    :header: "State Transition", "Transition Trigger"
    :widths: 50, 200
 
-    Offline -> Configured, "Configure the remote to make it able to load application :ref:`remoteproc_config<remoteproc_configure>`"
+    Offline -> Configured, "Configure the remote to make it able to load application :ref:`remoteproc_config<remoteproc_config>`"
     Configured -> Ready, "load firmware :ref:`remoteproc_load<remoteproc_load>`"
     Ready -> Running, "start the processor :ref:`remoteproc_start<remoteproc_start>`"
     Ready -> Stopped, "stop the processor :ref:`remoteproc_stop<remoteproc_stop>`, :ref:`remoteproc_shutdown<remoteproc_shutdown>` (Stopped is the intermediate state of shutdown operation)"
