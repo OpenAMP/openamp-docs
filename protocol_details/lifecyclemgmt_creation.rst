@@ -24,7 +24,7 @@ Procedure
 
   As an example, please refer to the resource table defined in the bare metal remote echo test
   application at
-  `rsc_table.c <https://github.com/OpenAMP/open-amp/blob/main/apps/machine/zynqmp_r5/rsc_table.c>`_.
+  `rsc_table.c <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/legacy_apps/machine/zynqmp_r5/rsc_table.c>`_.
   The resource table contains entries for memory carve-out and virtio device resources. The memory
   carve-out entry contains info like firmware ELF image start address and size. The virtio device
   resource contains virtio device features, vring addresses, size, and alignment information. The
