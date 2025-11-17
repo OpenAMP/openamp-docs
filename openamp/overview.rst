@@ -47,27 +47,32 @@ upstream Linux kernel. As in upstream Linux, the OpenAMP Framework's remoteproc 
 infrastructure uses virtio as the transport layer/abstraction.
 
 
+.. _project-aims:
+
 ************
 Project Aims
 ************
 
-To provide a solution to cover the :ref:`AMP Fundamentals<openamp-fundamentals-work-label>`, the
-OpenAMP project is divided into the following efforts:
+The `OpenAMP Project <https://www.openampproject.org>`_ is primarily focused on these efforts:
 
-    * A guidance group under Linaro Community Projects
-        - Provides guidance for the low-level protocol that allows systems to interact (:ref:`more info here<rpmsg-protocol-work-label>`)
-            + Built on top of the `Virtio Open Standard <https://docs.oasis-open.org/virtio/virtio>`_
-        - Maintaining common user level APIs that allow applications to be portable
-            + :ref:`RPMSG<rpmsg-protocol-work-label>`
-            + :ref:`remoteproc<lcm-work-label>`
-        - **Provide low-level** :ref:`OS/HW abstraction layer<porting-guide-work-label>` APIs **that
-          abstracts the open source implementation from the underlying OS and hardware, simplifying
-          the porting to new environments**
+- "seeks to standardize the interactions between operating environments in a heterogeneous embedded
+  system through open source solutions for Asymmetric MultiProcessing (AMP)"
+  [`1 <https://www.openampproject.org/docs/OpenAMPProject_Charter_Approved2024AugEmailVote.pdf>`_].
 
-    * An open source project that implements a clean-room implementation of OpenAMP
-        - Runs in :ref:`multiple environments<operating-environments-work-label>`
-        - BSD License
+- "providing a clean-room open source implementation of the above standards"
+  [`2 <https://www.openampproject.org/news/openamp-project-joins-the-linaro-community-projects-division/>`_].
 
+- providing a set of reference integrations into several common operating environments on
+  multiple vendor platforms [`3 <https://github.com/OpenAMP/openamp-system-reference>`_].
+
+The project components are "Based on the existing open source implementations of RemoteProc,
+RPMsg, Virtio and Device tree, it covers aspects such as lifecycle operations, messaging,
+low level abstractions"
+[`2 <https://www.openampproject.org/news/openamp-project-joins-the-linaro-community-projects-division/>`_].
+
+The following :ref:`OpenAMP Fundamentals<openamp-fundamentals-work-label>` section delves deeper
+into the components which, implemented in the OpenAMP libraries, provide for agnostic
+implementations for differing :ref:`Operating Environments<operating-environments-work-label>`.
 
 .. _openamp-fundamentals-work-label:
 
