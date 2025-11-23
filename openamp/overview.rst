@@ -34,10 +34,10 @@ History
 
 Texas Instruments’ remoteproc and RPMsg infrastructure available in the upstream Linux kernel enable
 the Linux applications running on a host processor to manage the life cycle of
-remote processor/firmware and perform IPC with them. However, there was no open- source
+remote processor/firmware and perform IPC with them. However, there was no open source
 API/software available that provided similar functionality and interfaces for other possible
-software contexts (RTOS- or bare metal-based applications) running on the remote processor to
-communicate with the Linux host. Also, AMP applications may require RTOS- or bare metal-based
+software contexts (RTOS or bare metal-based applications) running on the remote processor to
+communicate with the Linux host. Also, AMP applications may require RTOS or bare metal-based
 applications to run on the host processor and be able to manage and communicate with various
 software environments (RTOS, bare metal, or even Linux) on the remote processor.
 
@@ -47,27 +47,32 @@ upstream Linux kernel. As in upstream Linux, the OpenAMP Framework's remoteproc 
 infrastructure uses virtio as the transport layer/abstraction.
 
 
+.. _project-aims:
+
 ************
 Project Aims
 ************
 
-To provide a solution to cover the :ref:`AMP Fundamentals<openamp-fundamentals-work-label>`, the
-OpenAMP project is divided into the following efforts:
+The `OpenAMP Project <https://www.openampproject.org>`_ is primarily focused on two efforts:
 
-    * A guidance group under Linaro Community Projects
-        - Provides guidance for the low-level protocol that allows systems to interact (:ref:`more info here<rpmsg-protocol-work-label>`)
-            + Built on top of the `Virtio Open Standard <https://docs.oasis-open.org/virtio/virtio>`_
-        - Maintaining common user level APIs that allow applications to be portable
-            + :ref:`RPMSG<rpmsg-protocol-work-label>`
-            + :ref:`remoteproc<lcm-work-label>`
-        - **Provide low-level** :ref:`OS/HW abstraction layer<porting-guide-work-label>` APIs **that
-          abstracts the open source implementation from the underlying OS and hardware, simplifying
-          the porting to new environments**
+- "standardize the interactions between operating environments in a heterogeneous embedded
+  system through open source solutions for Asymmetric MultiProcessing (AMP)"
+  [`1 <https://www.openampproject.org/docs/OpenAMPProject_Charter_Approved2024AugEmailVote.pdf>`_].
 
-    * An open source project that implements a clean-room implementation of OpenAMP
-        - Runs in :ref:`multiple environments<operating-environments-work-label>`
-        - BSD License
+- "providing a clean-room open source implementation"
+  [`2 <https://www.openampproject.org/news/openamp-project-joins-the-linaro-community-projects-division/>`_].
 
+The project promotes reuse and its components are "Based on the existing open source
+implementations of RemoteProc, RPMsg, Virtio and Device tree, it covers aspects such as
+lifecycle operations, messaging, low level abstractions"
+[`2 <https://www.openampproject.org/news/openamp-project-joins-the-linaro-community-projects-division/>`_].
+
+The project also provides demos and promotes member and community collaboration on compatible
+implementations.
+
+The following :ref:`OpenAMP Fundamentals<openamp-fundamentals-work-label>` section delves deeper
+into the components which, implemented in the OpenAMP libraries, provide for agnostic
+implementations for differing :ref:`Operating Environments<operating-environments-work-label>`.
 
 .. _openamp-fundamentals-work-label:
 
@@ -270,24 +275,25 @@ Read more about the OpenAMP System Components :ref:`here<openamp-components-work
 Operating Environments
 **********************
 
-OpenAMP aims to provide components which are portable and aim to be environment agnostic.
+The OpenAMP project aims to provide components which are portable and environment agnostic.
 
--The result is that OpenAMP is supported in various operating environments through
-  - an `OpenAMP open source project <https://github.com/OpenAMP>`_,
-  - an OpenAMP Linux Kernel project, coming through the regular
-    `remoteproc <https://www.kernel.org/doc/html/latest/staging/remoteproc.html>`_/
-    `RPMsg <https://www.kernel.org/doc/html/latest/staging/rpmsg.html>`_/
-    `Virtio <https://docs.kernel.org/driver-api/virtio/virtio.html>`_ efforts in the kernel.
-  - multiple proprietary implementations.
+This is achieved through the OpenAMP library which:
 
-The operating environments that OpenAMP supports include:
-
-  - Linux user space
-  - Linux kernel
-  - Multiple RTOS's - including `FreeRTOS <https://freertos.org/>`_, `NuttX <https://nuttx.apache.org/>`_, `Zephyr <https://www.zephyrproject.org/>`_, `VxWorks <https://www.windriver.com/products/vxworks>`_, and more
-  - Bare Metal (No OS)
-  - In OS's on top of hypervisors
-  - Within hypervisors
+    - implements the Virtio and RPMsg protocols with associated API
+      (`See OpenAMP repository <https://github.com/OpenAMP>`_)
+    - works on different system thanks to the `libmetal <https://github.com/libmetal>`_
+      adaptation layer:
+        - Bare Metal (No OS)
+        - Multiple RTOS's, including `FreeRTOS <https://freertos.org/>`_,
+          `NuttX <https://nuttx.apache.org/>`_, `Zephyr <https://www.zephyrproject.org/>`_,
+          `VxWorks <https://www.windriver.com/products/vxworks>`_, and more
+        - OS's on top of hypervisors
+        - Within hypervisors
+    - is compatible with different compilers such as gcc, clang, armcc and more
+    - maintains compatibility with the Linux kernel by leveraging the following frameworks:
+      `remoteproc <https://www.kernel.org/doc/html/latest/staging/remoteproc.html>`_,
+      `RPMsg <https://www.kernel.org/doc/html/latest/staging/rpmsg.html>`_ and
+      `Virtio <https://docs.kernel.org/driver-api/virtio/virtio.html>`_ frameworks.
 
 
 .. _governance-work-label:
@@ -299,7 +305,7 @@ OpenAMP Governance and Guidelines
 The OpenAMP Project governance is detailed on the
 `OpenAMP Project Page <https://www.openampproject.org/governance/>`_.
 
-There are a few guiding principles that governs OpenAMP:
+There are a few guiding principles, based on the :ref:`project aims<project-aims>` that govern OpenAMP:
 
     - Provide a clean-room implementation of OpenAMP with business friendly APIs and licensing
         * Allow for compatible proprietary implementations and products
