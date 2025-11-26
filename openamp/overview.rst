@@ -261,7 +261,7 @@ RPC client.
 Libmetal
 ========
 
-:doc:`Libmetal <../libmetal/readme>` is a hardware abstraction component, intended to provide for
+:doc:`Libmetal <../libmetal/README>` is a hardware abstraction component, intended to provide for
 portability across different platforms.
 Vendors porting OpenAMP will provide an implementation of libmetal for their system.
 
