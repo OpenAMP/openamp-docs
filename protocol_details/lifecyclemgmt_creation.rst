@@ -16,8 +16,8 @@ Defining the Resource Table and Creating the Remote ELF Image
 Creating a remote image through remoteproc begins by defining the resource table and creating the
 remote ELF image.
 
-Procedure
-~~~~~~~~~
+Resource Table Procedure
+~~~~~~~~~~~~~~~~~~~~~~~~
 
   1. Define the :ref:`resource table<resource-table>` structure in the application. The resource
      table must minimally contain carve-out and VirtIO device information for IPC.
@@ -56,8 +56,8 @@ Making Remote Firmware Accessible to the Host
 After creating the remote firmware’s ELF image, you need to make it accessible to remoteproc in the
 host context.
 
-Procedure
-~~~~~~~~~
+Remote Firmware Procedure
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
   1. If the RTOS- or bare metal-based host software context has a file system, place this firmware
      ELF image in the file system.
