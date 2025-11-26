@@ -117,7 +117,7 @@ As part of logging you in, some guidance will be printed on how to run the demos
     Enjoy!
     dev@openamp-demo:~$
 
-To :ref:`exit the docker container<exit_docker>` use key combination Ctrl-A x
+To :ref:`exit the docker container<exit-docker>` use key combination Ctrl-A x
 on window 0 (left tmux pane) or type exit on window 1 (top right tmux pane).
 
 We also recommend reading :ref:`Qemu Tips and Tricks<qemu-tips-tricks>` to help
