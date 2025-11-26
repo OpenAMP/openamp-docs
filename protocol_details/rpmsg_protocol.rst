@@ -1,4 +1,4 @@
-.. _rpmsg-protocol-work-label:
+.. _rpmsg-layers-work-label:
 
 =====================
 RPMsg Protocol Layers
