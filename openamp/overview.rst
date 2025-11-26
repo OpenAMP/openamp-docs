@@ -319,6 +319,7 @@ There are a few guiding principles, based on the :ref:`project aims<project-aims
           :ref:`RPMsg <rpmsg-protocol-work-label>`/`Virtio <https://docs.oasis-open.org/virtio/virtio>`_
 
 There are a number of project members as outlined in
-`OpenAMP Project Page <https://www.openampproject.org/about/>`_ as well as many community members,
+`OpenAMP Project About Page <https://www.openampproject.org/about/>`_ as well as many community members,
 so please join the :ref:`OpenAMP open source project<openamp-maintenance-work-label>`!
+
     - See https://github.com/OpenAMP/open-amp
