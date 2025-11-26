@@ -38,6 +38,7 @@ State Transition
 Remote User APIs
 ----------------
 .. _remoteproc_config:
+
 Configure remote
 ^^^^^^^^^^^^^^^^
 
