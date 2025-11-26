@@ -14,7 +14,7 @@ Determine system topology
 -------------------------
 
 The OpenAMP framework implicitly assumes a host controller to remote system architecture. The
-`topology<topology-work-label>`for this architecture should be determined; either star, chain, or a combination. The
+:ref:`topology<topology-work-label>` for this architecture should be determined; either star, chain, or a combination. The
 following figure shows some simple use cases.
 
   * Case 1 — A single host controller software context on processor 1 controlling life cycle and
