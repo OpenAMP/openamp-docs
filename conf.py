@@ -46,6 +46,11 @@ author = 'OpenAMP Project'
 # The full version, including alpha/beta/rc tags
 release = ''
 
+# Documentation references c/cpp declarations in multiple rst files, so suppress the warning
+# to avoid spurious warnings which clutter the build output.
+suppress_warnings = ['duplicate_declaration.c',
+                     'duplicate_declaration.cpp',
+                     'toc.not_included']
 
 # -- General configuration ---------------------------------------------------
 
