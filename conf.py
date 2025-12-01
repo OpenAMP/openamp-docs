@@ -46,6 +46,11 @@ author = 'OpenAMP Project'
 # The full version, including alpha/beta/rc tags
 release = ''
 
+# Documentation references c/cpp declarations in multiple rst files, so suppress the warning
+# to avoid spurious warnings which clutter the build output.
+suppress_warnings = ['duplicate_declaration.c',
+                     'duplicate_declaration.cpp',
+                     'toc.not_included']
 
 # -- General configuration ---------------------------------------------------
 
@@ -98,7 +103,7 @@ master_doc = 'index'
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '.git']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '.git', '.venv*', '_doxygen']
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'

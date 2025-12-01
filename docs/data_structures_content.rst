@@ -15,7 +15,7 @@ Virtio Structure for Remoteproc
 .. doxygenstruct:: remoteproc_virtio
    :members:
 
-Refer also :openamp_doc_link:`remoteproc_virtio <remoteproc_virtio>` documentation and `remoteproc code implementation <https://github.com/OpenAMP/open-amp/blob/main/lib/include/openamp/remoteproc_virtio.h>`_.
+Refer also :openamp_doc_link:`remoteproc_virtio <remoteproc_virtio>` documentation and `remoteproc_virtio code implementation <https://github.com/OpenAMP/open-amp/blob/main/lib/include/openamp/remoteproc_virtio.h>`_.
 
 Virtio Data Structures
 ===========================

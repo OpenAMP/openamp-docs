@@ -38,6 +38,7 @@ State Transition
 Remote User APIs
 ----------------
 .. _remoteproc_config:
+
 Configure remote
 ^^^^^^^^^^^^^^^^
 
@@ -90,12 +91,6 @@ Set resource table to remoteproc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. doxygenfunction:: remoteproc_set_rsc_table
-   :project: openamp_doc_embed
-
-Configure the remote presented by the remoteproc instance to make it able to load application
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. doxygenfunction:: remoteproc_config
    :project: openamp_doc_embed
 
 Load application to the remote presented by the remoteproc instance to make it ready to run

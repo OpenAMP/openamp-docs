@@ -113,9 +113,9 @@ RPMsg User Defined Callbacks
 .. doxygentypedef:: rpmsg_ns_unbind_cb
    :project: openamp_doc_embed
 
-* RPMsg endpoint name service unbind callback. If user defines such callback,
+* RPMsg endpoint name service release callback. If user defines such callback,
   when there is name service destroy arrives, it will call this callback to
   notify the user application about the remote has destroyed the service.:
 
-.. doxygentypedef:: rpmsg_ns_unbind_cb
+.. doxygentypedef:: rpmsg_ept_release_cb
    :project: openamp_doc_embed
