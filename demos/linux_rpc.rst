@@ -106,4 +106,4 @@ This Linux RPC Sample is demonstrated in the following reference implementations
    :maxdepth: 1
    :caption: Demo Compile and Execution Instructions
 
-   ../open-amp/apps/examples/linux_rpc_demo/README
+   ../openamp-system-reference/examples/legacy_apps/examples/linux_rpc_demo/README
