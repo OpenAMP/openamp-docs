@@ -117,3 +117,11 @@ This Echo Test Sample is demonstrated in the following reference implementations
 * :ref:`Docker Images<docker-images-label>` as demo1A
 * :ref:`AMD-Xilinx platforms<demos-AMD-work-label>`
 * :ref:`Inter Process Demos<inter-process-reference-label>`
+
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Echo Test Build Information
+   :titlesonly:
+
+   ../openamp-system-reference/examples/legacy_apps/examples/echo/README
