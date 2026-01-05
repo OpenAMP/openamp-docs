@@ -256,7 +256,7 @@ RPC client.
 Libmetal
 ========
 
-:doc:`Libmetal <../libmetal/readme>` is a hardware abstraction component, intended to provide for
+:doc:`Libmetal <../libmetal/README>` is a hardware abstraction component, intended to provide for
 portability across different platforms.
 Vendors porting OpenAMP will provide an implementation of libmetal for their system.
 
@@ -277,7 +277,7 @@ OpenAMP aims to provide components which are portable and aim to be environment 
   - an OpenAMP Linux Kernel project, coming through the regular
     `remoteproc <https://www.kernel.org/doc/html/latest/staging/remoteproc.html>`_/
     `RPMsg <https://www.kernel.org/doc/html/latest/staging/rpmsg.html>`_/
-    `Virtio <https://docs.kernel.org/driver-api/virtio/virtio.html>`_ efforts in the kernel.
+    `Virtio Driver <https://docs.kernel.org/driver-api/virtio/virtio.html>`_ efforts in the kernel.
   - multiple proprietary implementations.
 
 The operating environments that OpenAMP supports include:
@@ -313,6 +313,7 @@ There are a few guiding principles that governs OpenAMP:
           :ref:`RPMsg <rpmsg-protocol-work-label>`/`Virtio <https://docs.oasis-open.org/virtio/virtio>`_
 
 There are a number of project members as outlined in
-`OpenAMP Project Page <https://www.openampproject.org/about/>`_ as well as many community members,
+`OpenAMP Project About Page <https://www.openampproject.org/about/>`_ as well as many community members,
 so please join the :ref:`OpenAMP open source project<openamp-maintenance-work-label>`!
+
     - See https://github.com/OpenAMP/open-amp
