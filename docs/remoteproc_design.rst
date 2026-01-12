@@ -38,11 +38,6 @@ State Transition
 Remote User APIs
 ----------------
 .. _remoteproc_config:
-Configure remote
-^^^^^^^^^^^^^^^^
-
-.. doxygenfunction:: remoteproc_config
-   :project: openamp_doc_embed
 
 Initialize remoteproc instance
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
