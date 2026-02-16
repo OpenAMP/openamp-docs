@@ -19,3 +19,4 @@ number of examples. Additional supporting code is located in the
    system_reference-NXP
    system_reference-TI
    inter_process
+   ../openamp-system-reference/examples/legacy_apps/README
