@@ -9,7 +9,7 @@
 	url = https://github.com/devicetree-org/lopper.git
 [submodule "openamp-system-reference"]
 	path = openamp-system-reference
-	url = https://github.com/OpenAMP/openamp-system-reference.git
+	url = https://github.com/sipke/openamp-system-reference.git
 [submodule "libmetal"]
 	path = libmetal
 	url = https://github.com/OpenAMP/libmetal.git
