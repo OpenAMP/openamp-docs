@@ -111,3 +111,16 @@ Linux RPC Demo Build Information
    :maxdepth: 2
 
    ../openamp-system-reference/examples/legacy_apps/examples/linux_rpc_demo/README
+
+
+*********************************************
+Alternate Bare Metal Remote Build Information
+*********************************************
+
+The following sections detail how to build a baremetal remote if you wish to run this example
+on a remote processor rather than secondary linux process.
+
+.. toctree::
+   :maxdepth: 2
+
+   ../openamp-system-reference/examples/legacy_apps/examples/rpc_demo/README
