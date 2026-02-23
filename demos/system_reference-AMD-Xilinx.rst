@@ -15,3 +15,10 @@ The following Reference Samples and Demos are implemented using the
    ../openamp-system-reference/examples/linux/rpmsg-echo-test/README.md
    ../openamp-system-reference/examples/linux/rpmsg-mat-mul/README.md
    ../openamp-system-reference/examples/linux/rpmsg-proxy-app/README.md
+   ../openamp-system-reference/examples/libmetal/machine/host/amd_linux_userspace/README
+   ../openamp-system-reference/examples/libmetal/machine/remote/amd_rpu/README
+   ../openamp-system-reference/examples/libmetal/machine/remote/amd_rpu/system/freertos/README
+   ../openamp-system-reference/examples/libmetal/machine/remote/amd_rpu/system/generic/README
+   ../openamp-system-reference/examples/legacy_apps/machine/xlnx/README
+   ../openamp-system-reference/examples/legacy_apps/machine/xlnx/microblaze_generic/README
+   ../openamp-system-reference/examples/linux/dts/xilinx/README
