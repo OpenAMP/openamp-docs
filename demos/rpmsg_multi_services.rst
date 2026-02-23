@@ -216,3 +216,14 @@ This RPMsg Multi Services Sample is demonstrated in the following reference impl
 * :ref:`Texas Instruments <reference_board_TI>`
 
    * Refer to `Zephyr Build Instructions <https://github.com/OpenAMP/openamp-system-reference/tree/main/examples/zephyr/rpmsg_multi_services>`_.
+
+
+**************************************
+RPMsg Multi Services Build Information
+**************************************
+
+.. toctree::
+   :maxdepth: 2
+   :titlesonly:
+
+   ../openamp-system-reference/examples/zephyr/rpmsg_multi_services/README
