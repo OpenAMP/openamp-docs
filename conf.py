@@ -119,7 +119,8 @@ html_style = 'css/mystyle.css'
 html_logo  = '_static/images/openAMP_combox_dark_trim.svg'
 
 html_theme_options = {
-    'logo_only': True
+    'logo_only': True,
+    'includehidden': False
 }
 
 # below copied / hacked from Zephyr projects' zephyr/doc/conf.py
