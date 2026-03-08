@@ -22,6 +22,8 @@ Welcome to the OpenAMP Project Documentation
 ..
   TOC entries used to suppress warnings we accept for files not included in a table of contents.
   WARNING: document isn't included in any toctree [toc.not_included]
+  Note that each library's (e.g. open-amp) readme file is included via the REFERENCE section links
+  in the navigation bar on the left.
 
 .. toctree::
    :hidden:
@@ -29,7 +31,12 @@ Welcome to the OpenAMP Project Documentation
    openamp-system-reference/README
    openamp-system-reference/LICENSE
    openamp-docs/README
-
+   open-amp/.github/actions/build_ci/README
+   open-amp/README
+   open-amp/LICENSE
+   libmetal/.github/actions/build_ci/README
+   libmetal/README
+   libmetal/LICENSE
 
 ..
   TOC entries for examples which do not have readthedocs descriptions so suppressing to avoid the
