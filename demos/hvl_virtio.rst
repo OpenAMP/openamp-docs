@@ -99,6 +99,17 @@ This Hypervisorless Virtio Samples are demonstrated in the following reference i
 For information on building and running the demonstrations for zcu102 refer to
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    ../hypervisorless_virtio_zcu102/README_demo
+   ../hypervisorless_virtio_zcu102/README
+   ../hypervisorless_virtio_zcu102/zephyr_r5/README
+   ../hypervisorless_virtio_zcu102/zephyr_r5/hello_r5/README
+
+For more information on Hypervisorless Virtio and associated OpenAMP support refer to
+
+.. toctree::
+   :maxdepth: 1
+
+   ../hypervisorless_virtio_zcu102/README_hypervisorless_virtio.md
+   ../hypervisorless_virtio_zcu102/README_openamp_virtio.md
