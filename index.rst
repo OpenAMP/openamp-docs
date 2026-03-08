@@ -34,9 +34,11 @@ Welcome to the OpenAMP Project Documentation
    openamp-docs/README
    open-amp/.github/actions/build_ci/README
    open-amp/README
+   open-amp/MAINTAINERS
    open-amp/LICENSE
    libmetal/.github/actions/build_ci/README
    libmetal/README
+   libmetal/MAINTAINERS
    libmetal/LICENSE
 
 ..
