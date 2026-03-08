@@ -28,6 +28,7 @@ Welcome to the OpenAMP Project Documentation
 .. toctree::
    :hidden:
 
+   README
    openamp-system-reference/README
    openamp-system-reference/LICENSE
    openamp-docs/README
