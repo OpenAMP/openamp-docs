@@ -102,8 +102,25 @@ This Linux RPC Sample is demonstrated in the following reference implementations
 
 * :ref:`Linux Inter Process <inter-process-reference-label>`
 
+
+********************************
+Linux RPC Demo Build Information
+********************************
+
 .. toctree::
-   :maxdepth: 1
-   :caption: Demo Compile and Execution Instructions
+   :maxdepth: 2
 
    ../openamp-system-reference/examples/legacy_apps/examples/linux_rpc_demo/README
+
+
+*********************************************
+Alternate Bare Metal Remote Build Information
+*********************************************
+
+The following sections detail how to build a baremetal remote if you wish to run this example
+on a remote processor rather than secondary linux process.
+
+.. toctree::
+   :maxdepth: 2
+
+   ../openamp-system-reference/examples/legacy_apps/examples/rpc_demo/README
