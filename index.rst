@@ -44,6 +44,12 @@ Welcome to the OpenAMP Project Documentation
    lopper/specification/README
    lopper/tests/MIGRATION_GUIDE
    lopper/tests/README
+   lopper/README
+   lopper/README-architecture
+   lopper/specification/source/index
+   lopper/docs/amd/linux/source/index
+   lopper/docs/amd/zephyr/source/index
+   lopper/demos/openamp/README.md
 
 ..
   TOC entries for examples which do not have readthedocs descriptions so suppressing to avoid the
