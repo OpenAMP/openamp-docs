@@ -40,6 +40,10 @@ Welcome to the OpenAMP Project Documentation
    libmetal/README
    libmetal/MAINTAINERS
    libmetal/LICENSE
+   lopper/LICENSE
+   lopper/specification/README
+   lopper/tests/MIGRATION_GUIDE
+   lopper/tests/README
 
 ..
   TOC entries for examples which do not have readthedocs descriptions so suppressing to avoid the
