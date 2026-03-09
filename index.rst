@@ -31,7 +31,6 @@ Welcome to the OpenAMP Project Documentation
    README
    openamp-system-reference/README
    openamp-system-reference/LICENSE
-   openamp-docs/README
    open-amp/.github/actions/build_ci/README
    open-amp/README
    open-amp/MAINTAINERS
