@@ -1,18 +1,18 @@
 [submodule "open-amp"]
 	path = open-amp
-	url = https://github.com/OpenAMP/open-amp.git
+	url = https://github.com/sipke/open-amp.git
 [submodule "hypervisorless_virtio_zcu102"]
 	path = hypervisorless_virtio_zcu102
-	url = https://github.com/danmilea/hypervisorless_virtio_zcu102.git
+	url = https://github.com/sipke/hypervisorless_virtio_zcu102.git
 [submodule "lopper"]
 	path = lopper
-	url = https://github.com/devicetree-org/lopper.git
+	url = https://github.com/sipke/lopper.git
 [submodule "openamp-system-reference"]
 	path = openamp-system-reference
-	url = https://github.com/OpenAMP/openamp-system-reference.git
+	url = https://github.com/sipke/openamp-system-reference.git
 [submodule "libmetal"]
 	path = libmetal
-	url = https://github.com/OpenAMP/libmetal.git
+	url = https://github.com/sipke/libmetal.git
 [submodule "awesome"]
 	path = _doxygen/awesome
 	url = https://github.com/jothepro/doxygen-awesome-css.git
