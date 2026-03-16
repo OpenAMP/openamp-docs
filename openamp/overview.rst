@@ -283,17 +283,19 @@ This is achieved through the OpenAMP library which:
       (`See OpenAMP repository <https://github.com/OpenAMP>`_)
     - works on different system thanks to the `libmetal <https://github.com/libmetal>`_
       adaptation layer:
+
         - Bare Metal (No OS)
         - Multiple RTOS's, including `FreeRTOS <https://freertos.org/>`_,
           `NuttX <https://nuttx.apache.org/>`_, `Zephyr <https://www.zephyrproject.org/>`_,
           `VxWorks <https://www.windriver.com/products/vxworks>`_, and more
+
         - OS's on top of hypervisors
         - Within hypervisors
     - is compatible with different compilers such as gcc, clang, armcc and more
     - maintains compatibility with the Linux kernel by leveraging the following frameworks:
       `remoteproc <https://www.kernel.org/doc/html/latest/staging/remoteproc.html>`_,
       `RPMsg <https://www.kernel.org/doc/html/latest/staging/rpmsg.html>`_ and
-      `Virtio <https://docs.kernel.org/driver-api/virtio/virtio.html>`_ frameworks.
+      `Virtio Driver <https://docs.kernel.org/driver-api/virtio/virtio.html>`_ frameworks.
 
 
 .. _governance-work-label:
