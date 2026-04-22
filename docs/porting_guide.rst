@@ -132,23 +132,8 @@ Platform Specific Porting to Use Remoteproc to Manage Remote Processor
 **********************************************************************
 
 With the platform specific :ref:`remoteproc driver functions<port-remoteproc-driver>`
-implemented by the port, the user can use remoteproc APIs to run application on a remote processor.
-
-.. doxygenfunction:: remoteproc_init
-   :project: openamp_doc_embed
-
-.. doxygenfunction:: remoteproc_remove
-
-.. doxygenfunction:: remoteproc_mmap
-
-.. doxygenfunction:: remoteproc_config
-
-.. doxygenfunction:: remoteproc_start
-
-.. doxygenfunction:: remoteproc_stop
-
-.. doxygenfunction:: remoteproc_shutdown
-
+implemented by the port, the user can use remoteproc APIs to run application on a remote processor,
+as detailed in the :ref:`Remote User APIs<remoteproc_config>` section of the Remote Proc Design.
 
 The following code snippet is an example execution.
 
