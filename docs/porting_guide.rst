@@ -4,6 +4,144 @@
 Porting GuideLine
 =================
 
+********
+Hardware
+********
+
+The porting of OpenAMP to a new :doc:`multicore system <../openamp/overview>` requires
+configuring the hardware on each core so it aligns with the OpenAMP architecture.
+
+This setup typically includes defining a shared memory region for
+:ref:`RPMsg<overview-rpmsg-work-label>` based
+:ref:`Interprocessor Communications (IPC)<ipc-work-label>`, with or without interrupts for
+asynchronous inter-core notification and defining the firmware execution flow either independently
+or with :ref:`Remoteproc<overview-Remoteproc-work-label>` and associated
+:ref:`Resource Table<resource-table>`.
+
+Memory and interrupt assignments are critical design choices for any port. For a broader overview, refer to
+:doc:`../protocol_details/system_considerations`.
+
+
+Shared Memory
+=============
+
+Shared memory forms the :ref:`physical layer<rpmsg-layers-work-label>` for
+:doc:`RPMsg <../docs/rpmsg_design>` protocol.
+The specific memory type and layout are implementation dependent, but should be a dedicated
+SRAM or DDR region accessible by both cores, with caching disabled.
+
+Memory requirements are generally modest because RPMsg is a control‑oriented protocol
+rather than a high‑bandwidth streaming channel. For example, using the Linux RPMsg packet
+size of 512 bytes, a 64kB shared memory region can hold roughly 128 messages — sufficient
+for most applications. Larger or smaller allocations can be chosen based on system needs.
+
+If the resource table is not embedded in the remote firmware image, additional shared memory
+may be required for a dynamic table.
+
+Remoteproc can also use shared memory for optional trace buffers.
+
+
+Memory Protection
+-----------------
+
+Because this is shared memory, appropriate hardware memory protection should be configured
+on both processors.
+
+Depending on the memory type, this may involve configuring the Memory Management Unit (MMU),
+Memory Protection Unit (MPU), or Input-Output Memory Management Unit (IOMMU) to enforce
+correct access permissions.
+
+On systems running an advanced OS — such as Linux on the main
+processor — these protections may be applied through OS mechanisms like the device tree or
+via the Remoteproc resource table.
+
+
+Notification
+------------
+
+RPMsg uses :ref:`ring buffers<rpmsg-protocol-mac>` in shared memory, so either processor can
+poll for incoming messages. However, asynchronous notification via interrupts is recommended.
+
+Most heterogeneous SoCs include a built‑in inter‑core interrupt mechanism, often called a
+mailbox. These implementations typically combine shared memory with interrupt signaling and
+may be managed through an Inter‑Processor Communication Controller (IPCC).
+
+If no dedicated hardware is available — or it is reserved for other purposes —
+software‑generated interrupts can be used instead.
+
+
+***************
+Porting Options
+***************
+
+OpenAMP consists of two major components: Remoteproc and RPMsg. These can be ported
+independently or together, at either the driver level or the device level.
+
+Driver level ports integrate with an operating system’s existing frameworks,
+while device level ports implement the functionality directly on bare metal without
+leveraging OS‑provided drivers.
+
+libmetal provides the :ref:`hardware abstraction layer<hardware-abstraction>` for both.
+
+The main porting approaches include:
+
+- Remoteproc on the remote processor only, with the main processor using an existing
+  Remoteproc implementation (e.g., Linux Remoteproc) and no IPC.
+
+- RPMsg on the remote processor only, with the main processor using an existing RPMsg
+  stack (e.g., Linux RPMsg) and no remote firmware management.
+
+- Custom device‑level implementation of RPMsg for both processors.
+
+
+Driver Lifecycle Management via Remoteproc
+==========================================
+
+Some systems do not require IPC or use an alternative IPC mechanism. In these cases, only
+Remoteproc may be ported (or reused, as on Linux) on both the main and remote processors.
+
+The main processor uses driver level Remoteproc to load, start, stop, and manage remote
+firmware.
+This approach is useful when the remote firmware must be externally controlled or when
+multiple firmware images may be deployed depending on runtime needs.
+Thie configuration is common in custom or bare‑metal remote environments.
+
+- Pros: Full remote firmware management
+- Cons: No IPC. Larger software footprint
+
+Driver to Remote IPC via RPMsg
+==============================
+
+If the remote firmware is static and starts at boot, or if another framework manages
+firmware loading, only RPMsg needs to be ported.
+In this model, the remote processor runs its firmware autonomously, and the main processor
+interacts with it solely through the RPMsg communication channel, without any involvement
+in firmware lifecycle control. This approach suits systems where the remote environment is
+minimal or bare‑metal, and where the primary requirement is efficient message‑based
+IPC rather than external management of the remote core.
+
+- Pros: Lightweight. Provides IPC.
+- Cons: No remote firmware management.
+
+Device Level Custom RPMsg
+=========================
+
+In highly customized or bare‑metal only environments, a minimal port of just RPMsg may be
+required without any driver‑level abstraction.
+In this case, the full RPMsg mechanism must be implemented directly on both the main and
+remote processors, ensuring that each core provides the necessary messaging, shared‑memory
+handling, and notification logic without relying on OS‑level drivers or frameworks.
+
+- Pros: Lightweight.
+- Cons: Highly custom and less portable.
+
+
+.. _hardware-abstraction:
+
+********************
+Hardware Abstraction
+********************
+
 The `OpenAMP Framework <https://github.com/OpenAMP/open-amp>`_ uses
 `libmetal <https://github.com/OpenAMP/libmetal>`_ to provide abstractions that allows for porting
 of the OpenAMP Framework to various software environments (operating systems and bare metal
