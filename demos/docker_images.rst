@@ -68,7 +68,7 @@ However if you can pull the docker image you should be able to run the demos
 as they are self contained.  Some of the other activities described like
 installing new packages etc may not work without additional effort.
 If needed, please checkout
-`this tutorial <https://www.serverlab.ca/tutorials/containers/docker/how-to-set-the-proxy-for-docker-on-ubuntu/>`_.
+`Use a proxy server with the Docker CLI <https://docs.docker.com/engine/cli/proxy/>`_.
 
 Docker for other host systems
 -----------------------------

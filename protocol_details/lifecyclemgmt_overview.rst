@@ -75,4 +75,4 @@ The OpenAMP samples and demos exemplify the use of an application specific messa
 graceful shutdown before the hard remoteproc_shutdown is performed. For an example, see the Shutdown
 Packet in the `Echo Test Messaging Flow diagram<echo-test-control-flow>` which is implemented as the
 SHUTDOWN_MSG in the source
-`open-amp Repository <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/legacy_apps/examples/echo/rpmsg-echo.c>`_.
+`openamp-system-reference Repository <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/legacy_apps/examples/echo/rpmsg-echo.c>`_.

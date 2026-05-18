@@ -213,11 +213,11 @@ Platform Specific Porting to Use RPMsg
 
 RPMsg in OpenAMP implementation uses `VirtIO <https://docs.oasis-open.org/virtio/virtio/>`_
 to manage the shared buffers. OpenAMP library provides
-`remoteproc VirtIO backend implementation <https://github.com/OpenAMP/open-amp/blob/master/lib/remoteproc/remoteproc_virtio.c>`_.
+`remoteproc VirtIO backend implementation <https://github.com/OpenAMP/open-amp/blob/main/lib/remoteproc/remoteproc_virtio.c>`_.
 You don't have to use remoteproc backend. You can implement your VirtIO backend with the VirtIO
 and RPMsg implementation in OpenAMP. If you want to implement your own VirtIO backend, you can
 refer to the
-`remoteproc VirtIO backend implementation <https://github.com/OpenAMP/open-amp/blob/master/lib/remoteproc/remoteproc_virtio.c>`_.
+`remoteproc VirtIO backend implementation < https://github.com/OpenAMP/open-amp/blob/main/lib/remoteproc/remoteproc_virtio.c>`_.
 
 Here are the steps to use OpenAMP for RPMsg communication:
 

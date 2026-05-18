@@ -12,8 +12,8 @@ This can be useful for demonstration purposes, but can also be leveraged for com
 as part of a continuous integration setup.
 
 Effectively the `OpenAMP Library <https://github.com/OpenAMP/open-amp/tree/main/lib>`_ and
-`reference examples <https://github.com/OpenAMP/open-amp/tree/main/apps/examples>`_ are built for
-the main controller system along with the
+`reference examples <https://github.com/OpenAMP/openamp-system-reference/tree/main/examples/legacy_apps/examples>`_
+are built for the main controller system along with the
 `main controller examples <https://github.com/OpenAMP/openamp-system-reference/tree/main/examples/linux>`_.
 
 To build and execute on a Linux system, refer to the

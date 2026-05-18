@@ -281,13 +281,13 @@ This is achieved through the OpenAMP library which:
 
     - implements the Virtio and RPMsg protocols with associated API
       (`See OpenAMP repository <https://github.com/OpenAMP>`_)
-    - works on different system thanks to the `libmetal <https://github.com/libmetal>`_
+    - works on different system thanks to the `libmetal <https://github.com/OpenAMP/libmetal>`_
       adaptation layer:
 
         - Bare Metal (No OS)
         - Multiple RTOS's, including `FreeRTOS <https://freertos.org/>`_,
           `NuttX <https://nuttx.apache.org/>`_, `Zephyr <https://www.zephyrproject.org/>`_,
-          `VxWorks <https://www.windriver.com/products/vxworks>`_, and more
+          `VxWorks < https://www.windriver.com/products/embedded/vxworks>`_, and more
 
         - OS's on top of hypervisors
         - Within hypervisors
