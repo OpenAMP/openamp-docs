@@ -104,6 +104,22 @@ make pdf
 xdg-open _build/pdf/openamppdf.pdf
 ```
 
+### Link Check
+
+Sphinx provides an extension that checks all external links. This process can take up to
+half an hour, and not all reported failures are accurate - some redirects or security measures
+can cause false positives.
+
+All detected “broken links” are listed in the output, allowing you to manually verify them.
+Most IDEs will also hyperlink terminal output to make this easier.
+
+Before submitting a pull request, ensure that you run this check and verify or correct
+reported broken links.
+
+```shell
+SPHINXOPTS="-b linkcheck" make html
+```
+
 Notes:
 * The build process currently produces many warnings
 * The doxygen content is not included in the pdf
