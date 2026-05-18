@@ -121,7 +121,8 @@ SPHINXOPTS="-b linkcheck" make html
 ```
 
 Notes:
-* The build process currently produces many warnings
+* The build process produces some, but limited, warnings, so please ensure to diff between
+  builds and correct any new warnings.
 * The doxygen content is not included in the pdf
 * The doxygen content is not styled like the rest of the html documents
 * The doxygen context does not integrate into the menu structure; use the browser back button
