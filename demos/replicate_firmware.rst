@@ -63,8 +63,8 @@ Replicate Firmware Main Configuration
 
 The remoteproc configuration binding
 `cluster-mode <https://github.com/torvalds/linux/blob/master/Documentation/devicetree/bindings/remoteproc/xlnx%2Czynqmp-r5fss.yaml#L37>`_
-is set to 0 for split-mode as per the
-`system reference implementation <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/linux/dts/xilinx/zynqmp-split.dtso>`_.
+is set to disabled for rproc_split.status as per the
+`system reference implementation <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/linux/dts/xilinx/zynqmp-lockstep.dtso>`_.
 
 ********************************************
 Replicate Firmware Remote Application Source
