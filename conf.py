@@ -52,6 +52,7 @@ release = ''
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
+# https://www.sphinx-doc.org/en/master/usage/builders/index.html#sphinx.builders.linkcheck.CheckExternalLinksBuilder
 extensions = [
     "sphinxcontrib.jquery",
     'sphinx.ext.autosectionlabel',
@@ -62,7 +63,8 @@ extensions = [
     'rst2pdf.pdfbuilder',
     'myst_parser',
     'sphinxcontrib.doxylink',
-    'breathe'
+    'breathe',
+    'sphinx.builders.linkcheck'
 ]
 
 # Name doxylink "links" to library repositories <library>_doc_link as it is a
