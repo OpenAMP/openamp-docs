@@ -1,3 +1,27 @@
+# We now do all check-out related operations in the "git checkout command" of
+# the ReadtheDocs project settings.  There is no longer any post_checkout job
+# here.
+#
+# For the main project, the settings should look like:
+#   git clone $READTHEDOCS_GIT_CLONE_URL .
+#   git checkout --force $READTHEDOCS_GIT_IDENTIFIER
+#   git submodule sync
+#   git submodule update --init --force --recursive
+
+# To build PRs for submodules you will need to create a new RTDs project for
+# the submodule repo and enable the "build PRs" setting.
+# Assume:
+#  using the main repo for the openamp-docs project,
+#     you could also use your own fork of openamp-docs if you have one
+#  the submodule is open-amp, fix the "cd" for others
+# The "git checkout command" should look like:
+#   git clone --recurse-submodules https://github.com/OpenAMP/openamp-docs.git .
+#   (cd open-amp; git remote add this_pr $READTHEDOCS_GIT_CLONE_URL )
+#   (cd open-amp; if [ x"$READTHEDOCS_VERSION_TYPE" = x"branch" ]; then git fetch this_pr $READTHEDOCS_GIT_IDENTIFIER; else git fetch this_pr pull/$READTHEDOCS_GIT_IDENTIFIER/head; fi )
+#   (cd open-amp; git checkout --force FETCH_HEAD )
+#   (cd open-amp; git log -n 1 --oneline)
+#   git submodule status
+
 version: 2
 formats: all
 sphinx:
@@ -11,9 +35,6 @@ build:
     - libhugetlbfs-dev
     - libsysfs-dev
   jobs:
-    post_checkout:
-      - git submodule sync
-      - git submodule update --init --force --recursive
     post_install:
       - python -m pip install --exists-action=w --no-cache-dir -r requirements.txt
     pre_build:
