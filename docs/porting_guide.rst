@@ -4,6 +4,200 @@
 Porting GuideLine
 =================
 
+********
+Hardware
+********
+
+The porting of OpenAMP to a new :doc:`multicore system <../openamp/overview>` requires
+some hardware for inter-processor communication.
+
+- Shared memory for
+
+    - the :ref:`RPMsg<overview-rpmsg-work-label>` buffer
+    - the :ref:`Virtio Rings<docs/data_structures_content:Shared virtqueue structure>`
+    - the :ref:`Resource Table<resource-table>`
+      (optional if the RPMsg host is not the Linux kernel)
+
+- Optional, but recommended, mailboxes acting as a ring bell interrupt on processors to
+  notify of message reception
+
+Memory and interrupt assignments are critical design choices for any port. For a broader overview, refer to
+:doc:`../protocol_details/system_considerations`.
+
+
+Shared Memory
+=============
+
+Shared memory forms the :ref:`physical layer<rpmsg-layers-work-label>` for
+:doc:`RPMsg <../docs/rpmsg_design>` protocol.
+The specific memory type and layout are implementation dependent, but should be a dedicated
+SRAM or DDR region accessible by both cores. Caching is enabled in OpenAMP with the
+`WITH_DCACHE <https://github.com/OpenAMP/open-amp/blob/main/cmake/options.cmake>`_
+cmake configuration.
+
+Memory requirements are generally modest because :doc:`RPMsg <../docs/rpmsg_design>` is a
+control‑oriented protocol rather than a high‑bandwidth streaming channel. For example, using
+the Linux RPMsg packet size of 512 bytes, a 64kB shared memory region can hold roughly 128
+messages — sufficient for most applications. Larger or smaller allocations can be chosen based
+on system needs.
+
+In addition to the messages, the Virtio ring structures need memory allocated. For Linux
+this equates to 2*4k but likely less for other implementations.
+
+If the :ref:`Resource Table<resource-table>` is not embedded in the remote firmware image,
+additional shared memory may be required for a dynamic table.
+
+:ref:`Remoteproc<overview-remoteproc-work-label>` can also use shared memory for optional
+trace buffers.
+
+
+Memory Protection
+-----------------
+
+Because this is shared memory, appropriate hardware memory protection should be configured
+on both processors.
+
+Depending on the memory type, this may involve configuring the Memory Management Unit (MMU),
+Memory Protection Unit (MPU), or Input-Output Memory Management Unit (IOMMU) to enforce
+correct access permissions.
+
+On systems running an advanced OS — such as Linux on the main
+processor — these protections may be applied through OS mechanisms like the device tree or
+via the :ref:`Remoteproc<overview-remoteproc-work-label>` :ref:`Resource Table<resource-table>`.
+
+
+Notification
+------------
+
+:doc:`RPMsg <../docs/rpmsg_design>` uses :ref:`ring buffers<rpmsg-protocol-mac>` in shared
+memory, so either processor can poll for incoming messages. However, asynchronous notification
+via interrupts is recommended.
+
+Most heterogeneous SoCs include a built‑in inter‑core interrupt mechanism, often called a
+mailbox. The sending core raises the mailbox interrupt to notify the other core that a vring has
+been updated for message reception, buffer release, or both.
+The core can then manage the message in normal context, for example, in a thread, or in
+interrupt.
+
+
+***************
+Porting Options
+***************
+
+OpenAMP consists of two major components: :ref:`Remoteproc<overview-remoteproc-work-label>`
+and :doc:`RPMsg <../docs/rpmsg_design>`. These can be ported
+independently or together.
+
+The :doc:`RPMsg <../docs/rpmsg_design>` port on the main processor is usually a virtio driver
+level and the remote processor the virtio device role.
+
+`libmetal <https://github.com/OpenAMP/libmetal>`_ provides the
+:ref:`hardware abstraction layer<hardware-abstraction>` for both.
+
+The main porting approaches include:
+
+- :ref:`Remoteproc<overview-remoteproc-work-label>` on the remote processor only,
+  with the main processor using an existing
+  :ref:`Remoteproc<overview-remoteproc-work-label>` implementation (e.g., Linux Remoteproc)
+  and no IPC.
+
+- :doc:`RPMsg <../docs/rpmsg_design>` on the remote processor only, with the main processor
+  using an existing :doc:`RPMsg <../docs/rpmsg_design>` stack (e.g., Linux RPMsg) and no
+  remote firmware management.
+
+- Custom device‑level implementation of :ref:`Remoteproc<overview-remoteproc-work-label>`
+  and/or :doc:`RPMsg <../docs/rpmsg_design>` for both processors.
+
+
+.. _driver-lcm-remoteproc:
+
+Driver Lifecycle Management via Remoteproc
+==========================================
+
+Some systems do not require IPC or use an alternative IPC mechanism. In these cases, only
+:ref:`Remoteproc<overview-remoteproc-work-label>` may be ported (or reused, as on Linux)
+on both the main and remote processors.
+
+The main processor uses driver level :ref:`Remoteproc<overview-remoteproc-work-label>` to
+load, start, stop, and manage remote firmware.
+This approach is useful when the remote firmware must be externally controlled or when
+multiple firmware images may be deployed depending on runtime needs.
+This configuration is common in custom or bare‑metal remote environments.
+
+- Pros: Full remote firmware management
+- Cons: No IPC. Larger software footprint
+
+
+.. _driver-lcm-remoteproc-rpmsg:
+
+Driver Lifecycle Management via Remoteproc with IPC
+===================================================
+
+This setup is the most complete and includes driver based lifecycle management and IPC.
+In these cases, both :ref:`Remoteproc<overview-remoteproc-work-label>` and
+:doc:`RPMsg <../docs/rpmsg_design>` need to be ported (or reused, as on Linux) on both
+the main and remote processors.
+
+The main processor uses driver level :ref:`Remoteproc<overview-remoteproc-work-label>` and
+:doc:`RPMsg <../docs/rpmsg_design>`.
+
+This approach is useful when full IPC and remote firmware control is required.
+
+This configuration is common in custom or bare‑metal remote environments.
+
+- Pros: Full IPC and remote firmware management
+- Cons: Largest software footprint
+
+
+.. _driver-rpmsg:
+
+Driver to Remote IPC via RPMsg
+==============================
+
+If the remote firmware is static and starts at boot, or if another framework manages
+firmware loading, only :doc:`RPMsg <../docs/rpmsg_design>` needs to be ported.
+In this model, the remote processor runs its firmware autonomously, and the main processor
+interacts with it solely through the :doc:`RPMsg <../docs/rpmsg_design>` communication channel,
+without any involvement in firmware lifecycle control. This approach suits systems where the
+remote environment is minimal or bare‑metal, and where the primary requirement is efficient
+message‑based IPC rather than external management of the remote core.
+
+- Pros: Lightweight. Provides IPC.
+- Cons: No remote firmware management.
+
+
+.. _device-lcm-remoteproc:
+
+Device Level Custom Remoteproc and RPMsg
+========================================
+
+In highly customized or bare‑metal only environments, a port of
+:ref:`Remoteproc<overview-remoteproc-work-label>` and :doc:`RPMsg <../docs/rpmsg_design>` may
+be required without any driver‑level abstraction.
+In this case, the full :ref:`Remoteproc<overview-remoteproc-work-label>` and
+:doc:`RPMsg <../docs/rpmsg_design>` mechanism must be implemented
+directly on both the main and remote processors, ensuring that each core provides the necessary
+firmware lifecycle management, messaging, shared‑memory handling, and notification logic without
+relying on OS‑level drivers or frameworks.
+
+- Pros: Lightweight.
+- Cons: Highly custom and less portable.
+
+
+.. _device-rpmsg:
+
+Device Level Custom RPMsg
+=========================
+
+In a simpler bare‑metal only environments, a port of only :doc:`RPMsg <../docs/rpmsg_design>` may
+be required without any driver‑level abstraction.
+In this case, only the :doc:`RPMsg <../docs/rpmsg_design>` mechanism need be implemented
+directly on both the main and remote processors, ensuring that each core provides the necessary
+IPC and notification logic without relying on OS‑level drivers or frameworks.
+
+- Pros: Very lightweight.
+- Cons: Highly custom and less portable.
+
 The `OpenAMP Framework <https://github.com/OpenAMP/open-amp>`_ uses
 `libmetal <https://github.com/OpenAMP/libmetal>`_ to provide abstractions that allows for porting
 of the OpenAMP Framework to various software environments (operating systems and bare metal
