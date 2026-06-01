@@ -364,171 +364,47 @@ From `load_fw.c <https://github.com/OpenAMP/openamp-system-reference/tree/main/e
    :lines: 21-57
 
 
-
-
-
-
-
-
 .. _port-rpmsg:
 
-**************************************
-Platform Specific Porting to Use RPMsg
-**************************************
+***********************
+Platform Specific RPMsg
+***********************
 
-RPMsg in OpenAMP implementation uses `VirtIO <https://docs.oasis-open.org/virtio/virtio/>`_
-to manage the shared buffers. OpenAMP library provides
-`remoteproc VirtIO backend implementation <https://github.com/OpenAMP/open-amp/blob/main/lib/remoteproc/remoteproc_virtio.c>`_.
-You don't have to use remoteproc backend. You can implement your VirtIO backend with the VirtIO
-and RPMsg implementation in OpenAMP. If you want to implement your own VirtIO backend, you can
-refer to the
-`remoteproc VirtIO backend implementation < https://github.com/OpenAMP/open-amp/blob/main/lib/remoteproc/remoteproc_virtio.c>`_.
+In OpenAMP, :doc:`RPMsg <../docs/rpmsg_design>` uses
+`VirtIO <https://docs.oasis-open.org/virtio/virtio/>`_ to manage shared buffers.
+The OpenAMP library provides a
+`Remoteproc VirtIO <https://github.com/OpenAMP/open-amp/blob/main/lib/remoteproc/remoteproc_virtio.c>`_
+backend implementation, and a
+`VirtIO and RPMsg <https://github.com/OpenAMP/open-amp/blob/main/lib/rpmsg/rpmsg_virtio.c>`_
+implementation.
 
-Here are the steps to use OpenAMP for RPMsg communication:
+You can also implement your own VirtIO backend using the
+`OpenAMP VirtIO <https://github.com/OpenAMP/open-amp/tree/main/lib/virtio>`_ and
+`RPMsg <https://github.com/OpenAMP/open-amp/tree/main/lib/rpmsg>`_ components provided by OpenAMP.
+
+If you choose to create your own backend, you can use the
+`Remoteproc VirtIO <https://github.com/OpenAMP/open-amp/blob/main/lib/remoteproc/remoteproc_virtio.c>`_
+backend as a reference.
+
+For an example of setting up Remoteproc and Virtio for a remote device refer to
+`zynqmp platform_info.c <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/legacy_apps/machine/xlnx/zynqmp/platform_info.c>`_
+
+*****************
+Examples of Ports
+*****************
 
 
-.. code-block:: c
+Example of Driver based Remoteproc Virtio
+=========================================
 
-  #include <openamp/remoteproc.h>
-  #include <openamp/rpmsg.h>
-  #include <openamp/rpmsg_virtio.h>
+Most of the :doc:`../demos/index` are examples of example of :ref:`driver-lcm-remoteproc-rpmsg`,
+using Virtio through a :ref:`Resource Table<resource-table>` with the most advanced being the
+`Zephyr RPMsg Multi Service Demo <https://github.com/OpenAMP/openamp-system-reference/tree/main/examples/zephyr/rpmsg_multi_services>`_
+detailed in :doc:`../demos/rpmsg_multi_services`.
 
-  /* User defined remoteproc operations for communication */
-  sturct remoteproc rproc_ops = {
-  	.init = local_rproc_init;
-  	.mmap = local_rproc_mmap;
-  	.notify = local_rproc_notify;
-  	.remove = local_rproc_remove;
-  };
 
-  /* Remoteproc instance. If you don't use Remoteproc VirtIO backend,
-   * you don't need to define the remoteproc instance.
-   */
-  struct remoteproc rproc;
+Example of Device based RPMsg only with Virtio
+==============================================
 
-  /* RPMsg VirtIO device instance. */
-  struct rpmsg_virtio_device rpmsg_vdev;
-
-  /* RPMsg device */
-  struct rpmsg_device *rpmsg_dev;
-
-  /* Resource Table. Resource table is used by remoteproc to describe
-   * the shared resources such as vdev(VirtIO device) and other shared memory.
-   * Resource table resources definition is in the remoteproc.h.
-   * Examples of the resource table can be found in the OpenAMP repo:
-   *  - apps/machine/zynqmp/rsc_table.c
-   *  - apps/machine/zynqmp_r5/rsc_table.c
-   *  - apps/machine/zynq7/rsc_table.c
-   */
-  void *rsc_table = &resource_table;
-
-  /* Size of the resource table */
-  int rsc_size = sizeof(resource_table);
-
-  /* Shared memory metal I/O region. It will be used by OpenAMP library
-   * to access the memory. You can have more than one shared memory regions
-   * in your application.
-   */
-  struct metal_io_region *shm_io;
-
-  /* VirtIO device */
-  struct virtio_device *vdev;
-
-  /* RPMsg shared buffers pool */
-  struct rpmsg_virtio_shm_pool shpool;
-
-  /* Shared buffers */
-  void *shbuf;
-
-  /* RPMsg endpoint */
-  struct rpmsg_endpoint ept;
-
-  /* User defined RPMsg name service callback. This callback is called
-   * when there is no registered RPMsg endpoint is found for this name
-   * service. User can create RPMsg endpoint in this callback. */
-  void ns_bind_cb(struct rpmsg_device *rdev, const char *name, uint32_t dest);
-
-  /* User defined RPMsg endpoint received message callback */
-  void rpmsg_ept_cb(struct rpmsg_endpoint *ept, void *data, size_t len,
-  		uint32_t src, void *priv);
-
-  /* User defined RPMsg name service unbind request callback */
-  void ns_unbind_cb(struct rpmsg_device *rdev, const char *name, uint32_t dest);
-
-  void main(void)
-  {
-  	/* Instantiate remoteproc instance */
-  	remoteproc_init(&rproc, &rproc_ops);
-
-  	/* Mmap shared memories so that they can be used */
-  	remoteproc_mmap(&rproc, &physical_address, NULL, size,
-  			<memory_attributes>, &shm_io);
-
-  	/* Parse resource table to remoteproc */
-  	remoteproc_set_rsc_table(&rproc, rsc_table, rsc_size);
-
-  	/* Create VirtIO device from remoteproc.
-  	 * VirtIO device main controller will initiate the VirtIO rings, and assign
-  	 * shared buffers. If you running the application as VirtIO device, you
-  	 * set the role as VIRTIO_DEV_DEVICE.
-  	 * If you don't use remoteproc, you will need to define your own VirtIO
-  	 * device.
-  	 */
-  	vdev = remoteproc_create_virtio(&rproc, 0, VIRTIO_DEV_DRIVER, NULL);
-
-  	/* This step is only required if you are VirtIO device main controller.
-  	 * Initialize the shared buffers pool.
-  	 */
-  	shbuf = metal_io_phys_to_virt(shm_io, SHARED_BUF_PA);
-  	rpmsg_virtio_init_shm_pool(&shpool, shbuf, SHARED_BUFF_SIZE);
-
-  	/* Initialize RPMsg VirtIO device with the VirtIO device */
-  	/* If it is VirtIO device, it will not return until the main
-  	 * controller side sets the VirtIO device DRIVER OK status bit.
-  	 */
-  	rpmsg_init_vdev(&rpmsg_vdev, vdev, ns_bind_cb, io, shm_io, &shpool);
-
-  	/* Get RPMsg device from RPMsg VirtIO device */
-  	rpmsg_dev = rpmsg_virtio_get_rpmsg_device(&rpmsg_vdev);
-
-  	/* Create RPMsg endpoint. */
-  	rpmsg_create_ept(&ept, rdev, RPMSG_SERVICE_NAME, RPMSG_ADDR_ANY,
-  			 rpmsg_ept_cb, ns_unbind_cb);
-
-  	/* If it is VirtIO device main controller, it sends the first message */
-  	while (!is_rpmsg_ept_read(&ept)) {
-  		/* check if the endpoint has binded.
-  		 * If not, wait for notification. If local endpoint hasn't
-  		 * been bound with the remote endpoint, it will fail to
-  		 * send the message to the remote.
-  		 */
-  		/* If you prefer to use interrupt, you can wait for
-  		 * interrupt here, and call the VirtIO notified function
-  		 * in the interrupt handling task.
-  		 */
-  		rproc_virtio_notified(vdev, RSC_NOTIFY_ID_ANY);
-  	}
-  	/* Send RPMsg */
-  	rpmsg_send(&ept, data, size);
-
-  	do {
-  		/* If you prefer to use interrupt, you can wait for
-  		 * interrupt here, and call the VirtIO notified function
-  		 * in the interrupt handling task.
-  		 * If vdev is notified, the endpoint callback will be
-  		 * called.
-  		 */
-  		rproc_virtio_notified(vdev, RSC_NOTIFY_ID_ANY);
-  	} while(!ns_unbind_cb_is_called && !user_decided_to_end_communication);
-
-  	/* End of communication, destroy the endpoint */
-  	rpmsg_destroy_ept(&ept);
-
-  	rpmsg_deinit_vdev(&rpmsg_vdev);
-
-  	remoteproc_remove_virtio(&rproc, vdev);
-
-  	remoteproc_remove(&rproc);
-  }
-
-.
+For an example of :ref:`device-rpmsg` without Remoteproc and a Resource Table, refer to the
+`Zephyr IPC OpenAMP Demo <https://github.com/zephyrproject-rtos/zephyr/tree/main/samples/subsys/ipc/openamp>`_
