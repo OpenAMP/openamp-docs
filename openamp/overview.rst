@@ -287,7 +287,7 @@ This is achieved through the OpenAMP library which:
         - Bare Metal (No OS)
         - Multiple RTOS's, including `FreeRTOS <https://freertos.org/>`_,
           `NuttX <https://nuttx.apache.org/>`_, `Zephyr <https://www.zephyrproject.org/>`_,
-          `VxWorks < https://www.windriver.com/products/embedded/vxworks>`_, and more
+          `VxWorks <https://www.windriver.com/products/embedded/vxworks>`_, and more
 
         - OS's on top of hypervisors
         - Within hypervisors
