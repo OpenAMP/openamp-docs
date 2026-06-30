@@ -3,8 +3,10 @@
 # here.
 #
 # For the main project, the settings should look like:
+#   env | grep READTHEDOCS
 #   git clone $READTHEDOCS_GIT_CLONE_URL .
-#   git checkout --force $READTHEDOCS_GIT_IDENTIFIER
+#   if [ x"$READTHEDOCS_VERSION_TYPE" = x"branch" ]; then git fetch origin $READTHEDOCS_GIT_IDENTIFIER; else git fetch origin pull/$READTHEDOCS_GIT_IDENTIFIER/head; fi
+#   git checkout --force FETCH_HEAD
 #   git submodule sync
 #   git submodule update --init --force --recursive
 
