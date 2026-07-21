@@ -14,6 +14,7 @@ at the offset location of each entry. Directly following the header are the reso
 themselves, each of which has a 32 bit type. These in remote context will likely be memory carveouts
 for locations of parts of the remote system and virtio device definitions.
 
+
 +--------------+--------------------------------------------------------------------------------+
 |     Item     |                                  Description                                   |
 +==============+================================================================================+
@@ -30,14 +31,22 @@ for locations of parts of the remote system and virtio device definitions.
 |              | can correctly extract the information.                                         |
 +--------------+--------------------------------------------------------------------------------+
 
-The fw_resource_type's are listed in the
-`remoteproc header <https://github.com/OpenAMP/open-amp/blob/main/lib/include/openamp/remoteproc.h>`_.
+The resource table is effectively a list of resource definitions, with each entry detailed by the
+corresponding :ref:`resource structure<resource-structure>`, and the Remoteproc framework
+is responsible for configuring the resources need by the remote processor (shared memory, trace
+buffers, vendor specific resources).
+
+The possible resource types are defined in the
+`Remoteproc Header <https://github.com/OpenAMP/open-amp/blob/main/lib/include/openamp/remoteproc.h>`_
+and detailed in the :ref:`resource-types` section below.
+
 
 Compatibility with Linux kernel
 -------------------------------
 
-The resource table should maintain compatibility with that of
-`remoteproc <https://www.kernel.org/doc/html/latest/staging/remoteproc.html>`_.
+With Linux being a key full stack operating system in the embedded devices space, the resource
+table should maintain compatibility with that of
+`Linux Remoteproc <https://www.kernel.org/doc/html/latest/staging/remoteproc.html>`_.
 
 ::
 
@@ -45,3 +54,42 @@ The resource table should maintain compatibility with that of
 
 Related documentation can be found under the Linux kernel's remoteproc documentation:
 `Binary Firmware Structure <https://www.kernel.org/doc/html/latest/staging/remoteproc.html#binary-firmware-structure>`_.
+
+
+.. _resource-types:
+
+Resource Types
+**************
+
+Each of the resources in the :ref:`resource-table` is defined by a type (fw_resource_type) and
+its corresponding :ref:`structure<resource-structure>`.
+
+.. doxygenenum:: fw_resource_type
+   :project: openamp_doc_embed
+
+
+.. _resource-structure:
+
+Resource Structure Definitions
+------------------------------
+
+The following structures correspond to each of the :ref:`resource-types` (fw_resource_type).
+
+.. doxygenstruct:: fw_rsc_carveout
+   :project: openamp_doc_embed
+
+.. doxygenstruct:: fw_rsc_devmem
+   :project: openamp_doc_embed
+
+.. doxygenstruct:: fw_rsc_trace
+   :project: openamp_doc_embed
+
+.. doxygenstruct:: fw_rsc_vdev
+   :project: openamp_doc_embed
+
+
+In addition to the predefined :ref:`resource-types` vendors can define their
+own with types between RSC_VENDOR_START and RSC_VENDOR_END.
+
+.. doxygenstruct:: fw_rsc_vendor
+   :project: openamp_doc_embed

@@ -4,6 +4,207 @@
 Porting GuideLine
 =================
 
+********
+Hardware
+********
+
+The porting of OpenAMP to a new :doc:`multicore system <../openamp/overview>` requires
+some hardware for inter-processor communication.
+
+- Shared memory for
+
+    - the :ref:`RPMsg<overview-rpmsg-work-label>` buffer
+    - the :ref:`Virtio Rings<docs/data_structures_content:Shared virtqueue structure>`
+    - the :ref:`Resource Table<resource-table>`
+      (optional if the RPMsg host is not the Linux kernel)
+
+- Optional, but recommended, mailboxes acting as a ring bell interrupt on processors to
+  notify of message reception
+
+Memory and interrupt assignments are critical design choices for any port. For a broader overview, refer to
+:doc:`../protocol_details/system_considerations`.
+
+
+Shared Memory
+=============
+
+Shared memory forms the :ref:`physical layer<rpmsg-layers-work-label>` for
+:doc:`RPMsg <../docs/rpmsg_design>` protocol.
+The specific memory type and layout are implementation dependent, but should be a dedicated
+SRAM or DDR region accessible by both cores. Caching is enabled in OpenAMP with the
+`WITH_DCACHE <https://github.com/OpenAMP/open-amp/blob/main/cmake/options.cmake>`_
+cmake configuration.
+
+Memory requirements are generally modest because :doc:`RPMsg <../docs/rpmsg_design>` is a
+control‑oriented protocol rather than a high‑bandwidth streaming channel. For example, using
+the Linux RPMsg packet size of 512 bytes, a 64kB shared memory region can hold roughly 128
+messages — sufficient for most applications. Larger or smaller allocations can be chosen based
+on system needs.
+
+In addition to the messages, the Virtio ring structures need memory allocated. For Linux
+this equates to 2*4k but likely less for other implementations.
+
+If the :ref:`Resource Table<resource-table>` is not embedded in the remote firmware image,
+additional shared memory may be required for a dynamic table.
+
+:ref:`Remoteproc<overview-remoteproc-work-label>` can also use shared memory for optional
+trace buffers.
+
+
+Memory Protection
+-----------------
+
+Because this is shared memory, appropriate hardware memory protection should be configured
+on both processors.
+
+Depending on the memory type, this may involve configuring the Memory Management Unit (MMU),
+Memory Protection Unit (MPU), or Input-Output Memory Management Unit (IOMMU) to enforce
+correct access permissions.
+
+On systems running an advanced OS — such as Linux on the main
+processor — these protections may be applied through OS mechanisms like the device tree or
+via the :ref:`Remoteproc<overview-remoteproc-work-label>` :ref:`Resource Table<resource-table>`.
+
+
+Notification
+------------
+
+:doc:`RPMsg <../docs/rpmsg_design>` uses :ref:`ring buffers<rpmsg-protocol-mac>` in shared
+memory, so either processor can poll for incoming messages. However, asynchronous notification
+via interrupts is recommended.
+
+Most heterogeneous SoCs include a built‑in inter‑core interrupt mechanism, often called a
+mailbox. The sending core raises the mailbox interrupt to notify the other core that a vring has
+been updated for message reception, buffer release, or both.
+The core can then manage the message in normal context, for example, in a thread, or in
+interrupt.
+
+
+***************
+Porting Options
+***************
+
+OpenAMP consists of two major components: :ref:`Remoteproc<overview-remoteproc-work-label>`
+and :doc:`RPMsg <../docs/rpmsg_design>`. These can be ported
+independently or together.
+
+The :doc:`RPMsg <../docs/rpmsg_design>` port on the main processor is usually a virtio driver
+level and the remote processor the virtio device role.
+
+`libmetal <https://github.com/OpenAMP/libmetal>`_ provides the
+:ref:`hardware abstraction layer<hardware-abstraction>` for both.
+
+The main porting approaches include:
+
+- :ref:`Remoteproc<overview-remoteproc-work-label>` on the remote processor only,
+  with the main processor using an existing
+  :ref:`Remoteproc<overview-remoteproc-work-label>` implementation (e.g., Linux Remoteproc)
+  and no IPC.
+
+- :doc:`RPMsg <../docs/rpmsg_design>` on the remote processor only, with the main processor
+  using an existing :doc:`RPMsg <../docs/rpmsg_design>` stack (e.g., Linux RPMsg) and no
+  remote firmware management.
+
+- Custom device‑level implementation of :ref:`Remoteproc<overview-remoteproc-work-label>`
+  and/or :doc:`RPMsg <../docs/rpmsg_design>` for both processors.
+
+
+.. _driver-lcm-remoteproc:
+
+Driver Lifecycle Management via Remoteproc
+==========================================
+
+Some systems do not require IPC or use an alternative IPC mechanism. In these cases, only
+:ref:`Remoteproc<overview-remoteproc-work-label>` may be ported (or reused, as on Linux)
+on both the main and remote processors.
+
+The main processor uses driver level :ref:`Remoteproc<overview-remoteproc-work-label>` to
+load, start, stop, and manage remote firmware.
+This approach is useful when the remote firmware must be externally controlled or when
+multiple firmware images may be deployed depending on runtime needs.
+This configuration is common in custom or bare‑metal remote environments.
+
+- Pros: Full remote firmware management
+- Cons: No IPC. Larger software footprint
+
+
+.. _driver-lcm-remoteproc-rpmsg:
+
+Driver Lifecycle Management via Remoteproc with IPC
+===================================================
+
+This setup is the most complete and includes driver based lifecycle management and IPC.
+In these cases, both :ref:`Remoteproc<overview-remoteproc-work-label>` and
+:doc:`RPMsg <../docs/rpmsg_design>` need to be ported (or reused, as on Linux) on both
+the main and remote processors.
+
+The main processor uses driver level :ref:`Remoteproc<overview-remoteproc-work-label>` and
+:doc:`RPMsg <../docs/rpmsg_design>`.
+
+This approach is useful when full IPC and remote firmware control is required.
+
+This configuration is common in custom or bare‑metal remote environments.
+
+- Pros: Full IPC and remote firmware management
+- Cons: Largest software footprint
+
+
+.. _driver-rpmsg:
+
+Driver to Remote IPC via RPMsg
+==============================
+
+If the remote firmware is static and starts at boot, or if another framework manages
+firmware loading, only :doc:`RPMsg <../docs/rpmsg_design>` needs to be ported.
+In this model, the remote processor runs its firmware autonomously, and the main processor
+interacts with it solely through the :doc:`RPMsg <../docs/rpmsg_design>` communication channel,
+without any involvement in firmware lifecycle control. This approach suits systems where the
+remote environment is minimal or bare‑metal, and where the primary requirement is efficient
+message‑based IPC rather than external management of the remote core.
+
+- Pros: Lightweight. Provides IPC.
+- Cons: No remote firmware management.
+
+
+.. _device-lcm-remoteproc:
+
+Device Level Custom Remoteproc and RPMsg
+========================================
+
+In highly customized or bare‑metal only environments, a port of
+:ref:`Remoteproc<overview-remoteproc-work-label>` and :doc:`RPMsg <../docs/rpmsg_design>` may
+be required without any driver‑level abstraction.
+In this case, the full :ref:`Remoteproc<overview-remoteproc-work-label>` and
+:doc:`RPMsg <../docs/rpmsg_design>` mechanism must be implemented
+directly on both the main and remote processors, ensuring that each core provides the necessary
+firmware lifecycle management, messaging, shared‑memory handling, and notification logic without
+relying on OS‑level drivers or frameworks.
+
+- Pros: Lightweight.
+- Cons: Highly custom and less portable.
+
+
+.. _device-rpmsg:
+
+Device Level Custom RPMsg
+=========================
+
+In a simpler bare‑metal only environments, a port of only :doc:`RPMsg <../docs/rpmsg_design>` may
+be required without any driver‑level abstraction.
+In this case, only the :doc:`RPMsg <../docs/rpmsg_design>` mechanism need be implemented
+directly on both the main and remote processors, ensuring that each core provides the necessary
+IPC and notification logic without relying on OS‑level drivers or frameworks.
+
+- Pros: Very lightweight.
+- Cons: Highly custom and less portable.
+
+
+.. _hardware-abstraction:
+
+********************
+Hardware Abstraction
+********************
+
 The `OpenAMP Framework <https://github.com/OpenAMP/open-amp>`_ uses
 `libmetal <https://github.com/OpenAMP/libmetal>`_ to provide abstractions that allows for porting
 of the OpenAMP Framework to various software environments (operating systems and bare metal
@@ -107,13 +308,16 @@ compiler to GNU gcc, you may need to implement the atomic operations defined in
 
 .. _port-remoteproc-driver:
 
+
 ***********************************
 Platform Specific Remoteproc Driver
 ***********************************
 
-An OpenAMP port could need a platform specific remoteproc driver to use remoteproc
-life cycle management (LCM) APIs. The remoteproc driver platform specific functions are defined
-in `lib/include/openamp/remoteproc.h <https://github.com/OpenAMP/open-amp/blob/main/lib/include/openamp/remoteproc.h>`_ and provided through the :openamp_doc_link:`remoteproc_ops data structure <remoteproc_ops>`.
+An OpenAMP port could need a platform specific :ref:`Remoteproc<overview-remoteproc-work-label>`
+driver to use :ref:`Remoteproc<overview-remoteproc-work-label>` life cycle management (LCM) APIs.
+The :ref:`Remoteproc<overview-remoteproc-work-label>` driver platform specific functions are defined in
+`lib/include/openamp/remoteproc.h <https://github.com/OpenAMP/open-amp/blob/main/lib/include/openamp/remoteproc.h>`_
+and provided through the :openamp_doc_link:`remoteproc_ops data structure <remoteproc_ops>`.
 
 The remoteproc LCM APIs use these platform specific implementation of init, remove, mmap,
 handle_rsc, config, start, stop, shutdown and notify. These functions are passed to remoteproc
@@ -127,243 +331,80 @@ by the other APIs.
 
 .. _port-remoteproc:
 
-**********************************************************************
-Platform Specific Porting to Use Remoteproc to Manage Remote Processor
-**********************************************************************
 
-With the platform specific :ref:`remoteproc driver functions<port-remoteproc-driver>`
-implemented by the port, the user can use remoteproc APIs to run application on a remote processor.
+Use Remoteproc to Manage Remote Processor
+=========================================
 
-.. doxygenfunction:: remoteproc_init
-   :project: openamp_doc_embed
+With the :ref:`remoteproc driver functions<port-remoteproc-driver>` required
+by the framework ported, the user can call the :ref:`Remoteproc<overview-remoteproc-work-label>`
+APIs to run an application on a remote processor, as described in the
+:ref:`Remote User APIs<remoteproc_config>` section of the Remoteproc design.
 
-.. doxygenfunction:: remoteproc_remove
+The following code snippets from the
+`Load FW System Reference Example <https://github.com/OpenAMP/openamp-system-reference/tree/main/examples/legacy_apps/examples/load_fw>`_
+demonstrate the use of the Remote User APIs.
 
-.. doxygenfunction:: remoteproc_mmap
+Remoteproc Init
+---------------
 
-.. doxygenfunction:: remoteproc_config
+From `platform_info.c <https://github.com/OpenAMP/openamp-system-reference/tree/main/examples/legacy_apps/examples/load_fw/platform_info.c>`_
 
-.. doxygenfunction:: remoteproc_start
-
-.. doxygenfunction:: remoteproc_stop
-
-.. doxygenfunction:: remoteproc_shutdown
-
-
-The following code snippet is an example execution.
+.. literalinclude::  ../openamp-system-reference/examples/legacy_apps/examples/load_fw/platform_info.c
+   :language: c
+   :lines: 16-31
 
 
-.. code-block:: c
+Lifecycle APIs
+--------------
 
-  #include <openamp/remoteproc.h>
+From `load_fw.c <https://github.com/OpenAMP/openamp-system-reference/tree/main/examples/legacy_apps/examples/load_fw/load_fw.c>`_
 
-  /* User defined remoteproc operations */
-  extern struct remoteproc_ops rproc_ops;
+.. literalinclude::  ../openamp-system-reference/examples/legacy_apps/examples/load_fw/load_fw.c
+   :language: c
+   :lines: 21-57
 
-  /* User defined image store operations, such as open the image file, read
-   * image from storage, and close the image file.
-   */
-
-  extern struct image_store_ops img_store_ops;
-  /* Pointer to keep the image store information. It will be passed to user
-   * defined image store operations by the remoteproc loading application
-   * function. Its structure is defined by user.
-   */
-  void *img_store_info;
-
-  struct remoteproc rproc;
-
-  void main(void)
-  {
-  	/* Instantiate the remoteproc instance */
-  	remoteproc_init(&rproc, &rproc_ops, &private_data);
-
-  	/* Optional, required, if user needs to configure the remote before
-  	 * loading applications.
-  	 */
-  	remoteproc_config(&rproc, &platform_config);
-
-  	/* Load Application. It only supports ELF for now. */
-  	remoteproc_load(&rproc, img_path, img_store_info, &img_store_ops, NULL);
-
-  	/* Start the processor to run the application. */
-  	remoteproc_start(&rproc);
-
-  	/* ... */
-
-  	/* Optional. Stop the processor, but the processor is not powered
-  	 * down.
-  	 */
-  	remoteproc_stop(&rproc);
-
-  	/* Shutdown the processor. The processor is supposed to be powered
-  	 * down.
-  	 */
-  	remoteproc_shutdown(&rproc);
-
-  	/* Destroy the remoteproc instance */
-  	remoteproc_remove(&rproc);
-  }
 
 .. _port-rpmsg:
 
-**************************************
-Platform Specific Porting to Use RPMsg
-**************************************
+***********************
+Platform Specific RPMsg
+***********************
 
-RPMsg in OpenAMP implementation uses `VirtIO <https://docs.oasis-open.org/virtio/virtio/>`_
-to manage the shared buffers. OpenAMP library provides
-`remoteproc VirtIO backend implementation <https://github.com/OpenAMP/open-amp/blob/main/lib/remoteproc/remoteproc_virtio.c>`_.
-You don't have to use remoteproc backend. You can implement your VirtIO backend with the VirtIO
-and RPMsg implementation in OpenAMP. If you want to implement your own VirtIO backend, you can
-refer to the
-`remoteproc VirtIO backend implementation < https://github.com/OpenAMP/open-amp/blob/main/lib/remoteproc/remoteproc_virtio.c>`_.
+In OpenAMP, :doc:`RPMsg <../docs/rpmsg_design>` uses
+`VirtIO <https://docs.oasis-open.org/virtio/virtio/>`_ to manage shared buffers.
+The OpenAMP library provides a
+`Remoteproc VirtIO <https://github.com/OpenAMP/open-amp/blob/main/lib/remoteproc/remoteproc_virtio.c>`_
+backend implementation, and a
+`VirtIO and RPMsg <https://github.com/OpenAMP/open-amp/blob/main/lib/rpmsg/rpmsg_virtio.c>`_
+implementation.
 
-Here are the steps to use OpenAMP for RPMsg communication:
+You can also implement your own VirtIO backend using the
+`OpenAMP VirtIO <https://github.com/OpenAMP/open-amp/tree/main/lib/virtio>`_ and
+`RPMsg <https://github.com/OpenAMP/open-amp/tree/main/lib/rpmsg>`_ components provided by OpenAMP.
+
+If you choose to create your own backend, you can use the
+`Remoteproc VirtIO <https://github.com/OpenAMP/open-amp/blob/main/lib/remoteproc/remoteproc_virtio.c>`_
+backend as a reference.
+
+For an example of setting up Remoteproc and Virtio for a remote device refer to
+`zynqmp platform_info.c <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/legacy_apps/machine/xlnx/zynqmp/platform_info.c>`_
+
+*****************
+Examples of Ports
+*****************
 
 
-.. code-block:: c
+Example of Driver based Remoteproc Virtio
+=========================================
 
-  #include <openamp/remoteproc.h>
-  #include <openamp/rpmsg.h>
-  #include <openamp/rpmsg_virtio.h>
+Most of the :doc:`../demos/index` are examples of example of :ref:`driver-lcm-remoteproc-rpmsg`,
+using Virtio through a :ref:`Resource Table<resource-table>` with the most advanced being the
+`Zephyr RPMsg Multi Service Demo <https://github.com/OpenAMP/openamp-system-reference/tree/main/examples/zephyr/rpmsg_multi_services>`_
+detailed in :doc:`../demos/rpmsg_multi_services`.
 
-  /* User defined remoteproc operations for communication */
-  sturct remoteproc rproc_ops = {
-  	.init = local_rproc_init;
-  	.mmap = local_rproc_mmap;
-  	.notify = local_rproc_notify;
-  	.remove = local_rproc_remove;
-  };
 
-  /* Remoteproc instance. If you don't use Remoteproc VirtIO backend,
-   * you don't need to define the remoteproc instance.
-   */
-  struct remoteproc rproc;
+Example of Device based RPMsg only with Virtio
+==============================================
 
-  /* RPMsg VirtIO device instance. */
-  struct rpmsg_virtio_device rpmsg_vdev;
-
-  /* RPMsg device */
-  struct rpmsg_device *rpmsg_dev;
-
-  /* Resource Table. Resource table is used by remoteproc to describe
-   * the shared resources such as vdev(VirtIO device) and other shared memory.
-   * Resource table resources definition is in the remoteproc.h.
-   * Examples of the resource table can be found in the OpenAMP repo:
-   *  - apps/machine/zynqmp/rsc_table.c
-   *  - apps/machine/zynqmp_r5/rsc_table.c
-   *  - apps/machine/zynq7/rsc_table.c
-   */
-  void *rsc_table = &resource_table;
-
-  /* Size of the resource table */
-  int rsc_size = sizeof(resource_table);
-
-  /* Shared memory metal I/O region. It will be used by OpenAMP library
-   * to access the memory. You can have more than one shared memory regions
-   * in your application.
-   */
-  struct metal_io_region *shm_io;
-
-  /* VirtIO device */
-  struct virtio_device *vdev;
-
-  /* RPMsg shared buffers pool */
-  struct rpmsg_virtio_shm_pool shpool;
-
-  /* Shared buffers */
-  void *shbuf;
-
-  /* RPMsg endpoint */
-  struct rpmsg_endpoint ept;
-
-  /* User defined RPMsg name service callback. This callback is called
-   * when there is no registered RPMsg endpoint is found for this name
-   * service. User can create RPMsg endpoint in this callback. */
-  void ns_bind_cb(struct rpmsg_device *rdev, const char *name, uint32_t dest);
-
-  /* User defined RPMsg endpoint received message callback */
-  void rpmsg_ept_cb(struct rpmsg_endpoint *ept, void *data, size_t len,
-  		uint32_t src, void *priv);
-
-  /* User defined RPMsg name service unbind request callback */
-  void ns_unbind_cb(struct rpmsg_device *rdev, const char *name, uint32_t dest);
-
-  void main(void)
-  {
-  	/* Instantiate remoteproc instance */
-  	remoteproc_init(&rproc, &rproc_ops);
-
-  	/* Mmap shared memories so that they can be used */
-  	remoteproc_mmap(&rproc, &physical_address, NULL, size,
-  			<memory_attributes>, &shm_io);
-
-  	/* Parse resource table to remoteproc */
-  	remoteproc_set_rsc_table(&rproc, rsc_table, rsc_size);
-
-  	/* Create VirtIO device from remoteproc.
-  	 * VirtIO device main controller will initiate the VirtIO rings, and assign
-  	 * shared buffers. If you running the application as VirtIO device, you
-  	 * set the role as VIRTIO_DEV_DEVICE.
-  	 * If you don't use remoteproc, you will need to define your own VirtIO
-  	 * device.
-  	 */
-  	vdev = remoteproc_create_virtio(&rproc, 0, VIRTIO_DEV_DRIVER, NULL);
-
-  	/* This step is only required if you are VirtIO device main controller.
-  	 * Initialize the shared buffers pool.
-  	 */
-  	shbuf = metal_io_phys_to_virt(shm_io, SHARED_BUF_PA);
-  	rpmsg_virtio_init_shm_pool(&shpool, shbuf, SHARED_BUFF_SIZE);
-
-  	/* Initialize RPMsg VirtIO device with the VirtIO device */
-  	/* If it is VirtIO device, it will not return until the main
-  	 * controller side sets the VirtIO device DRIVER OK status bit.
-  	 */
-  	rpmsg_init_vdev(&rpmsg_vdev, vdev, ns_bind_cb, io, shm_io, &shpool);
-
-  	/* Get RPMsg device from RPMsg VirtIO device */
-  	rpmsg_dev = rpmsg_virtio_get_rpmsg_device(&rpmsg_vdev);
-
-  	/* Create RPMsg endpoint. */
-  	rpmsg_create_ept(&ept, rdev, RPMSG_SERVICE_NAME, RPMSG_ADDR_ANY,
-  			 rpmsg_ept_cb, ns_unbind_cb);
-
-  	/* If it is VirtIO device main controller, it sends the first message */
-  	while (!is_rpmsg_ept_read(&ept)) {
-  		/* check if the endpoint has binded.
-  		 * If not, wait for notification. If local endpoint hasn't
-  		 * been bound with the remote endpoint, it will fail to
-  		 * send the message to the remote.
-  		 */
-  		/* If you prefer to use interrupt, you can wait for
-  		 * interrupt here, and call the VirtIO notified function
-  		 * in the interrupt handling task.
-  		 */
-  		rproc_virtio_notified(vdev, RSC_NOTIFY_ID_ANY);
-  	}
-  	/* Send RPMsg */
-  	rpmsg_send(&ept, data, size);
-
-  	do {
-  		/* If you prefer to use interrupt, you can wait for
-  		 * interrupt here, and call the VirtIO notified function
-  		 * in the interrupt handling task.
-  		 * If vdev is notified, the endpoint callback will be
-  		 * called.
-  		 */
-  		rproc_virtio_notified(vdev, RSC_NOTIFY_ID_ANY);
-  	} while(!ns_unbind_cb_is_called && !user_decided_to_end_communication);
-
-  	/* End of communication, destroy the endpoint */
-  	rpmsg_destroy_ept(&ept);
-
-  	rpmsg_deinit_vdev(&rpmsg_vdev);
-
-  	remoteproc_remove_virtio(&rproc, vdev);
-
-  	remoteproc_remove(&rproc);
-  }
-
-.
+For an example of :ref:`device-rpmsg` without Remoteproc and a Resource Table, refer to the
+`Zephyr IPC OpenAMP Demo <https://github.com/zephyrproject-rtos/zephyr/tree/main/samples/subsys/ipc/openamp>`_
