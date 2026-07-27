@@ -246,6 +246,13 @@ Refer
 `Zephyr OpenAMP IPC Sample Remote <https://github.com/zephyrproject-rtos/zephyr/blob/main/samples/subsys/ipc/openamp/remote/src/main.c>`_
 for an example device role implementation.
 
+
+.. _hardware-abstraction:
+
+********************
+Hardware Abstraction
+********************
+
 The `OpenAMP Framework <https://github.com/OpenAMP/open-amp>`_ uses
 `libmetal <https://github.com/OpenAMP/libmetal>`_ to provide abstractions that allows for porting
 of the OpenAMP Framework to various software environments (operating systems and bare metal
@@ -253,7 +260,7 @@ environments) and machines (processors/platforms). To port OpenAMP for your plat
 need to:
 
     - add your system environment support to :ref:`libmetal<port-libmetal>`,
-    - optionally implement a platform specific :ref:`remoteproc driver<port-remoteproc>`.
+    - optionally implement a platform specific :ref:`Remoteproc driver<port-remoteproc>`.
     - define your shared memory layout and specify it in a :ref:`resource table<resource-table>`.
 
 .. _port-libmetal:
@@ -349,16 +356,19 @@ compiler to GNU gcc, you may need to implement the atomic operations defined in
 
 .. _port-remoteproc-driver:
 
+
 ***********************************
 Platform Specific Remoteproc Driver
 ***********************************
 
-An OpenAMP port could need a platform specific remoteproc driver to use remoteproc
-life cycle management (LCM) APIs. The remoteproc driver platform specific functions are defined
-in `lib/include/openamp/remoteproc.h <https://github.com/OpenAMP/open-amp/blob/main/lib/include/openamp/remoteproc.h>`_ and provided through the :openamp_doc_link:`remoteproc_ops data structure <remoteproc_ops>`.
+An OpenAMP port could need a platform specific :ref:`Remoteproc<overview-remoteproc-work-label>`
+driver to use :ref:`Remoteproc<overview-remoteproc-work-label>` life cycle management (LCM) APIs.
+The :ref:`Remoteproc<overview-remoteproc-work-label>` driver platform specific functions are defined in
+`lib/include/openamp/remoteproc.h <https://github.com/OpenAMP/open-amp/blob/main/lib/include/openamp/remoteproc.h>`_
+and provided through the :openamp_doc_link:`remoteproc_ops data structure <remoteproc_ops>`.
 
-The remoteproc LCM APIs use these platform specific implementation of init, remove, mmap,
-handle_rsc, config, start, stop, shutdown and notify. These functions are passed to remoteproc
+The Remoteproc LCM APIs use these platform specific implementation of init, remove, mmap,
+handle_rsc, config, start, stop, shutdown and notify. These functions are passed to Remoteproc
 via the remoteproc_ops structure which contains function pointers to each.
 
 .. doxygenstruct:: remoteproc_ops
@@ -367,70 +377,46 @@ via the remoteproc_ops structure which contains function pointers to each.
 The remoteproc_init API receives this structure, and its function pointers, which are then used
 by the other APIs.
 
+For example Cortex-R5 remoteproc_ops are defined in
+`zynqmp_r5_a53_rproc.c <https://github.com/OpenAMP/openamp-system-reference/blob/main/examples/legacy_apps/machine/xlnx/zynqmp_r5/zynqmp_r5_a53_rproc.c>`_.
+
 .. _port-remoteproc:
 
-**********************************************************************
-Platform Specific Porting to Use Remoteproc to Manage Remote Processor
-**********************************************************************
 
-With the platform specific :ref:`remoteproc driver functions<port-remoteproc-driver>`
-implemented by the port, the user can use remoteproc APIs to run application on a remote processor,
-as detailed in the :ref:`Remote User APIs<remoteproc_config>` section of the Remote Proc Design.
+Use Remoteproc to Manage Remote Processor
+=========================================
 
-The following code snippet is an example execution.
+With the :ref:`Remoteproc driver functions<port-remoteproc-driver>` required
+by the framework ported, the user can call the :ref:`Remoteproc<overview-remoteproc-work-label>`
+APIs to run an application on a remote processor, as described in the
+:ref:`Remote User APIs<remoteproc_config>` section of the Remoteproc design.
+
+The following code snippets from the
+`Load FW System Reference Example <https://github.com/OpenAMP/openamp-system-reference/tree/main/examples/legacy_apps/examples/load_fw>`_
+demonstrate the use of the Remote User APIs.
+
+Remoteproc Init
+---------------
+
+From `platform_info.c <https://github.com/OpenAMP/openamp-system-reference/tree/main/examples/legacy_apps/examples/load_fw/platform_info.c>`_
+
+.. literalinclude::  ../openamp-system-reference/examples/legacy_apps/examples/load_fw/platform_info.c
+   :language: c
+   :lines: 16-31
 
 
-.. code-block:: c
+Lifecycle APIs
+--------------
 
-  #include <openamp/remoteproc.h>
+From `load_fw.c <https://github.com/OpenAMP/openamp-system-reference/tree/main/examples/legacy_apps/examples/load_fw/load_fw.c>`_
 
-  /* User defined remoteproc operations */
-  extern struct remoteproc_ops rproc_ops;
+.. literalinclude::  ../openamp-system-reference/examples/legacy_apps/examples/load_fw/load_fw.c
+   :language: c
+   :start-at: int load_exectuable_block
+   :end-before: int load_exectuable_noblock
 
-  /* User defined image store operations, such as open the image file, read
-   * image from storage, and close the image file.
-   */
 
-  extern struct image_store_ops img_store_ops;
-  /* Pointer to keep the image store information. It will be passed to user
-   * defined image store operations by the remoteproc loading application
-   * function. Its structure is defined by user.
-   */
-  void *img_store_info;
 
-  struct remoteproc rproc;
-
-  void main(void)
-  {
-  	/* Instantiate the remoteproc instance */
-  	remoteproc_init(&rproc, &rproc_ops, &private_data);
-
-  	/* Optional, required, if user needs to configure the remote before
-  	 * loading applications.
-  	 */
-  	remoteproc_config(&rproc, &platform_config);
-
-  	/* Load Application. It only supports ELF for now. */
-  	remoteproc_load(&rproc, img_path, img_store_info, &img_store_ops, NULL);
-
-  	/* Start the processor to run the application. */
-  	remoteproc_start(&rproc);
-
-  	/* ... */
-
-  	/* Optional. Stop the processor, but the processor is not powered
-  	 * down.
-  	 */
-  	remoteproc_stop(&rproc);
-
-  	/* Shutdown the processor. The processor is supposed to be powered
-  	 * down.
-  	 */
-  	remoteproc_shutdown(&rproc);
-
-  	/* Destroy the remoteproc instance */
-  	remoteproc_remove(&rproc);
-  }
 
 .. _port-rpmsg:
 
