@@ -64,7 +64,8 @@ extensions = [
     'myst_parser',
     'sphinxcontrib.doxylink',
     'breathe',
-    'sphinx.builders.linkcheck'
+    'sphinx.builders.linkcheck',
+    'sphinx_copybutton'
 ]
 
 # Name doxylink "links" to library repositories <library>_doc_link as it is a
