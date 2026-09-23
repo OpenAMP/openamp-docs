@@ -156,7 +156,7 @@ RPMsg Protocol Limitations
 **************************
 
     The RPMSG document has the concept of the static channel but it is not implemented in upstream
-    Linux and OpenAMP. Please see https://www.kernel.org/doc/Documentation/rpmsg.txt. The protocol
+    Linux and OpenAMP. Please see https://www.kernel.org/doc/html/latest/staging/rpmsg.html. The protocol
     must define the connection sequence when the channel is created statically.
     No synchronization point is defined by the RPMsg framework after which both sides can
     communicate reliably with each other. In the current protocol, at startup, the host sends a
