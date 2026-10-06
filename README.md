@@ -8,7 +8,7 @@ find [the OpenAMP Readthedocs site here](https://openamp.readthedocs.io/en/lates
 
 The OpenAMP Documentation is an open source project and welcomes community contributions.
 
-We use standard Github mechanism for a pull request (PR). Please refer to github documentation
+We use standard GitHub mechanism for a pull request (PR). Please refer to GitHub documentation
 for help.
 
 We recommend you verify your changes locally using the
@@ -37,7 +37,7 @@ Creating a PR for openamp/openamp-docs will build the new docs and they can be r
 
 You can locate the Sphinx rendered documentation for the PR by
 * Opening the pull request in
-  [Github OpenAMP Pull Requests](https://github.com/OpenAMP/openamp-docs/pulls)
+  [GitHub OpenAMP Pull Requests](https://github.com/OpenAMP/openamp-docs/pulls)
 * Clicking the down arrow next to the **All checks have passed** at the
   bottom of the PR
 * Clicking on the link to **docs/readthedocs.org:openamp**
