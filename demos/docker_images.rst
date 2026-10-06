@@ -46,16 +46,16 @@ Docker quick start for Ubuntu
 
 Example for Ubuntu 20.04 or 22.04:
 
-::
+.. code-block:: shell
 
-    $ sudo apt update; sudo apt install docker.io; sudo adduser $USER docker
+    sudo apt update; sudo apt install docker.io; sudo adduser $USER docker
 
 Then **logout** and **log back in** in order to get the new group.
 You can check your groups with the command:
 
-::
+.. code-block:: shell
 
-    $ groups
+    groups
 
 .. warning::
     If you cannot add yourself to the docker group, you can run docker with ``sudo``
@@ -105,14 +105,14 @@ Start Docker Demos using Container
 You will now be at a command prompt inside the container.
 As part of logging you in, some guidance will be printed on how to run the demos.
 
-::
+.. code-block:: text
 
     Welcome to the OpenAMP demo (lite version)
     You can run the demos by using
-        $ qemu-zcu102 demo1
+        qemu-zcu102 demo1
     Where demo1 is any of demo1 demo2 demo3 or demo4
     You can also run the lopper demo like
-        $ ./demo5/demo5
+        ./demo5/demo5
 
     Enjoy!
     dev@openamp-demo:~$
@@ -206,9 +206,9 @@ printed immediately after login.
     This is demo1, rpmsg examples on R5 lockstep
     There are 3 sub-demos here: demo1A demo1B and demo1C
     Look at them
-    $ cat demo1A
+    cat demo1A
     or just run them
-    $ ./demo1A
+    ./demo1A
 
     root@generic-arm64:~#
 
