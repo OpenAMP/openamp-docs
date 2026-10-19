@@ -52,6 +52,8 @@ RPMsg Virtio Endpoint APIs
 .. doxygenfunction:: is_rpmsg_ept_ready
    :project: openamp_doc_embed
 
+.. _rpmsg-messaging-apis:
+
 RPMsg Messaging APIs
 ^^^^^^^^^^^^^^^^^^^^
 
@@ -72,6 +74,70 @@ RPMsg Messaging APIs
 
 .. doxygenfunction:: rpmsg_trysend_offchannel
    :project: openamp_doc_embed
+
+RPMsg No Copy Messaging
+^^^^^^^^^^^^^^^^^^^^^^^
+
+To improve performance, memory copy overhead can be removed if the sender and receiver use the
+"nocopy" alternates of the :ref:`RPMsg messaging APIs<rpmsg-messaging-apis>`.
+
+Dedicated functions to reserve and release the underlying shared memory buffers are used,
+ensuring the endpoint user operates directly on Virtio buffers without an extra copy.
+
+
+**The sender would follow the sequence**
+
+.. graphviz::
+   :class: graphviz-spacer
+
+   digraph rpmsg_tx_nocopy {
+       rankdir=TB;
+       node [shape=box, fontsize=10];
+       edge [fontsize=10];
+
+       reserve [label="Reserve the buffer using rpmsg_get_tx_payload_buffer"];
+       write [label="Write the payload to the buffer which is in shared memory"];
+       send [label="Send the payload, using\nrpmsg_send_nocopy,\nrpmsg_sendto_nocopy or\nrpmsg_send_offchannel_nocopy"];
+       release [label="System releases buffer"];
+       failed_send [shape=diamond, label="Fail send?"];
+
+       reserve -> write -> send;
+       failed_send -> send [label="No, retry", headport=e];
+       send -> failed_send [label="Fail"];
+       send -> release [label="Success"];
+       failed_send -> release [label="Yes, call rpmsg_release_tx_buffer"];
+   }
+
+| If the send fails, the user needs to release the buffer using rpmsg_release_tx_buffer.
+| If the send succeeded the buffer is automatically released.
+
+**The receiver would follow the sequence**
+
+.. graphviz::
+
+   digraph rpmsg_rx_nocopy {
+       rankdir=TB;
+       node [shape=box, fontsize=10];
+
+       hold [label="Hold the buffer using rpmsg_hold_rx_buffer"];
+       read [label="Read and handle the payload from the buffer in shared memory"];
+       release [label="Release the buffer using rpmsg_release_rx_buffer"];
+
+       hold -> read -> release;
+   }
+
+|
+
+No Copy Echo Demo
+"""""""""""""""""
+
+
+The :ref:`OpenAMP Echo Test Sample<echo-test-intro>` is available as a "nocopy" alternative in
+`OpenAMP System Reference No Copy Echo <https://github.com/OpenAMP/openamp-system-reference/tree/main/examples/legacy_apps/examples/nocopy_echo>`_
+
+
+RPMsg No Copy Messaging APIs
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. doxygenfunction:: rpmsg_hold_rx_buffer
    :project: openamp_doc_embed
