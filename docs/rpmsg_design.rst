@@ -37,7 +37,7 @@ RPMsg User APIs
 .. doxygenfunction:: rpmsg_virtio_get_rpmsg_device
    :project: openamp_doc_embed
 
-RPMsg virtio endpoint APIs
+RPMsg Virtio Endpoint APIs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. doxygenfunction:: rpmsg_create_ept
@@ -49,7 +49,7 @@ RPMsg virtio endpoint APIs
 .. doxygenfunction:: is_rpmsg_ept_ready
    :project: openamp_doc_embed
 
-RPMsg messaging APIs
+RPMsg Messaging APIs
 ^^^^^^^^^^^^^^^^^^^^
 
 .. doxygenfunction:: rpmsg_send
