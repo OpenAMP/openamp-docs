@@ -13,14 +13,17 @@ RPMsg Static Endpoint
 ^^^^^^^^^^^^^^^^^^^^^
 
 ..  image:: ../images/design/img/coprocessor-rpmsg-static-ep.png
+   :width: 100%
 
 Binding Endpoint Dynamically with Name Service
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ..  image:: ../images/design/img/coprocessor-rpmsg-ns.png
+   :width: 100%
 
 Creating Endpoint Dynamically with Name Service
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ..  image:: ../images/design/img/coprocessor-rpmsg-ns-dynamic.png
+   :width: 100%
 
 RPMsg User APIs
 ---------------
