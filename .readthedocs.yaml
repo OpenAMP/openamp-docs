@@ -36,6 +36,7 @@ build:
     - cmake
     - libhugetlbfs-dev
     - libsysfs-dev
+    - graphviz
   jobs:
     post_install:
       - python -m pip install --exists-action=w --no-cache-dir -r requirements.txt
