@@ -1,4 +1,4 @@
-# openamp_docs
+# OpenAMP Readthedocs
 OpenAMP Documentation sources for Sphinx
 
 If you are looking for the end-user version of the documentation, you can
@@ -49,7 +49,7 @@ You can locate the Sphinx rendered documentation for the PR by
 
 If you wish to build the documents on the desktop, you can do as follows.
 
-### Setup for Ubuntu (only the first time)
+### Setup for Ubuntu (Only the First Time)
 
 Setup Linux system requirements:
 
@@ -67,7 +67,7 @@ cd openamp-docs
 git submodule update
 ```
 
-### Building using virtual environment
+### Building Using Virtual Environment
 
 When possible it is recommended to use a
 [Python virtual environment](https://docs.python.org/3/library/venv.html)
@@ -84,7 +84,7 @@ Install pip modules
 python3 -m pip install -r requirements.txt
 ```
 
-#### Activate the virtual environment for build session
+#### Activate the Virtual Environment for Build Session
 
 When using a virtual environment activate it before each build session:
 
@@ -93,14 +93,14 @@ cd openamp-docs
 . .venv/bin/activate
 ```
 
-### Build and view the html documents
+### Build and View the HTML documents
 
 ```shell
 make html
 xdg-open _build/html/index.html
 ```
 
-### Build and view the pdf
+### Build and View the PDF
 
 ```shell
 make pdf
