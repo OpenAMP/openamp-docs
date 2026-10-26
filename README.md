@@ -22,6 +22,9 @@ The following are guidelines to follow as part of your contribution.
 * Documentation should use Restructured Text files ending in .rst for consumption by
   [Sphinx](https://www.sphinx-doc.org/en/master/index.html)
 * Maintain a document source line length of 100 characters when possible
+* Titles should follow the Wiki Title Case.
+  * Use the [Capitalize my Title Online Tool](https://capitalizemytitle.com/style/Wiki/) if uncertain.
+  * Apply to all new titles and update all titles on any pages being modified.
 * For cross-references to documentation in source code submodules use
   [auto-generated anchors](#cross-referencing-to-markdown-files)
 * To link to source code you should use
