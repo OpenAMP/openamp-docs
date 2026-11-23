@@ -67,7 +67,7 @@ The main core then
 * Optionally triggers an interrupt to inform the remote of freed buffer
   (if F_NO_NOTIFY flag is not set in used ring buffer).
 
-Vring queue and buffer allocation
+Vring Queue and Buffer Allocation
 ---------------------------------
 
 The remote gets the received RPMsg buffer from the available ring buffer, processes it and

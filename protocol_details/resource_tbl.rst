@@ -43,7 +43,7 @@ The possible resource types are defined in the
 and detailed in the :ref:`resource-types` section below.
 
 
-Compatibility with Linux kernel
+Compatibility With Linux Kernel
 -------------------------------
 
 With Linux being a key full stack operating system in the embedded devices space, the resource

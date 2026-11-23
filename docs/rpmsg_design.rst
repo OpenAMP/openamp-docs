@@ -15,12 +15,12 @@ RPMsg Static Endpoint
 ..  image:: ../images/design/img/coprocessor-rpmsg-static-ep.png
    :width: 100%
 
-Binding Endpoint Dynamically with Name Service
+Binding Endpoint Dynamically With Name Service
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ..  image:: ../images/design/img/coprocessor-rpmsg-ns.png
    :width: 100%
 
-Creating Endpoint Dynamically with Name Service
+Creating Endpoint Dynamically With Name Service
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ..  image:: ../images/design/img/coprocessor-rpmsg-ns-dynamic.png
    :width: 100%
@@ -40,7 +40,7 @@ RPMsg User APIs
 .. doxygenfunction:: rpmsg_virtio_get_rpmsg_device
    :project: openamp_doc_embed
 
-RPMsg virtio endpoint APIs
+RPMsg Virtio Endpoint APIs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. doxygenfunction:: rpmsg_create_ept
@@ -52,7 +52,7 @@ RPMsg virtio endpoint APIs
 .. doxygenfunction:: is_rpmsg_ept_ready
    :project: openamp_doc_embed
 
-RPMsg messaging APIs
+RPMsg Messaging APIs
 ^^^^^^^^^^^^^^^^^^^^
 
 .. doxygenfunction:: rpmsg_send

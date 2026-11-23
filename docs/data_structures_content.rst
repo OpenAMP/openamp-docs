@@ -1,4 +1,4 @@
-Remoteproc data structures
+Remoteproc Data Structures
 ===========================
 
 Remoteproc
@@ -28,7 +28,7 @@ Virtio Device
 
 Refer also :openamp_doc_link:`virtio_device <virtio_device>` documentation and `virtio_device code implementation <https://github.com/OpenAMP/open-amp/blob/main/lib/include/openamp/virtio.h>`_.
 
-Virtqueue local context
+Virtqueue Local Context
 -----------------------
 
 .. doxygenstruct:: virtqueue
@@ -37,7 +37,7 @@ Virtqueue local context
 Refer also :openamp_doc_link:`virtqueue <virtqueue>` documentation and `virtqueue code implementation <https://github.com/OpenAMP/open-amp/blob/main/lib/include/openamp/virtqueue.h>`_.
 
 
-Shared virtqueue structure
+Shared Virtqueue Structure
 --------------------------
 
 Representation of a shared virtqueue structure defined in `Virtual I/O Device (VIRTIO) Standard virtqueue <https://docs.oasis-open.org/virtio/virtio>`_.
@@ -48,7 +48,7 @@ Representation of a shared virtqueue structure defined in `Virtual I/O Device (V
 Refer also :openamp_doc_link:`vring <vring>` documentation and `vring code implementation <https://github.com/OpenAMP/open-amp/blob/main/lib/include/openamp/virtio_ring.h>`_.
 
 
-RPMsg virtio Data struct
+RPMsg Virtio Data Struct
 ===========================
 
 .. doxygenstruct:: rpmsg_virtio_device
@@ -57,7 +57,7 @@ RPMsg virtio Data struct
 Refer also :openamp_doc_link:`rpmsg_virtio_device <rpmsg_virtio_device>` documentation and `rpmsg_virtio_device code implementation <https://github.com/OpenAMP/open-amp/blob/main/lib/include/openamp/rpmsg_virtio.h>`_.
 
 
-RPMsg Data struct
+RPMsg Data Struct
 =================
 
 .. doxygenstruct:: rpmsg_device

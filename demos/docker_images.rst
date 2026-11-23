@@ -1,7 +1,7 @@
 .. _docker-images-label:
 
 ==========================
-OpenAMP Demo Docker images
+OpenAMP Demo Docker Images
 ==========================
 
 The OpenAMP project maintains the following docker images to demonstrate
@@ -27,7 +27,7 @@ At this time the following images are provided:
 | openamp/demo      | Placeholder for image *to build* and run the above demos                     |
 +-------------------+------------------------------------------------------------------------------+
 
-Docker setup
+Docker Setup
 ************
 
 You will need docker on your machine. A docker install from your Linux
@@ -41,7 +41,7 @@ distribution or from the official docker project should work fine.
 Some quick start information is given below but also checkout the
 docker cheat-sheet at the end of this document.
 
-Docker quick start for Ubuntu
+Docker Quick Start for Ubuntu
 -----------------------------
 
 Example for Ubuntu 20.04 or 22.04:
@@ -70,7 +70,7 @@ installing new packages etc may not work without additional effort.
 If needed, please checkout
 `Use a proxy server with the Docker CLI <https://docs.docker.com/engine/cli/proxy/>`_.
 
-Docker for other host systems
+Docker for Other Host Systems
 -----------------------------
 
 There are a ton of tutorials for installing and using docker on the web.
@@ -80,7 +80,7 @@ Some good ones include:
     - `Digital Ocean tutorial
       <https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04>`_
 
-Start the container
+Start the Container
 *******************
 
 The demos should be started using docker run in
@@ -99,7 +99,7 @@ It will then create and start a container based on this image and attach to it.
 
 .. _start-docker-demos:
 
-Start Docker Demos using Container
+Start Docker Demos Using Container
 **********************************
 
 You will now be at a command prompt inside the container.
@@ -149,7 +149,7 @@ pane).
 The two bottom right panes are for the UART output of the two zcu102 R5s.
 
 
-Run the QEMU based demos
+Run the QEMU Based Demos
 ************************
 
 To run demo1, use the following command:
@@ -295,7 +295,7 @@ Now do the same for the other demos. You need to first
 ``demo4``.
 These demos do not have sub-demos so contain a single demo script.
 
-Run the Lopper CLI demo
+Run the Lopper CLI Demo
 ***********************
 
 The Lopper demo is fairly standalone but the container already has the
@@ -324,7 +324,7 @@ Refer to the :ref:`Lopper Intro<lopper-tool-intro>` for details.
 
 .. _exit-docker:
 
-Exit and clean-up the docker container
+Exit and Clean-Up the Docker Container
 **************************************
 
 When at the docker container prompt (window 1 at top right of terminal), the exit
@@ -361,7 +361,7 @@ To see the images and delete the the openamp ones, you can do:
 
 .. _qemu-tips-tricks:
 
-qemu-zcu102 tips and tricks
+Qemu-Zcu102 Tips and Tricks
 ***************************
 
 Some help is available with ``qemu-zcu102 help`` but it is not yet complete.
@@ -396,7 +396,7 @@ You can manually send output to the 2nd UART like so:
     root@generic-arm64:~# echo “Hello there” >/dev/ttyPS1
 
 
-Docker cheat-sheet
+Docker Cheat-Sheet
 ******************
 
 First some tips specific to the OpenAMP demo containers

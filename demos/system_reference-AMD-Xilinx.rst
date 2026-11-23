@@ -1,7 +1,7 @@
 .. _demos-AMD-work-label:
 
 =============================================================
-System Reference Samples and Demos on the AMD-Xilinx platform
+System Reference Samples and Demos on the AMD-Xilinx Platform
 =============================================================
 
 The following Reference Samples and Demos are implemented using the

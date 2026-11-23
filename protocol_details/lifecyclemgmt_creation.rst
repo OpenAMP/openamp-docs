@@ -1,5 +1,5 @@
 =====================================================
-Creation and Boot of Remote Firmware Using remoteproc
+Creation and Boot of Remote Firmware Using Remoteproc
 =====================================================
 
 You can create and boot remote firmware for Linux, RTOS, and bare metal-based remote applications

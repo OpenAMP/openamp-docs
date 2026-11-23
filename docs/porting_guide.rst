@@ -273,7 +273,7 @@ User will need to add system/machine support to
 `lib/system/<SYS>/ <https://github.com/OpenAMP/libmetal/tree/main/lib/system>`_ directory in
 libmetal repository. OpenAMP requires the following libmetal primitives:
 
-alloc
+Alloc
 =====
 
 Memory allocation and memory free as defined in
@@ -288,7 +288,7 @@ functions of equivalent names with double underscore which are the ported functi
    :project: libmetal_doc_embed
 
 
-io
+Io
 ==
 
 Memory mapping as used by `io.h <https://github.com/OpenAMP/libmetal/blob/main/lib/io.h>`_,
@@ -297,7 +297,7 @@ in order to access vrings and carved out memory.
 :libmetal_doc_link:`metal_sys_io_mem_map <metal_sys_io_mem_map>` and
 :libmetal_doc_link:`metal_machine_io_mem_map <metal_machine_io_mem_map>` functions.
 
-mutex
+Mutex
 =====
 
 Mutex functions as used by `mutex.h <https://github.com/OpenAMP/libmetal/blob/main/lib/mutex.h>`_
@@ -322,7 +322,7 @@ which call the functions of equivalent names with double underscore which are th
 .. doxygenfunction:: metal_mutex_is_acquired
    :project: libmetal_doc_embed
 
-sleep
+Sleep
 =====
 
 At the moment, OpenAMP only requires microseconds sleep as when OpenAMP fails to get a buffer to
@@ -334,7 +334,7 @@ The __metal_sleep_usec to be implemented by the port is wrapped in
 .. doxygenfunction:: metal_sleep_usec
    :project: libmetal_doc_embed
 
-init
+Init
 ====
 
 Init is ported for libmetal initialization for
