@@ -7,3 +7,5 @@ sphinxcontrib.jquery
 sphinxcontrib-doxylink
 breathe
 sphinx_copybutton
+titlecase
+pathspec
