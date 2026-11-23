@@ -1,7 +1,7 @@
 .. _demos-ST-work-label:
 
 =============================================================
-System Reference Samples and Demos on STM32MP157C/F-DK2 board
+System Reference Samples and Demos on STM32MP157C/F-DK2 Board
 =============================================================
 
 Based on a fork of the yocto [meta-st-stm32mp-oss]
@@ -35,7 +35,7 @@ At this step you should see following folder hierarchy:
        |___ stm32mp1_distrib_oss
        |___ zephy_rpmsg_multi_services
 
-Generate the stm32mp15 image
+Generate the stm32mp15 Image
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Install stm32mp1_distrib_oss Nanbield
@@ -64,7 +64,7 @@ From the stm32mp15-demo directory
    git checkout -b WORKING origin/$YOCTO_VER
    cd -
 
-Initialize the Open Embedded build environment
+Initialize the Open Embedded Build Environment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The OpenEmbedded environment setup script must be run once in each new working terminal in which you
@@ -83,7 +83,7 @@ use the BitBake or devtool tools (see later) from stm32mp15-demo/stm32mp1_distri
    echo "DISTRO = \"nodistro\"" >> conf/local.conf
    echo "PACKAGE_CLASSES = \"package_deb\" " >> conf/local.conf
 
-Build stm32mp1_distrib_oss image
+Build stm32mp1_distrib_oss Image
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 From stm32mp15-demo/stm32mp1_distrib_oss/build-stm32mp15-disco-oss/ directory
@@ -114,16 +114,16 @@ microSD card inserted on your HOST PC using command
    sudo dd if=core-image-base-stm32mp15-disco-oss.rootfs.wic of=/dev/<device> bs=8M conv=fdatasync status=progress
 
 
-Generate the Zephyr rpmsg multi service example
+Generate the Zephyr RPMsg Multi Service Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Initialize the Zephyr environment
+Initialize the Zephyr Environment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Refer to
 :ref:`zephyr example readme<openamp-system-reference/examples/zephyr/README:initialization>` article.
 
-Build the Zephyr image
+Build the Zephyr Image
 ^^^^^^^^^^^^^^^^^^^^^^
 
 From the zephy_rpmsg_multi_services directory
@@ -136,7 +136,7 @@ For details refer to
 :ref:`rpmsg_multi_services readme<openamp-system-reference/examples/zephyr/rpmsg_multi_services/README:building the application>` article.
 
 
-Install the Zephyr binary on the sdcard
+Install the Zephyr Binary on the Sdcard
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The Zephyr sample binary is available in the sub-folder of build directory
@@ -153,7 +153,7 @@ Don't forget to properly unmoumt the sdcard partitions.
 
    sudo eject /dev/<device>
 
-Build and install the rpmsg-utils tools
+Build and Install the rpmsg-utils Tools
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 This chapter explains how to build and install the
 `rpmsg-utils <https://github.com/OpenAMP/openamp-system-reference/tree/main/examples/linux/rpmsg-utils>`_
@@ -187,7 +187,7 @@ Don't forget to properly unmoumt the sdcard partitions.
 Demos
 -----
 
-Start the demo environment
+Start the Demo Environment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Power on the
@@ -290,7 +290,7 @@ This informs that following rpmsg channels devices have been created:
    - a rpmsg-raw device
 
 
-Run the multi RPMsg services demo
+Run the Multi RPMsg Services Demo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Refer to

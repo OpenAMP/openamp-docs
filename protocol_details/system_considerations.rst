@@ -10,7 +10,7 @@ no strict isolation or supervision of shared resource usage.
 Take the following system-wide considerations into account to develop unsupervised AMP systems
 using the OpenAMP framework.
 
-Determine system topology
+Determine System Topology
 -------------------------
 
 The OpenAMP framework implicitly assumes a host controller to remote system architecture. The
@@ -27,7 +27,7 @@ following figure shows some simple use cases.
 
    .. image:: ../images/topo-types.svg
 
-Determine system and IO resource partitioning
+Determine System and IO Resource Partitioning
 ---------------------------------------------
 
 Various OSs, RTOSs, and bare metal environments have their own preferred mechanisms for
@@ -45,7 +45,7 @@ to it. This would involve, for example, removing unused resource nodes and modif
 available memory definitions from the device tree sources, platform definition files, headers,
 and so forth, to ensure best-effort partitioning of system resources.
 
-Determine memory layout
+Determine Memory Layout
 -----------------------
 
 For the purpose of this description, assume you are using the Zynq SOC used in AMP system
@@ -65,7 +65,7 @@ and RTOS-based host/bare metal-based remote application in chain configuration.
 
 .. image:: ../images/memory_layout.jpg
 
-Ensure cooperative usage of shared resources between software environments in the AMP system
+Ensure Cooperative Usage of Shared Resources Between Software Environments in the AMP System
 --------------------------------------------------------------------------------------------
 
 For the purpose of this discussion, assume you are using a Linux host/bare metal- based remote

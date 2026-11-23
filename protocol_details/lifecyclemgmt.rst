@@ -1,7 +1,7 @@
 .. _lcm-work-label:
 
 ========================================
-Life Cycle Management through RemoteProc
+Life Cycle Management Through RemoteProc
 ========================================
 
 The LCM (Life Cycle Management) component of OpenAMP is known as remoteproc. Remoteproc APIs

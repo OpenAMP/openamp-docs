@@ -10,7 +10,7 @@ A number of the `OpenAMP project examples
 <https://github.com/OpenAMP/openamp-system-reference/tree/main/examples>`_
 can be executed on NXP Reference boards.
 
-Board setup
+Board Setup
 ------------
 
 The `i.MX 8M Plus Evaluation Kit Quick Start Guide (IMX8MPLUSQSG)
@@ -22,16 +22,16 @@ In `AN13970 Running Zephyr RTOS on Cadence Tensilica HiFi 4 DSP
 application note provides instructions on how to launch the samples on
 the HiFi4 DSP.
 
-Generate the Zephyr rpmsg multi service example
+Generate the Zephyr RPMsg Multi Service Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Initialize the Zephyr environment
+Initialize the Zephyr Environment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Refer to :ref:`zephyr example readme<openamp-system-reference/examples/zephyr/README:initialization>` article.
 
 
-Build the Zephyr image
+Build the Zephyr Image
 ^^^^^^^^^^^^^^^^^^^^^^
 
 From the openamp-system-reference directory
@@ -43,7 +43,7 @@ From the openamp-system-reference directory
 For details refer to
 :ref:`rpmsg_multi_services readme <openAMP_rsc_table_sample>` article.
 
-Install the Zephyr binary on the sdcard
+Install the Zephyr Binary on the Sdcard
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The Zephyr sample binary is available in the sub-folder of build directory
@@ -63,7 +63,7 @@ Don't forget to properly unmount the sdcard partitions.
 Demos
 -----
 
-Start the demo environment
+Start the Demo Environment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Power on the i.MX8M Plus EVK, and wait login prompt on your serial terminal
@@ -112,7 +112,7 @@ This informs that following rpmsg channels devices have been created:
    - a rpmsg-raw device
 
 
-Run the multi RPMsg services demo
+Run the Multi RPMsg Services Demo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Refer to

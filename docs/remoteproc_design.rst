@@ -39,92 +39,92 @@ Remote User APIs
 ----------------
 .. _remoteproc_config:
 
-Initialize remoteproc instance
+Initialize Remoteproc Instance
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. doxygenfunction:: remoteproc_init
    :project: openamp_doc_embed
 
-Release remoteproc instance
+Release Remoteproc Instance
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. doxygenfunction:: remoteproc_remove
    :project: openamp_doc_embed
 
-Add memory to remoteproc
+Add Memory to Remoteproc
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. doxygenfunction:: remoteproc_add_mem
    :project: openamp_doc_embed
 
-Get memory libmetal I/O region from remoteproc specifying memory name
+Get Memory Libmetal I/O Region From Remoteproc Specifying Memory Name
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. doxygenfunction:: remoteproc_get_io_with_name
    :project: openamp_doc_embed
 
-Get memory libmetal I/O region from remoteproc specifying physical address
+Get Memory Libmetal I/O Region From Remoteproc Specifying Physical Address
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. doxygenfunction:: remoteproc_get_io_with_pa
    :project: openamp_doc_embed
 
-Get memory libmetal I/O region from remoteproc specifying virtual address
+Get Memory Libmetal I/O Region From Remoteproc Specifying Virtual Address
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. doxygenfunction:: remoteproc_get_io_with_va
    :project: openamp_doc_embed
 
-Map memory and add the memory to the remoteproc instance
+Map Memory and Add the Memory to the Remoteproc Instance
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. doxygenfunction:: remoteproc_mmap
    :project: openamp_doc_embed
 
-Set resource table to remoteproc
+Set Resource Table to Remoteproc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. doxygenfunction:: remoteproc_set_rsc_table
    :project: openamp_doc_embed
 
-Configure the remote presented by the remoteproc instance to make it able to load application
+Configure the Remote Presented by the Remoteproc Instance to Make It Able to Load Application
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. doxygenfunction:: remoteproc_config
    :project: openamp_doc_embed
 
-Load application to the remote presented by the remoteproc instance to make it ready to run
+Load Application to the Remote Presented by the Remoteproc Instance to Make It Ready to Run
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. _remoteproc_load:
 .. doxygenfunction:: remoteproc_load
    :project: openamp_doc_embed
 
-Run application on the remote presented by the remoteproc instance
+Run Application on the Remote Presented by the Remoteproc Instance
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 .. _remoteproc_start:
 .. doxygenfunction:: remoteproc_start
    :project: openamp_doc_embed
 
-Stop application on remote presented by the remoteproc instance
+Stop Application on Remote Presented by the Remoteproc Instance
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 .. _remoteproc_stop:
 .. doxygenfunction:: remoteproc_stop
    :project: openamp_doc_embed
 
-Shutdown the remote presented by the remoteproc instance
+Shutdown the Remote Presented by the Remoteproc Instance
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 .. _remoteproc_shutdown:
 .. doxygenfunction:: remoteproc_shutdown
    :project: openamp_doc_embed
 
-Create virtio device from the resource table vdev resource, and add it to the remoteproc instance
+Create Virtio Device From the Resource Table Vdev Resource, and Add It to the Remoteproc Instance
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. doxygenfunction:: remoteproc_create_virtio
    :project: openamp_doc_embed
 
-Remove virtio device from the remoteproc instance
+Remove Virtio Device From the Remoteproc Instance
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. doxygenfunction:: remoteproc_remove_virtio

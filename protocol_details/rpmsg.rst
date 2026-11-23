@@ -1,7 +1,7 @@
 .. _rpmsg-protocol-work-label:
 
 =========================================================
-Inter Process Communications (IPC) through RPMsg Protocol
+Inter Process Communications (IPC) Through RPMsg Protocol
 =========================================================
 
 In asymmetric multiprocessor systems, the most common way for different cores to cooperate is to

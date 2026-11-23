@@ -93,7 +93,7 @@ cd openamp-docs
 . .venv/bin/activate
 ```
 
-### Build and View the HTML documents
+### Build and View the HTML Documents
 
 ```shell
 make html
@@ -131,7 +131,7 @@ Notes:
 * The doxygen context does not integrate into the menu structure; use the browser back button
 to get back.
 
-## Cross-Referencing to Markdown files
+## Cross-Referencing to Markdown Files
 
 When making a cross-reference from a Restructured text (rst) file to a Markdown file (md),
 usually in a source code repository like open-amp or libmetal, you should do so by leveraging the
