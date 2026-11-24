@@ -25,6 +25,8 @@ The following are guidelines to follow as part of your contribution.
 * Titles should follow the Wiki Title Case.
   * Use the [Capitalize my Title Online Tool](https://capitalizemytitle.com/style/Wiki/) if uncertain.
   * Apply to all new titles and update all titles on any pages being modified.
+  * Use included script ./utilities/title_case.py to check your commits before
+    creating pull request.
 * For cross-references to documentation in source code submodules use
   [auto-generated anchors](#cross-referencing-to-markdown-files)
 * To link to source code you should use
